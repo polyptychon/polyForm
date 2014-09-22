@@ -83,8 +83,13 @@
     "server": "httpster ../ -p 63342"
   },
   "napa": {
+    "bootstrap": "jlong/sass-twitter-bootstrap",
+    "bootstrap-datepicker": "eternicode/bootstrap-datepicker",
     "angular": "angular/bower-angular",
     "angular-route": "angular/bower-angular-route",
-    "angular-mocks": "angular/bower-angular-mocks"
+    "angular-mocks": "angular/bower-angular-mocks",
+    "angular-ui-utils":"angular-ui/ui-utils",
+    "select2":"ivaynberg/select2",
+    "select2-bootstrap-css":"t0m/select2-bootstrap-css"
   }
 }

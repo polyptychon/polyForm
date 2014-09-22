@@ -1,0 +1,112 @@
+$ = require "jquery"
+
+module.exports = ()  ->
+  restrict: 'E'
+  transclude: true
+  scope: {
+    tabTitle: '@'
+    nextTabButtonLabel: '@'
+  }
+  require: ['^form', '^formTabs']
+
+  link: (scope, element, attrs, ctrls) ->
+    form = ctrls[0];
+    parentCtrl = ctrls[1];
+    return if (!parentCtrl)
+
+    removeIndex = -1
+    controlElements = element.find(formElements);
+    controls = [];
+    scope.isLastPane = () ->
+      parentCtrl.isLastPane(scope)
+
+    scope.getNextPane = () ->
+      parentCtrl.getNextPane(scope)
+
+    scope.selectNextPane = () ->
+      parentCtrl.selectNextPane(scope)
+
+    toggleValidation(value) ->
+
+      i = 0;
+      controlElements.each( () ->
+        element = $(@);
+        control = form[element.attr("name")];
+        if (!control)
+          control = controls[i]
+          i++
+        else
+          controls.push(control)
+
+        return if (!control)
+
+        if (value == true)
+          $(element).removeAttr('disabled');
+          form.$addControl(control);
+          angular.forEach(control.$error, (validity, validationToken) ->
+            form.$setValidity(validationToken, !validity, control)
+          )
+        else
+          $(element).attr('disabled', 'disabled')
+          form.$removeControl(control)
+      )
+
+      togglePane(value) ->
+        if (value)
+          parentCtrl.addPaneAt(scope, removeIndex)
+        else
+          removeIndex = parentCtrl.getPaneIndex(scope)
+          parentCtrl.removePane(scope)
+
+        toggleValidation(value)
+
+        if (attrs.ngShow)
+          scope.$parent.$watch(attrs.ngShow, (value) ->
+            togglePane(value);
+          )
+
+        if (attrs.ngHide)
+          scope.$parent.$watch(attrs.ngHide, (value) ->
+            togglePane(!value);
+          )
+
+        parentCtrl.addPane(scope);
+
+  controller: ($scope, $element) ->
+    this.scope = $scope
+    $scope.disabled = true
+    $scope.isPaneInValid = true
+
+    formControls = $scope.formControls = []
+    $scope.$evalAsync(() ->
+      $($element).find(formElements).bind("keyup input blur change click", () ->
+        nextPane = $scope.getNextPane()
+        nextPane.enabled = false if (nextPane)
+        $scope.isPaneInValid = false;
+        $($element).find("input:visible, select:visible, textarea:visible, datalist:visible, [select2]:visible").each(() ->
+          if ($(this).hasClass("ng-invalid"))
+            nextPane.enabled = true if (nextPane)
+            $scope.isPaneInValid = true
+        )
+        $scope.$digest();
+      )
+    )
+
+    $scope.setFocus = () ->
+      $scope.$evalAsync(() ->
+        setTimeout(() ->
+          $($element).find(formElements).first().focus()
+        , 200)
+      )
+
+    @.addFormControl = (formControl) ->
+      formControls.push(formControl)
+
+  template:
+    '<div class="tab-pane" ng-class="{ active: selected }">' +
+    '<div ng-transclude></div>'+
+    '<form-control class="col-md-12" ng-hide="isLastPane()">'+
+    '<button type="button" ng-click="selectNextPane()" class="btn btn-primary" ng-disabled="isPaneInValid">{{nextTabButtonLabel}}</button>'+
+    '</form-control>'+
+    '</div>'
+  replace: true
