@@ -38,11 +38,11 @@ module.exports = () ->
         togglePane(!value)
       )
     attrs.$observe("tabTitle", (value) ->
-      scope.tabTitle = "Title" if (!value?)
+      scope.tabTitle = "Title" unless (value?)
     )
 
     attrs.$observe("nextTabButtonLabel", (value) ->
-      scope.nextTabButtonLabel = "Next" if (!value?)
+      scope.nextTabButtonLabel = "Next" unless (value?)
     )
 
     formTabs.addPane(scope);

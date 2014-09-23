@@ -38,12 +38,12 @@
           });
         }
         attrs.$observe("tabTitle", function(value) {
-          if (value == null) {
+          if (!(value != null)) {
             return scope.tabTitle = "Title";
           }
         });
         attrs.$observe("nextTabButtonLabel", function(value) {
-          if (value == null) {
+          if (!(value != null)) {
             return scope.nextTabButtonLabel = "Next";
           }
         });
