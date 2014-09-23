@@ -1,7 +1,7 @@
 global.jQuery = $ = require "jquery"
 require "bootstrapify"
 require "angular/angular"
-require "../js/select2"
+require "../js/angular-ui-select2"
 
 module.exports =
   angular.module('PolyForm', ['ui.select2'])
