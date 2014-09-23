@@ -17,3 +17,4 @@ module.exports =
   .directive("dateInput", require("./directives/DateInput.coffee"))
   .directive("popover", require("./directives/Popover.coffee"))
   .directive("isUnique", ['$timeout', '$http', require("./directives/IsUnique.coffee")])
+  .directive("disableValidationWhenHidden", require("./directives/DisableValidationWhenHidden.coffee"))
