@@ -10,6 +10,7 @@
     return {
       restrict: 'E',
       transclude: true,
+      template: '<div class="tab-pane" ng-class="{ active: selected }">' + '<div ng-transclude></div>' + '<form-control class="col-md-12" ng-hide="isLastPane()">' + '<button type="button" ng-click="selectNextPane()" class="btn btn-primary" ng-disabled="isPaneInValid">{{nextTabButtonLabel}}</button>' + '</form-control>' + '</div>',
       scope: {
         tabTitle: '@',
         nextTabButtonLabel: '@'
@@ -118,9 +119,7 @@
         return this.addFormControl = function(formControl) {
           return formControls.push(formControl);
         };
-      },
-      template: '<div class="tab-pane" ng-class="{ active: selected }">' + '<div ng-transclude></div>' + '<form-control class="col-md-12" ng-hide="isLastPane()">' + '<button type="button" ng-click="selectNextPane()" class="btn btn-primary" ng-disabled="isPaneInValid">{{nextTabButtonLabel}}</button>' + '</form-control>' + '</div>',
-      replace: true
+      }
     };
   };
 
