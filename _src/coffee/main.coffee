@@ -13,3 +13,4 @@ module.exports =
   .directive("errorMessage", require("./directives/ErrorMessage.coffee"))
   .directive("validIcon", require("./directives/ValidIcon.coffee"))
   .directive("loaderIcon", require("./directives/LoaderIcon.coffee"))
+  .directive("dateInput", require("./directives/DateInput.coffee"))

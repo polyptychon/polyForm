@@ -3,10 +3,11 @@ html(ng-app="PolyForm")
     include partials/header
   body.home
     .container
-      form(name="form")
+      form(name="form", ng-cloak="true")
         form-tabs
           form-tab(tab-title="Test")
-            form-control.col-md-5
+
+            form-control.col-md-6
               label(for="fnameInput") Όνομα *
               input.form-control(
                   id="fnameInput" name="fname",
@@ -14,6 +15,17 @@ html(ng-app="PolyForm")
                   ng-model="form.firstname",
                   ng-required="true"
                 )
+              valid-icon
+              error-message.ng-required Παρακαλώ συμπληρώστε το πεδίο
+
+            form-control.col-md-6
+              label(for="fnameInput") Επίθετο *
+              input.form-control(
+              id="lnameInput" name="lname",
+              type="text" placeholder="Επίθετο",
+              ng-model="form.lastname",
+              ng-required="true"
+              )
               valid-icon
               error-message.ng-required Παρακαλώ συμπληρώστε το πεδίο
 
