@@ -44,7 +44,7 @@
         });
         attrs.$observe("nextTabButtonLabel", function(value) {
           if (value == null) {
-            return scope.nextTabButtonLabel = "Επόμενο βήμα";
+            return scope.nextTabButtonLabel = "Next";
           }
         });
         formTabs.addPane(scope);

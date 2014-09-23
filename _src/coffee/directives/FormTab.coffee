@@ -42,7 +42,7 @@ module.exports = () ->
     )
 
     attrs.$observe("nextTabButtonLabel", (value) ->
-      scope.nextTabButtonLabel = "Επόμενο βήμα" if (!value?)
+      scope.nextTabButtonLabel = "Next" if (!value?)
     )
 
     formTabs.addPane(scope);
