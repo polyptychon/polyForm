@@ -3,7 +3,9 @@ $ = require "jquery"
 module.exports = ()  ->
   restrict: 'E'
   transclude: true
-  scope: { selectFormTabIndex: '@' }
+  scope: {
+    selectFormTabIndex: '@'
+  }
 
   controller: ($scope, $element, $attrs) ->
     panes = $scope.panes = [];
@@ -21,37 +23,36 @@ module.exports = ()  ->
       pane.disabled = false
       pane.selected = true
 
-    $scope.getPaneIndex = this.getPaneIndex = (currentPane) ->
-      return -1 if (!currentPane)
+    $scope.getPaneIndex = @getPaneIndex = (currentPane) ->
+      return -1 if (currentPane==null)
       for pane,index in panes
         if (pane==currentPane)
           return index;
       return -1
 
-    @.getNextPane = (pane) ->
+    @getNextPane = (pane) ->
       panes[$scope.getPaneIndex(pane) + 1]
 
-    @.selectNextPane = (pane) ->
-      nextPane = @.getNextPane(pane);
+    @selectNextPane = (pane) ->
+      nextPane = @getNextPane(pane);
       $scope.select(nextPane);
 
       $scope.$evalAsync(()  ->
         nextPane.setFocus();
       )
 
+    @isLastPane = (pane) ->
+      $scope.getPaneIndex(pane)==panes.length-1 || @getNextPane()
 
-    @.isLastPane = (pane) ->
-      $scope.getPaneIndex(pane)==panes.length-1 || @.getNextPane()
+    @addPane = (pane) ->
+      @addPaneAt(pane, panes.length)
 
-    @.addPane = (pane) ->
-      @.addPaneAt(pane, panes.length)
-
-    @.addPaneAt = (pane, index) ->
+    @addPaneAt = (pane, index) ->
       $scope.select(pane) if (panes.length == 0)
       panes.splice(index, 0, pane) if ($scope.getPaneIndex(pane)<0)
 
 
-    @.removePane = (current_pane) ->
+    @removePane = (current_pane) ->
       return false if (!pane)
 
       for pane,index in panes

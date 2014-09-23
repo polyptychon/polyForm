@@ -2,15 +2,11 @@
 (function() {
   global.jQuery = require("jquery");
 
-  require("select2/select2");
-
   require("angular/angular");
-
-  require("angular-ui-utils/modules/utils");
 
   require("../js/select2");
 
-  module.exports = angular.module('PolyForm', ['ui.utils', 'ui.select2']).directive("FormTabs", require("./directives/FormTabs")).directive("FormTab", require("./directives/FormTab"));
+  module.exports = angular.module('PolyForm', ['ui.select2']).directive("formTabs", require("./directives/FormTabs.coffee")).directive("formTab", require("./directives/FormTab.coffee"));
 
 }).call(this);
 

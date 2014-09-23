@@ -1,4 +1,5 @@
 $ = require "jquery"
+formElements = require "../utils/FormElements.coffee"
 
 module.exports = ()  ->
   restrict: 'E'
@@ -11,28 +12,30 @@ module.exports = ()  ->
 
   link: (scope, element, attrs, ctrls) ->
     form = ctrls[0];
-    parentCtrl = ctrls[1];
-    return if (!parentCtrl)
+    formTabs = ctrls[1];
+    return if (formTabs==null)
 
     removeIndex = -1
     controlElements = element.find(formElements);
     controls = [];
+
+    formTabs.addPane(scope);
+
     scope.isLastPane = () ->
-      parentCtrl.isLastPane(scope)
+      formTabs.isLastPane(scope)
 
     scope.getNextPane = () ->
-      parentCtrl.getNextPane(scope)
+      formTabs.getNextPane(scope)
 
     scope.selectNextPane = () ->
-      parentCtrl.selectNextPane(scope)
+      formTabs.selectNextPane(scope)
 
-    toggleValidation(value) ->
-
+    toggleValidation = (value) ->
       i = 0;
       controlElements.each( () ->
         element = $(@);
         control = form[element.attr("name")];
-        if (!control)
+        if (control==null)
           control = controls[i]
           i++
         else
@@ -51,29 +54,27 @@ module.exports = ()  ->
           form.$removeControl(control)
       )
 
-      togglePane(value) ->
-        if (value)
-          parentCtrl.addPaneAt(scope, removeIndex)
-        else
-          removeIndex = parentCtrl.getPaneIndex(scope)
-          parentCtrl.removePane(scope)
+    togglePane = (value) ->
+      if (value)
+        formTabs.addPaneAt(scope, removeIndex)
+      else
+        removeIndex = formTabs.getPaneIndex(scope)
+        formTabs.removePane(scope)
 
-        toggleValidation(value)
+      toggleValidation(value)
 
-        if (attrs.ngShow)
-          scope.$parent.$watch(attrs.ngShow, (value) ->
-            togglePane(value);
-          )
+      if (attrs.ngShow)
+        scope.$parent.$watch(attrs.ngShow, (value) ->
+          togglePane(value);
+        )
 
-        if (attrs.ngHide)
-          scope.$parent.$watch(attrs.ngHide, (value) ->
-            togglePane(!value);
-          )
-
-        parentCtrl.addPane(scope);
+      if (attrs.ngHide)
+        scope.$parent.$watch(attrs.ngHide, (value) ->
+          togglePane(!value);
+        )
 
   controller: ($scope, $element) ->
-    this.scope = $scope
+    @scope = $scope
     $scope.disabled = true
     $scope.isPaneInValid = true
 
@@ -84,7 +85,7 @@ module.exports = ()  ->
         nextPane.enabled = false if (nextPane)
         $scope.isPaneInValid = false;
         $($element).find("input:visible, select:visible, textarea:visible, datalist:visible, [select2]:visible").each(() ->
-          if ($(this).hasClass("ng-invalid"))
+          if ($(@).hasClass("ng-invalid"))
             nextPane.enabled = true if (nextPane)
             $scope.isPaneInValid = true
         )
@@ -99,7 +100,7 @@ module.exports = ()  ->
         , 200)
       )
 
-    @.addFormControl = (formControl) ->
+    @addFormControl = (formControl) ->
       formControls.push(formControl)
 
   template:

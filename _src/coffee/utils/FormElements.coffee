@@ -1,0 +1,1 @@
+module.exports = "input, select, datalist, textarea, [ui-select2], select2-container"

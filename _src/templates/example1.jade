@@ -1,5 +1,10 @@
-html
+html(ng-app="PolyForm")
   head
     include partials/header
   body.home
+    form(name="form")
+      form-tabs
+        form-tab(tab-title="Test")
+        form-tab(tab-title="Test2")
+
     include partials/footer

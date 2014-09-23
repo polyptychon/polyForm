@@ -30,7 +30,7 @@
         };
         $scope.getPaneIndex = this.getPaneIndex = function(currentPane) {
           var index, pane, _i, _len;
-          if (!currentPane) {
+          if (currentPane === null) {
             return -1;
           }
           for (index = _i = 0, _len = panes.length; _i < _len; index = ++_i) {
