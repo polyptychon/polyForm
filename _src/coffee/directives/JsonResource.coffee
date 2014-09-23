@@ -1,6 +1,6 @@
 mapDataToURL = require "../utils/MapDataToURL.coffee"
 
-module.exports = ($timeout, $http, $parse) ->
+module.exports = ($timeout, $http) ->
   restrict: 'E'
   scope:
     isUniqueQuietMillis: '@'

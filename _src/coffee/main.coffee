@@ -18,4 +18,5 @@ module.exports =
   .directive("popover", require("./directives/Popover.coffee"))
   .directive("disableValidationWhenHidden", require("./directives/DisableValidationWhenHidden.coffee"))
   .directive("isUnique", ['$timeout', '$http', require("./directives/IsUnique.coffee")])
-  .directive("jsonResource", ['$timeout', '$http', '$parse', require("./directives/JsonResource.coffee")])
+  .directive("jsonResource", ['$timeout', '$http', require("./directives/JsonResource.coffee")])
+  .directive("uiSelect2Query", ['$timeout', '$http', require("./directives/UiSelect2Query.coffee")])

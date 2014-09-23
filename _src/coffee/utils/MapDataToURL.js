@@ -2,15 +2,7 @@
 (function() {
   var formatStringURL;
 
-  formatStringURL = function(url, obj) {
-    var name, regx, _i, _len;
-    for (_i = 0, _len = obj.length; _i < _len; _i++) {
-      name = obj[_i];
-      regx = new RegExp(":" + name);
-      url = url.replace(regx, obj[name]);
-    }
-    return url;
-  };
+  formatStringURL = require("./FormatStringURL.coffee");
 
   module.exports = function(url, mapData, scope) {
     var obj;

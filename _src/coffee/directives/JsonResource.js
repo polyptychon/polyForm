@@ -4,7 +4,7 @@
 
   mapDataToURL = require("../utils/MapDataToURL.coffee");
 
-  module.exports = function($timeout, $http, $parse) {
+  module.exports = function($timeout, $http) {
     return {
       restrict: 'E',
       scope: {
