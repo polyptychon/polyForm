@@ -2,7 +2,7 @@
   "name": "polyForm",
   "version": "0.0.0",
   "description": "Angular based form directives",
-  "main": "index.js",
+  "main": "_src/coffee/main.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/polyptychon/polyForm.git"
