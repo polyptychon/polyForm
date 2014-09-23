@@ -19,21 +19,11 @@
           }
         }
         return element.datepicker({
-          multidate: typeof attrs.multidate === "function" ? attrs.multidate(attrs.multidate === {
-            "true": false
-          }) : void 0,
-          forceParse: typeof attrs.forceParse === "function" ? attrs.forceParse(attrs.forceParse === {
-            "true": true
-          }) : void 0,
-          clearBtn: typeof attrs.clearBtn === "function" ? attrs.clearBtn(attrs.clearBtn === {
-            "true": false
-          }) : void 0,
-          todayHighlight: typeof attrs.todayHighlight === "function" ? attrs.todayHighlight(attrs.todayHighlight === {
-            "true": true
-          }) : void 0,
-          autoclose: typeof attrs.autoclose === "function" ? attrs.autoclose(attrs.autoclose === {
-            "true": true
-          }) : void 0,
+          multidate: (attrs.multidate ? attrs.multidate === true : false),
+          forceParse: (attrs.forceParse ? attrs.forceParse === true : true),
+          clearBtn: (attrs.clearBtn ? attrs.clearBtn === true : false),
+          todayHighlight: (attrs.todayHighlight ? attrs.todayHighlight === true : true),
+          autoclose: (attrs.autoclose ? attrs.autoclose === true : true),
           multidateSeparator: attrs.multidateSeparator || ",",
           format: attrs.format || 'dd/mm/yyyy',
           language: attrs.language || "el",
