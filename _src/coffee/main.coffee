@@ -16,5 +16,6 @@ module.exports =
   .directive("loaderIcon", require("./directives/LoaderIcon.coffee"))
   .directive("dateInput", require("./directives/DateInput.coffee"))
   .directive("popover", require("./directives/Popover.coffee"))
-  .directive("isUnique", ['$timeout', '$http', require("./directives/IsUnique.coffee")])
   .directive("disableValidationWhenHidden", require("./directives/DisableValidationWhenHidden.coffee"))
+  .directive("isUnique", ['$timeout', '$http', require("./directives/IsUnique.coffee")])
+  .directive("jsonResource", ['$timeout', '$http', '$parse', require("./directives/JsonResource.coffee")])
