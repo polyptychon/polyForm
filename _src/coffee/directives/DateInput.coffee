@@ -8,7 +8,7 @@ module.exports = () ->
      </div>'
   replace: true
 
-  link: (scope, element, attrs, parentCtrl) ->
+  link: (scope, element, attrs) ->
     rangeInputs = null
     if (attrs.bindInputs)
       t = attrs.bindInputs.split(",")
