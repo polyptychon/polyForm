@@ -1,10 +1,11 @@
+$ = require "jquery"
 formElements = require "../utils/FormElements.coffee"
 requestAnimFrame = require "animationframe"
 
 module.exports = () ->
   restrict: 'E'
   transclude: true
-  template: '<div class="has-feedback ng-transclude></div>'
+  template: '<div class="has-feedback ng-transclude"></div>'
   require: ['^form']
   scope:
     {
@@ -38,7 +39,7 @@ module.exports = () ->
     element = $element;
 
     $scope.copyChildClassesToParent = @copyChildClassesToParent = (childElement, updateOnNextFrame) ->
-      return if (childElement.attr('class') == null)
+      return if (childElement == null || typeof childElement.length == "undefined" || childElement.attr('class') == null)
 
       attrClasses = $(element).attr("class").replace(/ng-(\w|\-)+\s?/gi, "")
       attrClasses = attrClasses.replace(/\s?has-success|has-error\s?/gi, "")
@@ -52,8 +53,8 @@ module.exports = () ->
       else if (childElement.hasClass("ng-invalid") && !childElement.hasClass("ng-pristine"))
         attrClasses += " has-error"
 
-      if (element.find('.select2-allowclear').length>0)
-        if (attrClasses.indexOf("select-clear")<0)
+      if (element.find('.select2-allowclear').length > 0)
+        if (attrClasses.indexOf("select-clear") < 0)
           attrClasses += " select-clear "
         else
           attrClasses = attrClasses.replace(/select-clear/gi, "")

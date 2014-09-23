@@ -2,9 +2,19 @@ html(ng-app="PolyForm")
   head
     include partials/header
   body.home
-    form(name="form")
-      form-tabs
-        form-tab(tab-title="Test")
-        form-tab(tab-title="Test2")
+    .container
+      form(name="form")
+        form-tabs
+          form-tab(tab-title="Test")
+            form-control.col-md-5
+              label(for="fnameInput") Όνομα *
+              input.form-control(
+                  id="fnameInput" name="fname",
+                  type="text" placeholder="Όνομα",
+                  ng-model="form.firstname",
+                  ng-required="true"
+                )
+
+          form-tab(tab-title="Test2")
 
     include partials/footer
