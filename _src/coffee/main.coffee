@@ -1,4 +1,5 @@
 global.jQuery = require "jquery"
+require "bootstrap/assets/javascripts/bootstrap"
 require "angular/angular"
 require "../js/select2"
 
@@ -14,3 +15,4 @@ module.exports =
   .directive("validIcon", require("./directives/ValidIcon.coffee"))
   .directive("loaderIcon", require("./directives/LoaderIcon.coffee"))
   .directive("dateInput", require("./directives/DateInput.coffee"))
+  .directive("popover", require("./directives/Popover.coffee"))

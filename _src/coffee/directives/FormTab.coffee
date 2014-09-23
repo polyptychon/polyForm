@@ -4,19 +4,19 @@ formElements = require "../utils/FormElements.coffee"
 module.exports = () ->
   restrict: 'E'
   transclude: true
-  template:
-    '<div class="tab-pane" ng-class="{ active: selected }">' +
-    '<div ng-transclude></div>' +
-    '<form-control class="col-md-12" ng-hide="isLastPane()">' +
-    '<button type="button" ng-click="selectNextPane()" class="btn btn-primary" ng-disabled="isPaneInValid">{{nextTabButtonLabel}}</button>' +
-    '</form-control>' +
-    '</div>'
-  replace: true
   scope:
-    {
-      tabTitle: '@'
-      nextTabButtonLabel: '@'
-    }
+    tabTitle: '@'
+    nextTabButtonLabel: '@'
+  template:
+    '<div class="tab-pane" ng-class="{ active: selected }">
+      <div ng-transclude></div>
+      <form-control class="col-md-12" ng-hide="isLastPane()">
+        <button type="button" ng-click="selectNextPane()" class="btn btn-primary" ng-disabled="isPaneInValid">
+          {{ nextTabButtonLabel }}
+        </button>
+      </form-control>
+    </div>'
+  replace: true
   require: ['^form', '^formTabs']
 
   link: (scope, element, attrs, ctrls) ->
@@ -25,8 +25,25 @@ module.exports = () ->
     return if (formTabs == null)
 
     removeIndex = -1
-    controlElements = element.find(formElements);
-    controls = [];
+    controlElements = element.find(formElements)
+    controls = []
+
+    if (attrs.ngShow)
+      scope.$parent.$watch(attrs.ngShow, (value) ->
+        togglePane(value)
+      )
+
+    if (attrs.ngHide)
+      scope.$parent.$watch(attrs.ngHide, (value) ->
+        togglePane(!value)
+      )
+    attrs.$observe("tabTitle", (value) ->
+      scope.tabTitle = "Title" if (!value?)
+    )
+
+    attrs.$observe("nextTabButtonLabel", (value) ->
+      scope.nextTabButtonLabel = "Επόμενο βήμα" if (!value?)
+    )
 
     formTabs.addPane(scope);
 
@@ -72,18 +89,7 @@ module.exports = () ->
 
       toggleValidation(value)
 
-      if (attrs.ngShow)
-        scope.$parent.$watch(attrs.ngShow, (value) ->
-          togglePane(value);
-        )
-
-      if (attrs.ngHide)
-        scope.$parent.$watch(attrs.ngHide, (value) ->
-          togglePane(!value);
-        )
-
   controller: ($scope, $element) ->
-    @scope = $scope
     $scope.disabled = true
     $scope.isPaneInValid = true
 

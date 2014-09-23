@@ -4,22 +4,19 @@ module.exports = () ->
   restrict: 'E'
   transclude: true
   template:
-    '<div class="form-container row">' +
-    '<h1>' +
-    '<ul id="formTablist" class="breadcrumb" role="tablist">' +
-    '<li ng-repeat="pane in panes" ng-class="{active:pane.selected, disabled:pane.disabled }">' +
-    '<a href="" ng-click="select(pane)">{{pane.tabTitle}}</a>' +
-    '</li>' +
-    '</ul>' +
-    '</h1>' +
-    '<div class="tab-content" ng-transclude></div>' +
-    '</div>'
+    '<div class="form-container row">
+      <h1>
+        <ul id="formTablist" class="breadcrumb" role="tablist">
+          <li ng-repeat="pane in panes" ng-class="{active:pane.selected, disabled:pane.disabled }">
+            <a href="" ng-click="select(pane)">{{pane.tabTitle}}</a>
+          </li>
+        </ul>
+      </h1>
+      <div class="tab-content" ng-transclude></div>
+    </div>'
   replace: true
   scope:
-    {
-      selectFormTabIndex: '@'
-    }
-
+    selectFormTabIndex: '@'
   controller: ($scope, $element, $attrs) ->
     panes = $scope.panes = [];
 
@@ -55,7 +52,7 @@ module.exports = () ->
       )
 
     @isLastPane = (pane) ->
-      $scope.getPaneIndex(pane) == panes.length - 1 || @getNextPane()
+      $scope.getPaneIndex(pane) == panes.length - 1 || @getNextPane()==null
 
     @addPane = (pane) ->
       @addPaneAt(pane, panes.length)

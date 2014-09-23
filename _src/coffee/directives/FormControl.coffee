@@ -9,10 +9,8 @@ module.exports = () ->
   replace: true
   require: ['^form']
   scope:
-    {
-      class: '@'
-      type: '@'
-    }
+    class: '@'
+    type: '@'
   link: (scope, element, attrs, ctrls) ->
     form = ctrls[0]
     controlElements = element.find(formElements)
