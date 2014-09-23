@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "ValidIcon.js",
+  "sourceRoot": "",
+  "sources": [
+    "ValidIcon.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,EAAA,MAAM,CAAC,OAAP,GAAiB,SAAA,GAAA;WACf;AAAA,MAAA,QAAA,EAAU,GAAV;AAAA,MACA,UAAA,EAAY,IADZ;AAAA,MAEA,QAAA,EAAU,+EAFV;AAAA,MAGA,OAAA,EAAS,IAHT;MADe;EAAA,CAAjB,CAAA;AAAA"
+}
