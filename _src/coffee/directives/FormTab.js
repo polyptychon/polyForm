@@ -10,12 +10,12 @@
     return {
       restrict: 'E',
       transclude: true,
-      template: '<div class="tab-pane" ng-class="{ active: selected }">' + '<div ng-transclude></div>' + '<form-control class="col-md-12" ng-hide="isLastPane()">' + '<button type="button" ng-click="selectNextPane()" class="btn btn-primary" ng-disabled="isPaneInValid">{{nextTabButtonLabel}}</button>' + '</form-control>' + '</div>',
-      replace: true,
       scope: {
         tabTitle: '@',
         nextTabButtonLabel: '@'
       },
+      template: '<div class="tab-pane" ng-class="{ active: selected }"> <div ng-transclude></div> <form-control class="col-md-12" ng-hide="isLastPane()"> <button type="button" ng-click="selectNextPane()" class="btn btn-primary" ng-disabled="isPaneInValid"> {{ nextTabButtonLabel }} </button> </form-control> </div>',
+      replace: true,
       require: ['^form', '^formTabs'],
       link: function(scope, element, attrs, ctrls) {
         var controlElements, controls, form, formTabs, removeIndex, togglePane, toggleValidation;
@@ -27,6 +27,26 @@
         removeIndex = -1;
         controlElements = element.find(formElements);
         controls = [];
+        if (attrs.ngShow) {
+          scope.$parent.$watch(attrs.ngShow, function(value) {
+            return togglePane(value);
+          });
+        }
+        if (attrs.ngHide) {
+          scope.$parent.$watch(attrs.ngHide, function(value) {
+            return togglePane(!value);
+          });
+        }
+        attrs.$observe("tabTitle", function(value) {
+          if (value == null) {
+            return scope.tabTitle = "Title";
+          }
+        });
+        attrs.$observe("nextTabButtonLabel", function(value) {
+          if (value == null) {
+            return scope.nextTabButtonLabel = "Επόμενο βήμα";
+          }
+        });
         formTabs.addPane(scope);
         scope.isLastPane = function() {
           return formTabs.isLastPane(scope);
@@ -72,22 +92,11 @@
             removeIndex = formTabs.getPaneIndex(scope);
             formTabs.removePane(scope);
           }
-          toggleValidation(value);
-          if (attrs.ngShow) {
-            scope.$parent.$watch(attrs.ngShow, function(value) {
-              return togglePane(value);
-            });
-          }
-          if (attrs.ngHide) {
-            return scope.$parent.$watch(attrs.ngHide, function(value) {
-              return togglePane(!value);
-            });
-          }
+          return toggleValidation(value);
         };
       },
       controller: function($scope, $element) {
         var formControls;
-        this.scope = $scope;
         $scope.disabled = true;
         $scope.isPaneInValid = true;
         formControls = $scope.formControls = [];
