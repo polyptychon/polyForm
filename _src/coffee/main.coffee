@@ -16,3 +16,4 @@ module.exports =
   .directive("loaderIcon", require("./directives/LoaderIcon.coffee"))
   .directive("dateInput", require("./directives/DateInput.coffee"))
   .directive("popover", require("./directives/Popover.coffee"))
+  .directive("isUnique", ['$timeout', '$http', require("./directives/IsUnique.coffee")])

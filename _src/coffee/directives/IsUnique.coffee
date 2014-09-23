@@ -1,4 +1,6 @@
-module.exports = () ->
+mapDataToURL = require "../utils/MapDataToURL.coffee"
+
+module.exports = ($timeout, $http) ->
   restrict: 'A'
   require: '?ngModel'
   scope:
@@ -24,17 +26,19 @@ module.exports = () ->
         clearTimeout(timeoutDigest)
         $timeout.cancel(timeoutPromise)
         elm.removeClass("ng-is-unique-error-loading")
+
         if (typeof newValue == "undefined" || newValue.length < 2 || attrs.isUnique == "" || attrs.isUnique.length < 2)
           elm.removeClass("ng-is-unique-loading")
           elm.removeClass("ng-loading")
           return
+
         elm.removeClass("ng-is-unique-pending");
         elm.addClass("ng-is-unique-loading");
         elm.addClass("ng-loading");
 
         timeoutPromise = $timeout(
           () ->
-            url = getURLWithMapData(attrs.isUnique, attrs.isUniqueMapData, scope.$parent)
+            url = mapDataToURL(attrs.isUnique, attrs.isUniqueMapData, scope.$parent)
             $http (
               method: 'GET'
               url: url
@@ -59,12 +63,11 @@ module.exports = () ->
                 elm.removeClass("ng-loading")
                 update()
             )
-
-          update = () ->
-            timeoutDigest = setTimeout(
-              () ->
-                elm.trigger("keyup")
-            , 100)
+            update = () ->
+              timeoutDigest = setTimeout(
+                () ->
+                  elm.trigger("keyup")
+              , 100)
 
         , quietMillis - 100)
     ) #watch
