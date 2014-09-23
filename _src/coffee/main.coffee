@@ -11,3 +11,4 @@ module.exports =
   .directive("inputGroup", require("./directives/InputGroup.coffee"))
   .directive("inputGroupAddon", require("./directives/InputGroupAddon.coffee"))
   .directive("errorMessage", require("./directives/ErrorMessage.coffee"))
+  .directive("validIcon", require("./directives/ValidIcon.coffee"))

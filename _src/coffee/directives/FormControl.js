@@ -13,6 +13,7 @@
       restrict: 'E',
       transclude: true,
       template: '<div class="has-feedback ng-transclude"></div>',
+      replace: true,
       require: ['^form'],
       scope: {
         "class": '@',

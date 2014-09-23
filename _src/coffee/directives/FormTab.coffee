@@ -11,6 +11,7 @@ module.exports = () ->
     '<button type="button" ng-click="selectNextPane()" class="btn btn-primary" ng-disabled="isPaneInValid">{{nextTabButtonLabel}}</button>' +
     '</form-control>' +
     '</div>'
+  replace: true
   scope:
     {
       tabTitle: '@'

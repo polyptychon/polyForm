@@ -84,7 +84,7 @@
     "server": "httpster ../ -p 63342"
   },
   "napa": {
-    "bootstrap": "jlong/sass-twitter-bootstrap",
+    "bootstrap": "twbs/bootstrap-sass",
     "bootstrap-datepicker": "eternicode/bootstrap-datepicker",
     "angular": "angular/bower-angular",
     "angular-route": "angular/bower-angular-route",

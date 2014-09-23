@@ -150,7 +150,7 @@ gulp.task('clean-images', function() {
     .pipe(gulpif(env === PRODUCTION, clean()))
 });
 gulp.task('fonts', function() {
-  return gulp.src(['bower_components/bootstrap-sass/fonts/*', MOCKUPS+"/fonts/*"])
+  return gulp.src(['node_modules/bootstrap/assets/fonts/**', MOCKUPS+"/fonts/*"])
     .pipe(gulp.dest(getOutputDir()+ASSETS+'/fonts'));
 });
 
