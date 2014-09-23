@@ -9,7 +9,6 @@ module.exports = () ->
   replace: true
   require: ['^form']
   scope:
-    class: '@'
     type: '@'
   link: (scope, element, attrs, ctrls) ->
     form = ctrls[0]

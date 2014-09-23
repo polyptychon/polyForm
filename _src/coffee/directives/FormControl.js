@@ -16,7 +16,6 @@
       replace: true,
       require: ['^form'],
       scope: {
-        "class": '@',
         type: '@'
       },
       link: function(scope, element, attrs, ctrls) {
