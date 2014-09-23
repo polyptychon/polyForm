@@ -4,16 +4,17 @@ formElements = require "../utils/FormElements.coffee"
 module.exports = ()  ->
   restrict: 'E'
   transclude: true
-  scope: {
-    tabTitle: '@'
-    nextTabButtonLabel: '@'
-  }
+  scope:
+    {
+      tabTitle: '@'
+      nextTabButtonLabel: '@'
+    }
   require: ['^form', '^formTabs']
 
   link: (scope, element, attrs, ctrls) ->
     form = ctrls[0];
     formTabs = ctrls[1];
-    return if (formTabs==null)
+    return if (formTabs == null)
 
     removeIndex = -1
     controlElements = element.find(formElements);
@@ -32,10 +33,10 @@ module.exports = ()  ->
 
     toggleValidation = (value) ->
       i = 0;
-      controlElements.each( () ->
+      controlElements.each(() ->
         element = $(@);
         control = form[element.attr("name")];
-        if (control==null)
+        if (control == null)
           control = controls[i]
           i++
         else
@@ -105,9 +106,9 @@ module.exports = ()  ->
 
   template:
     '<div class="tab-pane" ng-class="{ active: selected }">' +
-    '<div ng-transclude></div>'+
-    '<form-control class="col-md-12" ng-hide="isLastPane()">'+
-    '<button type="button" ng-click="selectNextPane()" class="btn btn-primary" ng-disabled="isPaneInValid">{{nextTabButtonLabel}}</button>'+
-    '</form-control>'+
+    '<div ng-transclude></div>' +
+    '<form-control class="col-md-12" ng-hide="isLastPane()">' +
+    '<button type="button" ng-click="selectNextPane()" class="btn btn-primary" ng-disabled="isPaneInValid">{{nextTabButtonLabel}}</button>' +
+    '</form-control>' +
     '</div>'
   replace: true

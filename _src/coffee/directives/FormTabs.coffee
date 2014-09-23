@@ -3,9 +3,10 @@ $ = require "jquery"
 module.exports = ()  ->
   restrict: 'E'
   transclude: true
-  scope: {
-    selectFormTabIndex: '@'
-  }
+  scope:
+    {
+      selectFormTabIndex: '@'
+    }
 
   controller: ($scope, $element, $attrs) ->
     panes = $scope.panes = [];
@@ -24,9 +25,9 @@ module.exports = ()  ->
       pane.selected = true
 
     $scope.getPaneIndex = @getPaneIndex = (currentPane) ->
-      return -1 if (currentPane==null)
+      return -1 if (currentPane == null)
       for pane,index in panes
-        if (pane==currentPane)
+        if (pane == currentPane)
           return index;
       return -1
 
@@ -42,35 +43,35 @@ module.exports = ()  ->
       )
 
     @isLastPane = (pane) ->
-      $scope.getPaneIndex(pane)==panes.length-1 || @getNextPane()
+      $scope.getPaneIndex(pane) == panes.length - 1 || @getNextPane()
 
     @addPane = (pane) ->
       @addPaneAt(pane, panes.length)
 
     @addPaneAt = (pane, index) ->
       $scope.select(pane) if (panes.length == 0)
-      panes.splice(index, 0, pane) if ($scope.getPaneIndex(pane)<0)
+      panes.splice(index, 0, pane) if ($scope.getPaneIndex(pane) < 0)
 
 
     @removePane = (current_pane) ->
       return false if (!pane)
 
       for pane,index in panes
-        if (pane==current_pane)
+        if (pane == current_pane)
           current_pane.disabled = true
           panes.splice(index, 1)
           return true
 
   template:
     '<div class="form-container row">' +
-      '<h1>'+
-        '<ul id="formTablist" class="breadcrumb" role="tablist">' +
-          '<li ng-repeat="pane in panes" ng-class="{active:pane.selected, disabled:pane.disabled }">'+
-            '<a href="" ng-click="select(pane)">{{pane.tabTitle}}</a>' +
-          '</li>' +
-        '</ul>' +
-      '</h1>'+
-      '<div class="tab-content" ng-transclude></div>' +
+    '<h1>' +
+    '<ul id="formTablist" class="breadcrumb" role="tablist">' +
+    '<li ng-repeat="pane in panes" ng-class="{active:pane.selected, disabled:pane.disabled }">' +
+    '<a href="" ng-click="select(pane)">{{pane.tabTitle}}</a>' +
+    '</li>' +
+    '</ul>' +
+    '</h1>' +
+    '<div class="tab-content" ng-transclude></div>' +
     '</div>'
 
   replace: true
