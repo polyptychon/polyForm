@@ -1,3 +1,4 @@
+$ = require "jquery"
 formElements = require "../utils/FormElements.coffee"
 
 module.exports = () ->
@@ -9,7 +10,7 @@ module.exports = () ->
       <h3 class="popover-title"></h3>
       <div class="popover-content" ng-transclude></div>
     </div>'
-  replace: true
+  replace: false
   scope:
     preventCloseOnPopOverClick: '@'
     title:      '@'

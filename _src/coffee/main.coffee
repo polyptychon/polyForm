@@ -1,5 +1,5 @@
-global.jQuery = require "jquery"
-require "bootstrap/assets/javascripts/bootstrap"
+global.jQuery = $ = require "jquery"
+require "bootstrapify"
 require "angular/angular"
 require "../js/select2"
 
