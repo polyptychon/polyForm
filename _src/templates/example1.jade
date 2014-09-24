@@ -1,37 +1,16 @@
+include mixins/form-control
 html(ng-app="PolyForm")
   head
     include partials/header
-  body.home
+  body
     .container
       form(name="form", ng-cloak="true")
         form-tabs
           form-tab
-
-            form-control.col-md-6
-              label(for="fnameInput") Όνομα *
-              input.form-control(
-                  id="fnameInput" name="fname",
-                  type="text" placeholder="Όνομα",
-                  ng-model="form.firstname",
-                  is-unique="isUnique.json",
-                  ng-required="true"
-                )
-              valid-icon
-              loader-icon
-              popover Παρακαλώ συμπληρώστε το πεδίο
-              error-message.ng-required Παρακαλώ συμπληρώστε το πεδίο
-
-            form-control.col-md-6
-              label(for="fnameInput") Επίθετο *
-              input.form-control(
-                id="lnameInput" name="lname",
-                type="text" placeholder="Επίθετο",
-                ng-model="form.lastname",
-                ng-required="true"
-              )
-              valid-icon
-              error-message.ng-required Παρακαλώ συμπληρώστε το πεδίο
-
+            +form-control({name:'fname', popover: 'Παρακαλώ συμπληρώστε το πεδίο'})
+            +form-control({name:'lname', isUnique: 'isUnique.json'})
           form-tab
+            +form-control({name:'fname', popover: 'Παρακαλώ συμπληρώστε το πεδίο'})
+            +form-control({name:'lname', isUnique: 'isUnique.json'})
 
     include partials/footer
