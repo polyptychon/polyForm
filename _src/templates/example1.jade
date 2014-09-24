@@ -7,10 +7,10 @@ html(ng-app="PolyForm")
       form(name="form", ng-cloak="true")
         form-tabs
           form-tab
-            +form-control({name:'fname', popover: 'Παρακαλώ συμπληρώστε το πεδίο'})
-            +form-control({name:'lname', isUnique: 'isUnique.json'})
+            +form-control({name:'fname',label:'Όνομα',popover: 'Παρακαλώ συμπληρώστε το πεδίο'})
+            +form-control({name:'lname',label:'Επίθετο',isUnique: 'isUnique.json'})
           form-tab
-            +form-control({name:'fname', popover: 'Παρακαλώ συμπληρώστε το πεδίο'})
-            +form-control({name:'lname', isUnique: 'isUnique.json'})
+            +form-control({name:'fname',label:'Όνομα',popover: 'Παρακαλώ συμπληρώστε το πεδίο'})
+            +form-control({name:'lname',label:'Επίθετο',isUnique: 'isUnique.json'})
 
     include partials/footer

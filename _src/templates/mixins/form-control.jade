@@ -1,11 +1,15 @@
 mixin form-control(options)
-  - options = options || {}
-  - name    = options.name    || 'control'
-  - type    = options.type    || 'text'
-  - label   = options.label   || 'Ετικέτα'
-  - popover = options.popover || null
+  - options       = options               || {}
 
-  - isUnique    = options.isUnique    || null
+  - name          = options.name          || 'control'
+  - label         = options.label         || 'Ετικέτα'
+  - placeholder   = options.placeholder   || label
+  - autocomplete  = options.autocomplete  || name
+  - type          = options.type          || 'text'
+  - popover       = options.popover       || null
+
+  - isUnique        = options.isUnique        || null  // Async Validation. Value must be a URL. Validation is done on server and must return json. example { "isUnique": "true" }
+  - isUniqueMapData = options.isUniqueMapData || null  // Maps json data to isUnique url. example isUnique="test.json?param:value" isUniqueMapData="{value=true}"
 
   - ngRequired  = options.ngRequired  || 'true' // Sets required attribute if set to true
   - ngMinlength = options.ngMinlength || null   // Sets minlength validation error key if the value is shorter than minlength.
@@ -25,12 +29,16 @@ mixin form-control(options)
   form-control.col-md-6
     label(for=name+'Input')=label
     input.form-control(
-      id= name+'Input'
+      id= name+'Input',
       name=name,
-      type=type
-      placeholder=label,
+      autocomplete=autocomplete,
+      type=type,
+      placeholder=placeholder,
       ng-model=name,
+
       is-unique=isUnique,
+      is-unique-map-data=isUniqueMapData,
+
       ng-required=ngRequired,
       ng-minlength=ngMinlength,
       ng-maxlength=ngMaxlength,
