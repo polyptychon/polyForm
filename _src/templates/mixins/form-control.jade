@@ -26,7 +26,6 @@ mixin form-control(options)
   - ngMinlengthMessage  = options.ngMinlengthMessage  || 'Παρακαλώ συμπληρώστε το πεδίο με πάραπανω από ' + ngMinlength +' χαρακτήρες'
   - ngMaxlengthMessage  = options.ngMaxlengthMessage  || 'Παρακαλώ συμπληρώστε το πεδίο μέχρι ' + ngMaxlength +' χαρακτήρες'
   - ngPatternMessage    = options.ngPatternMessage    || 'Παρακαλώ συμπληρώστε το πεδίο σωστά!'
-  - ngTrimMessage       = options.ngTrimMessage       || 'Παρακαλώ συμπληρώστε το πεδίο σωστά!'
 
   form-control(class=className)
     label(for=name+'Input')=label
@@ -36,7 +35,7 @@ mixin form-control(options)
       autocomplete=autocomplete,
       type=type,
       placeholder=placeholder,
-      ng-model='form.control.'+name,
+      ng-model='$parent.'+name,
 
       is-unique=isUnique,
       is-unique-map-data=isUniqueMapData,
@@ -67,5 +66,3 @@ mixin form-control(options)
       error-message.ng-maxlength= ngMaxlengthMessage
     if ngPattern && ngPatternMessage
       error-message.ng-pattern= ngPatternMessage
-    if ngTrim && ngTrimMessage
-      error-message.ng-trim= ngTrimMessage
