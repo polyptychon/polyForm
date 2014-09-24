@@ -1,6 +1,7 @@
 mixin form-control(options)
   - options       = options               || {}
 
+  - className     = options.class         || 'col-md-6'
   - name          = options.name          || 'control'
   - label         = options.label         || 'Ετικέτα'
   - placeholder   = options.placeholder   || label
@@ -18,15 +19,16 @@ mixin form-control(options)
   - ngChange    = options.ngChange    || null   // Angular expression to be executed when input changes due to user interaction with the input element.
   - ngTrim      = options.ngTrim      || null   // If set to false Angular will not automatically trim the input. This parameter is ignored for input[type=password] controls, which will never trim the input.
 
+  - ngEmailMessage     = options.ngEmailMessage       || 'Συμπληρώστε το πεδίο με μία σωστή διέυθυνση email'
+
   - isUniqueMessage     = options.isUniqueMessage     || 'Τα στοιχεία που συμπληρώσατε δεν είναι μοναδικά'
   - ngRequiredMessage   = options.ngRequiredMessage   || 'Παρακαλώ συμπληρώστε το πεδίο'
   - ngMinlengthMessage  = options.ngMinlengthMessage  || 'Παρακαλώ συμπληρώστε το πεδίο με πάραπανω από ' + ngMinlength +' χαρακτήρες'
-  - ngMaxlengthMessage  = options.ngMaxlengthMessage  || 'Παρακαλώ συμπληρώστε το πεδίο το λιγότερο ' + ngMaxlength +' χαρακτήρες'
+  - ngMaxlengthMessage  = options.ngMaxlengthMessage  || 'Παρακαλώ συμπληρώστε το πεδίο μέχρι ' + ngMaxlength +' χαρακτήρες'
   - ngPatternMessage    = options.ngPatternMessage    || 'Παρακαλώ συμπληρώστε το πεδίο σωστά!'
-  - ngChangeMessage     = options.ngChangeMessage     || 'Παρακαλώ συμπληρώστε το πεδίο σωστά!'
   - ngTrimMessage       = options.ngTrimMessage       || 'Παρακαλώ συμπληρώστε το πεδίο σωστά!'
 
-  form-control.col-md-6
+  form-control(class=className)
     label(for=name+'Input')=label
     input.form-control(
       id= name+'Input',
@@ -34,7 +36,7 @@ mixin form-control(options)
       autocomplete=autocomplete,
       type=type,
       placeholder=placeholder,
-      ng-model=name,
+      ng-model='form.control.'+name,
 
       is-unique=isUnique,
       is-unique-map-data=isUniqueMapData,
@@ -52,6 +54,9 @@ mixin form-control(options)
 
     if popover
       popover= popover
+    if type=='email' && ngEmailMessage
+      error-message.ng-email= ngEmailMessage
+
     if isUnique && isUniqueMessage
       error-message.is-uinique= isUniqueMessage
     if ngRequired && ngRequiredMessage
@@ -62,7 +67,5 @@ mixin form-control(options)
       error-message.ng-maxlength= ngMaxlengthMessage
     if ngPattern && ngPatternMessage
       error-message.ng-pattern= ngPatternMessage
-    if ngChange && ngChangeMessage
-      error-message.ng-change= ngChangeMessage
     if ngTrim && ngTrimMessage
       error-message.ng-trim= ngTrimMessage

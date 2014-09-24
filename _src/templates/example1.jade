@@ -7,8 +7,19 @@ html(ng-app="PolyForm")
       form(name="form", ng-cloak="true")
         form-tabs
           form-tab
-            +form-control({name:'fname',label:'Όνομα',popover: 'Παρακαλώ συμπληρώστε το πεδίο'})
-            +form-control({name:'lname',label:'Επίθετο',isUnique: 'isUnique.json'})
+            +form-control({name:'popover',label:'popover',popover: 'Παρακαλώ συμπληρώστε το πεδίο'})
+
+            +form-control({name:'email',label:'Email',type:'email'})
+
+            +form-control({name:'isUnique',label:'isUnique',isUnique: 'isUnique.json'})
+
+            +form-control({name:'required',label:'Required false',ngRequired:'false'})
+            +form-control({name:'minLength',label:'Min Length',ngMinlength:3})
+            +form-control({name:'maxlength',label:'Max length',ngMaxlength:3})
+            +form-control({name:'mypattern',label:'Pattern',type:'password',ngPattern:'/((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,64})/',ngPatternMessage:'Ensure that password is 8 to 64 characters long and contains a mix of upper and lower case characters, one numeric and one special character'})
+            +form-control({class:'col-md-3',name:'ngchange',label:'ng change',ngChange:"form.control.ngchange2=form.control.ngchange"})
+            +form-control({class:'col-md-3',name:'ngchange2',label:'ng change 2'})
+
           form-tab
             +form-control({name:'fname',label:'Όνομα',popover: 'Παρακαλώ συμπληρώστε το πεδίο'})
             +form-control({name:'lname',label:'Επίθετο',isUnique: 'isUnique.json'})
