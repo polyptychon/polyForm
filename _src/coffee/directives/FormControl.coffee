@@ -37,7 +37,8 @@ module.exports = () ->
     element = $element;
 
     $scope.copyChildClassesToParent = @copyChildClassesToParent = (childElement, updateOnNextFrame) ->
-      return if (childElement == null || typeof childElement.length == "undefined" || childElement.attr('class') == null)
+      return if (typeof childElement == "undefined")
+      childElement = $(childElement)
 
       attrClasses = $(element).attr("class").replace(/ng-(\w|\-)+\s?/gi, "")
       attrClasses = attrClasses.replace(/\s?has-success|has-error\s?/gi, "")
@@ -54,13 +55,13 @@ module.exports = () ->
       if (element.find('.select2-allowclear').length > 0)
         if (attrClasses.indexOf("select-clear") < 0)
           attrClasses += " select-clear "
-        else
-          attrClasses = attrClasses.replace(/select-clear/gi, "")
+      else
+        attrClasses = attrClasses.replace(/select-clear/gi, "")
 
       attrClasses = attrClasses.replace(/ng-\w+-?\w+\s/gi, "")
       $(element).attr("class", attrClasses + " " + inputClasses)
 
-      if (updateOnNextFrame != null)
+      if (typeof updateOnNextFrame == "undefined")
         requestAnimFrame ( () ->
           $scope.copyChildClassesToParent(childElement, false)
         )

@@ -6,6 +6,10 @@
 
   require("bootstrapify");
 
+  require("select2/select2");
+
+  require("bootstrap-datepicker/js/bootstrap-datepicker");
+
   require("angular/angular");
 
   require("../js/angular-ui-select2");

@@ -1,0 +1,30 @@
+include mixins/form-control
+html(ng-app="PolyForm")
+  head
+    include partials/header
+  body
+    .container
+      form(name="myform", ng-cloak="true")
+        form-tabs
+          form-tab(tab-title="Select2")
+            +form-control({name:'email',label:'Email',type:'text'})
+            form-control.col-md-6
+              label(for="postcodeInput") Select2 example 1 *
+              select(
+                ui-select2="{ allowClear: true }",
+                id="postcodeInput",
+                data-placeholder="put a value",
+                class="form-control",
+                ng-model="select2",
+                ng-required="true"
+              )
+                option(value="")
+                option(value="one") First
+                option(value="two") Second
+                option(value="three") Third
+
+              loader-icon.loader
+              valid-icon
+              error-message(class="ng-required") Παρακαλώ συμπληρώστε το πεδίο
+
+    include partials/footer

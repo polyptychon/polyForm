@@ -9,8 +9,10 @@ mixin form-control(options)
   - type          = options.type          || 'text'
   - popover       = options.popover       || null
 
+  - select2       = type=='select2' ? name+'.uiSelect2QueryData' : null
+
   - isUnique        = options.isUnique        || null  // Async Validation. Value must be a URL. Validation is done on server and must return json. example { "isUnique": "true" }
-  - isUniqueMapData = options.isUniqueMapData || null  // Maps json data to isUnique url. example isUnique="test.json?param:value" isUniqueMapData="{value=true}"
+  - isUniqueMapData = options.mapData         || null  // Maps json data to isUnique url. example isUnique="test.json?param:value" isUniqueMapData="{value=true}"
 
   - ngRequired  = options.ngRequired  || 'true' // Sets required attribute if set to true
   - ngMinlength = options.ngMinlength || null   // Sets minlength validation error key if the value is shorter than minlength.
@@ -33,9 +35,13 @@ mixin form-control(options)
       id= name+'Input',
       name=name,
       autocomplete=autocomplete,
-      type=type,
+      type=(type=='select2'?null:type),
       placeholder=placeholder,
       ng-model='$parent.'+name,
+
+      ui-select2=select2,
+      data-ui-select2-query=(type=='select2'?'test-group.json?limit=:limit&exercise=:exercise':null),
+      data-query-map-data=(type=='select2'?'{}':null),
 
       is-unique=isUnique,
       is-unique-map-data=isUniqueMapData,

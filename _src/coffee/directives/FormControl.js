@@ -52,9 +52,10 @@
         element = $element;
         return $scope.copyChildClassesToParent = this.copyChildClassesToParent = function(childElement, updateOnNextFrame) {
           var attrClasses, inputClasses, isValid;
-          if (childElement === null || typeof childElement.length === "undefined" || childElement.attr('class') === null) {
+          if (typeof childElement === "undefined") {
             return;
           }
+          childElement = $(childElement);
           attrClasses = $(element).attr("class").replace(/ng-(\w|\-)+\s?/gi, "");
           attrClasses = attrClasses.replace(/\s?has-success|has-error\s?/gi, "");
           attrClasses = attrClasses.replace(/\s\s/gi, "");
@@ -69,13 +70,13 @@
           if (element.find('.select2-allowclear').length > 0) {
             if (attrClasses.indexOf("select-clear") < 0) {
               attrClasses += " select-clear ";
-            } else {
-              attrClasses = attrClasses.replace(/select-clear/gi, "");
             }
+          } else {
+            attrClasses = attrClasses.replace(/select-clear/gi, "");
           }
           attrClasses = attrClasses.replace(/ng-\w+-?\w+\s/gi, "");
           $(element).attr("class", attrClasses + " " + inputClasses);
-          if (updateOnNextFrame !== null) {
+          if (typeof updateOnNextFrame === "undefined") {
             return requestAnimFrame((function() {
               return $scope.copyChildClassesToParent(childElement, false);
             }));
