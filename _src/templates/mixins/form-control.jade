@@ -14,6 +14,7 @@ mixin form-control(options)
   - ngChange    = options.ngChange    || null   // Angular expression to be executed when input changes due to user interaction with the input element.
   - ngTrim      = options.ngTrim      || null   // If set to false Angular will not automatically trim the input. This parameter is ignored for input[type=password] controls, which will never trim the input.
 
+  - isUniqueMessage     = options.isUniqueMessage     || 'Τα στοιχεία που συμπληρώσατε δεν είναι μοναδικά'
   - ngRequiredMessage   = options.ngRequiredMessage   || 'Παρακαλώ συμπληρώστε το πεδίο'
   - ngMinlengthMessage  = options.ngMinlengthMessage  || 'Παρακαλώ συμπληρώστε το πεδίο με πάραπανω από ' + ngMinlength +' χαρακτήρες'
   - ngMaxlengthMessage  = options.ngMaxlengthMessage  || 'Παρακαλώ συμπληρώστε το πεδίο το λιγότερο ' + ngMaxlength +' χαρακτήρες'
@@ -43,6 +44,8 @@ mixin form-control(options)
 
     if popover
       popover= popover
+    if isUnique && isUniqueMessage
+      error-message.is-uinique= isUniqueMessage
     if ngRequired && ngRequiredMessage
       error-message.ng-required= ngRequiredMessage
     if ngMinlength && ngMinlengthMessage
