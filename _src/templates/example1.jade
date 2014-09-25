@@ -16,6 +16,7 @@ html(ng-app="PolyForm")
             .col-md-12
               +form-control({name:'maxlength',label:'Max length',ngMaxlength:3})
               +form-control({name:'mypattern',label:'Pattern',type:'password',ngPattern:'/((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,64})/',ngPatternMessage:'Ensure that password is 8 to 64 characters long and contains a mix of upper and lower case characters, one numeric and one special character'})
+            .col-md-12
               +form-control({class:'col-md-3',name:'ngchange',label:'ng change',ngChange:"$parent.ngchange2=ngchange"})
               +form-control({class:'col-md-3',name:'ngchange2',label:'ng change 2'})
           form-tab(tab-title="Components")
