@@ -8,6 +8,15 @@ mixin form-control(options)
   - autocomplete  = options.autocomplete  || name
   - type          = options.type          || 'text'
   - popover       = options.popover       || null
+
+  - multidate           = options.multidate           || null
+  - forceParse          = options.forceParse          || null
+  - todayHighlight      = options.todayHighlight      || null
+  - autoclose           = options.autoclose           || null
+  - multidateSeperator  = options.multidateSeperator  || null
+  - format              = options.format              || 'dd/mm/yyyy'
+  - language            = options.language            || null
+
   - select2Data   = options.select2Data   || null
 
   - select2Input       = type=='select2-input' ? name+'.uiSelect2QueryData' : null
@@ -73,7 +82,35 @@ mixin form-control(options)
             option(value=val)= val
           else
             option(value=val.value)= val.label
+    else if type=="dateInput"
+      date-input(
+          multidate=(multidate || null),
+          force-parse=(forceParse || null),
+          clear-btn=(clearButton || null),
+          today-highlight=(todayHighlight || null),
+          autoclose=(autoclose || null),
+          multidate-separator=(multidateSeperator || null),
+          format=(format || null),
+          language=(language || null)
+        )
+        input.form-control(
+          id= name+'Input',
+          name=name,
+          autocomplete=autocomplete,
+          type=(type=='select2'?null:type),
+          placeholder=placeholder,
+          ng-model='$parent.'+name,
 
+          is-unique=isUnique,
+          is-unique-map-data=isUniqueMapData,
+
+          ng-required=ngRequired,
+          ng-minlength=ngMinlength,
+          ng-maxlength=ngMaxlength,
+          ng-pattern=ngPattern,
+          ng-change=ngChange,
+          ng-trim=ngTrim
+        )
     else
       input.form-control(
         id= name+'Input',
