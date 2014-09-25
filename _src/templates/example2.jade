@@ -7,47 +7,6 @@ html(ng-app="PolyForm")
       form(name="myform", ng-cloak="true")
         form-tabs
           form-tab(tab-title="Select2")
-            +form-control({name:'email',label:'Email',type:'text'})
-            form-control.col-md-6
-              label(for="postcodeInput") Select2 example 1 *
-              select(
-                ui-select2="{ allowClear: true }",
-                id="postcodeInput",
-                data-placeholder="put a value",
-                class="form-control",
-                ng-model="select2",
-                ng-required="true"
-              )
-                option(value="")
-                option(value="one") First
-                option(value="two") Second
-                option(value="three") Third
-
-              loader-icon.loader
-              valid-icon
-              error-message(class="ng-required") Παρακαλώ συμπληρώστε το πεδίο
-
-            form-control.col-md-12
-              label(for="postcodeInput") Select2 example 2 *
-              input(ui-select2="postcode.uiSelect2QueryData",
-                id="testInput" name="postcode",
-
-                data-placeholder="please enter a value",
-                data-allow-clear="true",
-                data-ui-select2-query="http://www.weighttraining.com/api/v2/sm/search?types%5B%5D=:type&term=:value&limit=:limit",
-                data-query-map-data="{type: 'exercise', limit: -1}",
-
-                data-query-data-type="jsonp",
-                data-query-results-array-path="results.exercise",
-                data-query-result-text="term",
-                data-query-result-id="id",
-
-                class="form-control",
-                ng-model="form.test",
-                ng-required="true")
-
-              loader-icon.loader
-              valid-icon
-              error-message(class="ng-required") Παρακαλώ συμπληρώστε το πεδίο
+            +form-control({name:'email',label:'Email',type:'select2-input'})
 
     include partials/footer

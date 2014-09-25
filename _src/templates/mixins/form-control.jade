@@ -9,10 +9,10 @@ mixin form-control(options)
   - type          = options.type          || 'text'
   - popover       = options.popover       || null
 
-  - select2       = type=='select2' ? name+'.uiSelect2QueryData' : null
+  - select2       = type=='select2-input' ? name+'.uiSelect2QueryData' : null
 
-  - isUnique        = options.isUnique        || null  // Async Validation. Value must be a URL. Validation is done on server and must return json. example { "isUnique": "true" }
-  - isUniqueMapData = options.mapData         || null  // Maps json data to isUnique url. example isUnique="test.json?param:value" isUniqueMapData="{value=true}"
+  - isUnique        = options.isUnique    || null  // Async Validation. Value must be a URL. Validation is done on server and must return json. example { "isUnique": "true" }
+  - isUniqueMapData = options.mapData     || null  // Maps json data to isUnique url. example isUnique="test.json?param:value" isUniqueMapData="{value=true}"
 
   - ngRequired  = options.ngRequired  || 'true' // Sets required attribute if set to true
   - ngRequired  = ngRequired=='false' ? null : 'true'
@@ -42,8 +42,31 @@ mixin form-control(options)
       ng-model='$parent.'+name,
 
       ui-select2=select2,
-      data-ui-select2-query=(type=='select2'?'test-group.json?limit=:limit&exercise=:exercise':null),
-      data-query-map-data=(type=='select2'?'{}':null),
+      data-ui-select2-query=  (type=='select2-input'?'http://www.weighttraining.com/api/v2/sm/search?types%5B%5D=:type&term=:value&limit=:limit':null),
+      data-query-map-data=    (type=='select2-input'?"{type: 'exercise', limit: -1}":null),
+
+      data-query-data-type=                   (type=='select2-input'?"jsonp":null),
+      data-query-results-array-path=          (type=='select2-input'?"results.exercise":null),
+      data-query-result-text=                 (type=='select2-input'?"term":null),
+      data-query-result-id=                   (type=='select2-input'?"id":null),
+      data-query-result-child-text=           (type=='select2-input'?"text":null),
+      data-query-result-child-id=             (type=='select2-input'?"id":null),
+      data-query-result-children-path=        (type=='select2-input'?"countries":null),
+      data-query-result-is-parent-selectable= (type=='select2-input'?"false":null),
+
+      data-allow-clear=                       (type=='select2-input'?"true":null),
+      data-quiet-millis=                      (type=='select2-input'?"500":null),
+      data-minimum-input-length=              (type=='select2-input'?"3":null),
+      data-maximum-input-length=              (type=='select2-input'?"50":null),
+      data-maximum-selection-size=            (type=='select2-input'?"3":null),
+
+      data-query-init-message=                (type=='select2-input'?"Πληκτρολογήστε στο πεδίο για αναζήτηση":null),
+      data-query-no-matches-message=          (type=='select2-input'?"Δεν βρέθηκαν αποτελέσματα":null),
+      data-query-too-short-message=           (type=='select2-input'?"Το μήνυμα είναι πολύ μικρό":null),
+      data-query-too-long-message=            (type=='select2-input'?"Το μήνυμα είναι πολύ μεγάλο":null),
+      data-query-selection-too-big-message=   (type=='select2-input'?"Δεν μπορείτε να επιλέξετε άλλη λέξη":null),
+      data-query-load-more-message=           (type=='select2-input'?"Περισσότερα":null),
+      data-query-searching-message=           (type=='select2-input'?"Αναζήτηση...":null),
 
       is-unique=isUnique,
       is-unique-map-data=isUniqueMapData,
