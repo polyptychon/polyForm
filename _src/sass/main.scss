@@ -1,6 +1,6 @@
 @import "angular-csp";
-@import "../../node_modules/bootstrap/assets/stylesheets/bootstrap";
 @import "select2";
+@import "../../node_modules/bootstrap/assets/stylesheets/bootstrap";
 @import "select2-bootstrap";
 @import "datepicker3";
 @import "spinner";
@@ -103,12 +103,11 @@
       height: 31px;
     }
     .select2-default {
-      color: #CDCDCD !important;
+      color: $input-color-placeholder !important;
       text-shadow: none !important;
     }
     .select2-default .select2-chosen {
-      color: #999;
-      opacity: .45;
+      color: $input-color-placeholder !important;
     }
 
     input {
@@ -165,7 +164,7 @@ h1.form-container-header {
 }
 
 .form-container {
-  background: #ffefe8;
+  background: $gray-lighter;
   padding: 20px 20px;
   padding-top: 80px;
   margin-bottom: 40px;
