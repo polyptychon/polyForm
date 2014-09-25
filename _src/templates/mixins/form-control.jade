@@ -15,6 +15,8 @@ mixin form-control(options)
   - isUniqueMapData = options.mapData         || null  // Maps json data to isUnique url. example isUnique="test.json?param:value" isUniqueMapData="{value=true}"
 
   - ngRequired  = options.ngRequired  || 'true' // Sets required attribute if set to true
+  - ngRequired  = ngRequired=='false' ? null : 'true'
+
   - ngMinlength = options.ngMinlength || null   // Sets minlength validation error key if the value is shorter than minlength.
   - ngMaxlength = options.ngMaxlength || null   // Sets maxlength validation error key if the value is longer than maxlength.
   - ngPattern   = options.ngPattern   || null   // Sets pattern validation error key if the value does not match the RegExp pattern expression. Expected value is /regexp/ for inline patterns or regexp for patterns defined as scope expressions.
