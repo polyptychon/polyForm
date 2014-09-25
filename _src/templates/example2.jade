@@ -27,4 +27,27 @@ html(ng-app="PolyForm")
               valid-icon
               error-message(class="ng-required") Παρακαλώ συμπληρώστε το πεδίο
 
+            form-control.col-md-12
+              label(for="postcodeInput") Select2 example 2 *
+              input(ui-select2="postcode.uiSelect2QueryData",
+                id="testInput" name="postcode",
+
+                data-placeholder="please enter a value",
+                data-allow-clear="true",
+                data-ui-select2-query="http://www.weighttraining.com/api/v2/sm/search?types%5B%5D=:type&term=:value&limit=:limit",
+                data-query-map-data="{type: 'exercise', limit: -1}",
+
+                data-query-data-type="jsonp",
+                data-query-results-array-path="results.exercise",
+                data-query-result-text="term",
+                data-query-result-id="id",
+
+                class="form-control",
+                ng-model="form.test",
+                ng-required="true")
+
+              loader-icon.loader
+              valid-icon
+              error-message(class="ng-required") Παρακαλώ συμπληρώστε το πεδίο
+
     include partials/footer

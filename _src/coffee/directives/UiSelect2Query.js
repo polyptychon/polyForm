@@ -9,10 +9,6 @@
   module.exports = function($timeout, $http) {
     return {
       restrict: 'A',
-      scope: {
-        isUniqueQuietMillis: '@',
-        isUniqueMapData: '@'
-      },
       link: function(scope, elm, attrs) {
         var callback, getData, inputValue, items, maximumInputLength, maximumSelectionSize, minimumInputLength, multiple, quietMillis, timeoutPromise, updateData;
         multiple = attrs.multiple === "true" || attrs.ngMultiple === "true";
@@ -76,7 +72,8 @@
           },
           formatInitMessage: function() {
             return attrs.queryInitMessage || "Πληκτρολογήστε στο πεδίο για αναζήτηση";
-          }
+          },
+          initSelection: function(element, callback) {}
         };
         elm.on("select2-opening", function() {
           $(".select2-drop .select2-results li.select2-no-results").text(scope[attrs.name].uiSelect2QueryData.formatInitMessage());
@@ -113,7 +110,11 @@
                 url = url.replace(/\?/gi, "?callback=JSON_CALLBACK&");
               }
             }
-            $http.jsonp(url).success(onSuccess).error(onError);
+            $http.jsonp(url).success(function(response) {
+              return onSuccess(response);
+            }).error(function() {
+              return onError();
+            });
           } else {
             $http.get(url).success(onSuccess).error(onError);
           }

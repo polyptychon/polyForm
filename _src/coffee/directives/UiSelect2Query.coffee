@@ -3,9 +3,6 @@ formatStringURL = require "../utils/FormatStringURL.coffee"
 
 module.exports = ($timeout, $http) ->
   restrict: 'A'
-  scope:
-    isUniqueQuietMillis: '@'
-    isUniqueMapData: '@'
   link: (scope, elm, attrs) ->
     multiple = attrs.multiple == "true" || attrs.ngMultiple == "true";
     minimumInputLength = if (typeof attrs.minimumInputLength != "undefined" && !isNaN(attrs.minimumInputLength)) then attrs.minimumInputLength else 3
@@ -57,6 +54,7 @@ module.exports = ($timeout, $http) ->
         attrs.querySearchingMessage || "Αναζήτηση…"
       formatInitMessage: () ->
         attrs.queryInitMessage || "Πληκτρολογήστε στο πεδίο για αναζήτηση"
+      initSelection: (element, callback) ->
 
     elm.on("select2-opening", () ->
       $(".select2-drop .select2-results li.select2-no-results").text(scope[attrs.name].uiSelect2QueryData.formatInitMessage())
@@ -81,6 +79,7 @@ module.exports = ($timeout, $http) ->
       url = attrs.uiSelect2Query
       obj = if (typeof attrs.queryMapData != "undefined") then scope.$eval(attrs.queryMapData) else {}
       obj.value = val
+
       url = formatStringURL(url, obj)
       dataType = attrs.queryDataType || "json"
 
@@ -90,7 +89,12 @@ module.exports = ($timeout, $http) ->
         else
           if (url.indexOf("callback=JSON_CALLBACK") < 0)
             url = url.replace(/\?/gi, "?callback=JSON_CALLBACK&")
-        $http.jsonp(url).success(onSuccess).error(onError);
+        $http.jsonp(url).success((response) ->
+          onSuccess response
+        ).error(() ->
+          onError()
+        )
+#
       else
         $http.get(url).success(onSuccess).error(onError);
 
@@ -101,6 +105,7 @@ module.exports = ($timeout, $http) ->
         callback(data) if (callback)
 
       onSuccess = (response) ->
+
         elm.parent().removeClass("ng-loading");
         data = { results: [] }
         loadedItems = response
@@ -114,7 +119,6 @@ module.exports = ($timeout, $http) ->
         childrenPath = "children"
         isParentSelectable = false
 
-
         childId = id = attrs.queryResultId if (typeof attrs.queryResultId != "undefined")
         childText = text = attrs.queryResultText if (typeof attrs.queryResultText != "undefined")
         childId = attrs.queryResultChildId if (typeof attrs.queryResultChildId != "undefined")
@@ -123,7 +127,6 @@ module.exports = ($timeout, $http) ->
         isParentSelectable = attrs.queryResultIsParentSelectable == "true" if (typeof attrs.queryResultIsParentSelectable != "undefined")
 
         angular.forEach(loadedItems, (item, key) ->
-
           if (item[childrenPath] && Array.isArray(item[childrenPath]))
             item.children = []
             angular.forEach(item[childrenPath], (childItem, key) ->
@@ -140,7 +143,7 @@ module.exports = ($timeout, $http) ->
           data.results.push(item)
         )
 
-        items = data;
+        items = data
         callback(data) if (callback)
 
 
