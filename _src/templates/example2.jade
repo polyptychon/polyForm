@@ -7,7 +7,11 @@ html(ng-app="PolyForm")
       form(name="myform", ng-cloak="true")
         form-tabs
           form-tab(tab-title="Select2")
-            +form-control({name:'email',label:'Email',type:'select2-input'})
-            +form-control({name:'gender',label:'Gender',type:'select2',select2Data:['male', 'female'],allowClear:'true'})
+            .row
+              .col-md-12
+                +form-control({name:'popover',label:'popover',popover: 'Παρακαλώ συμπληρώστε το πεδίο'})
+                +form-control({name:'select2Input',label:'select2Input',type:'select2-input'})
+              .col-md-12
+                +form-control({name:'select2',label:'select2',type:'select2',select2Data:['male', 'female'],allowClear:'true'})
 
     include partials/footer
