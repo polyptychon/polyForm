@@ -8,6 +8,7 @@ mixin form-control(options)
   - autocomplete  = options.autocomplete  || name
   - type          = options.type          || 'text'
   - popover       = options.popover       || null
+  - select2Data   = options.select2Data   || null
 
   - select2Input       = type=='select2-input' ? name+'.uiSelect2QueryData' : null
 
@@ -56,48 +57,66 @@ mixin form-control(options)
 
   form-control(class=className)
     label(for=name+'Input')=label
-    input.form-control(
-      id= name+'Input',
-      name=name,
-      autocomplete=autocomplete,
-      type=(type=='select2'?null:type),
-      placeholder=placeholder,
-      ng-model='$parent.'+name,
+    if type=="select2" && select2Data
+      select(
+        ui-select2="{ allowClear: '"+(allowClear || false)+"' }",
+        id=name+'Select',
+        data-placeholder=placeholder,
+        class="form-control",
+        ng-model='$parent.'+name,
+        ng-required=ngRequired,
+        ng-change=ngChange,
+        ng-trim=ngTrim
+      )
+        each val, index in select2Data
+          if typeof val == 'string'
+            option(value=val)= val
+          else
+            option(value=val.value)= val.label
 
-      ui-select2= select2Input,
-      data-ui-select2-query=                  ( select2Input ? uiSelect2Query ? uiSelect2Query : 'http://www.weighttraining.com/api/v2/sm/search?types%5B%5D=:type&term=:value&limit=:limit':null),
-      data-query-map-data=                    ( select2Input ? queryMapData ? queryMapData : "{type: 'exercise', limit: -1}":null),
-      data-query-data-type=                   ( select2Input ? queryDataType ? queryDataType : "jsonp":null),
-      data-query-results-array-path=          ( select2Input ? queryResultsArrayPath ? queryResultsArrayPath : "results.exercise":null),
-      data-query-result-text=                 ( select2Input ? queryResultText ? queryResultText : "term":null),
-      data-query-result-id=                   ( select2Input ? queryResultId ? queryResultId : "id":null),
-      data-query-result-child-text=           ( select2Input ? queryResultChildText ? queryResultChildText : "text":null),
-      data-query-result-child-id=             ( select2Input ? queryResultChildId ? queryResultChildId : "id":null),
-      data-query-result-children-path=        ( select2Input ? queryResultChildrenPath ? queryResultChildrenPath : "countries":null),
-      data-query-result-is-parent-selectable= ( select2Input ? queryResultIsParentSelectable ? queryResultIsParentSelectable : "false":null),
-      data-allow-clear=                       ( select2Input ? allowClear ? allowClear : "true":null),
-      data-quiet-millis=                      ( select2Input ? quietMillis ? quietMillis : "500":null),
-      data-minimum-input-length=              ( select2Input ? minimumInputLength ? minimumInputLength : "3":null),
-      data-maximum-input-length=              ( select2Input ? maximumInputLength ? maximumInputLength : "50":null),
-      data-maximum-selection-size=            ( select2Input ? maximumSelectionSize ? maximumSelectionSize : "3":null),
-      data-query-init-message=                ( select2Input && queryInitMessage ? queryInitMessage :null),
-      data-query-no-matches-message=          ( select2Input && queryNoMatchesMessage ? queryNoMatchesMessage:null),
-      data-query-too-short-message=           ( select2Input && queryTooShortMessage ? queryTooShortMessage:null),
-      data-query-too-long-message=            ( select2Input && queryTooLongMessage? queryTooLongMessage:null),
-      data-query-selection-too-big-message=   ( select2Input && querySelectionTooBigMessage ? querySelectionTooBigMessage:null),
-      data-query-load-more-message=           ( select2Input && queryLoadMoreMessage ? queryLoadMoreMessage :null),
-      data-query-searching-message=           ( select2Input && querySearchingMessage ? querySearchingMessage:null),
+    else
+      input.form-control(
+        id= name+'Input',
+        name=name,
+        autocomplete=autocomplete,
+        type=(type=='select2'?null:type),
+        placeholder=placeholder,
+        ng-model='$parent.'+name,
 
-      is-unique=isUnique,
-      is-unique-map-data=isUniqueMapData,
+        ui-select2= select2Input,
+        data-ui-select2-query=                  ( select2Input ? uiSelect2Query ? uiSelect2Query : 'http://www.weighttraining.com/api/v2/sm/search?types%5B%5D=:type&term=:value&limit=:limit':null),
+        data-query-map-data=                    ( select2Input ? queryMapData ? queryMapData : "{type: 'exercise', limit: -1}":null),
+        data-query-data-type=                   ( select2Input ? queryDataType ? queryDataType : "jsonp":null),
+        data-query-results-array-path=          ( select2Input ? queryResultsArrayPath ? queryResultsArrayPath : "results.exercise":null),
+        data-query-result-text=                 ( select2Input ? queryResultText ? queryResultText : "term":null),
+        data-query-result-id=                   ( select2Input ? queryResultId ? queryResultId : "id":null),
+        data-query-result-child-text=           ( select2Input ? queryResultChildText ? queryResultChildText : "text":null),
+        data-query-result-child-id=             ( select2Input ? queryResultChildId ? queryResultChildId : "id":null),
+        data-query-result-children-path=        ( select2Input ? queryResultChildrenPath ? queryResultChildrenPath : "countries":null),
+        data-query-result-is-parent-selectable= ( select2Input ? queryResultIsParentSelectable ? queryResultIsParentSelectable : "false":null),
+        data-allow-clear=                       ( select2Input ? allowClear ? allowClear : "true":null),
+        data-quiet-millis=                      ( select2Input ? quietMillis ? quietMillis : "500":null),
+        data-minimum-input-length=              ( select2Input ? minimumInputLength ? minimumInputLength : "3":null),
+        data-maximum-input-length=              ( select2Input ? maximumInputLength ? maximumInputLength : "50":null),
+        data-maximum-selection-size=            ( select2Input ? maximumSelectionSize ? maximumSelectionSize : "3":null),
+        data-query-init-message=                ( select2Input && queryInitMessage ? queryInitMessage :null),
+        data-query-no-matches-message=          ( select2Input && queryNoMatchesMessage ? queryNoMatchesMessage:null),
+        data-query-too-short-message=           ( select2Input && queryTooShortMessage ? queryTooShortMessage:null),
+        data-query-too-long-message=            ( select2Input && queryTooLongMessage? queryTooLongMessage:null),
+        data-query-selection-too-big-message=   ( select2Input && querySelectionTooBigMessage ? querySelectionTooBigMessage:null),
+        data-query-load-more-message=           ( select2Input && queryLoadMoreMessage ? queryLoadMoreMessage :null),
+        data-query-searching-message=           ( select2Input && querySearchingMessage ? querySearchingMessage:null),
 
-      ng-required=ngRequired,
-      ng-minlength=ngMinlength,
-      ng-maxlength=ngMaxlength,
-      ng-pattern=ngPattern,
-      ng-change=ngChange,
-      ng-trim=ngTrim
-    )
+        is-unique=isUnique,
+        is-unique-map-data=isUniqueMapData,
+
+        ng-required=ngRequired,
+        ng-minlength=ngMinlength,
+        ng-maxlength=ngMaxlength,
+        ng-pattern=ngPattern,
+        ng-change=ngChange,
+        ng-trim=ngTrim
+      )
 
     valid-icon
     loader-icon
