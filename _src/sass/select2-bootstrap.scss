@@ -33,7 +33,9 @@ $baseFontSize: 14px !default;
 .select2-container-multi .select2-choices {
   height: $baseLineHeight + 8px;
   line-height: $baseLineHeight + 9px;
-  border: 1px solid $inputBorder;
+  //border: 1px solid $inputBorder;
+  border: none;
+  padding-top: 1px;
   @include border-radius($inputBorderRadius);
   background: none;
   background-color: $inputBackground;
@@ -47,6 +49,7 @@ $baseFontSize: 14px !default;
     border-left: none;
     background: none;
     filter: none;
+    top: 1px;
   }
 }
 
