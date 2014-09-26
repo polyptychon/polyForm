@@ -4,7 +4,7 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     prefix = require('gulp-autoprefixer'),
     csso = require('gulp-csso'),
-    imagemin = require('gulp-imagemin'),
+    //imagemin = require('gulp-imagemin'),
     browserify = require('browserify'),
     concat = require('gulp-concat'),
     sourcemaps = require('gulp-sourcemaps'),
@@ -134,21 +134,21 @@ gulp.task('clean-css', function() {
   gulp.src(getOutputDir()+ASSETS+'/css', { read: false })
     .pipe(gulpif(env === PRODUCTION, clean()))
 });
-gulp.task('images',['clean-images'], function() {
-  return gulp.src([MOCKUPS+'/{images,sprite}/*.{jpg,png,gif}'])
-    .pipe(imagemin({
-      progressive: true
-    }))
-    .pipe(flatten())
-    .pipe(gulpif(env === PRODUCTION, rev()))
-    .pipe(gulp.dest(getOutputDir()+ASSETS+'/images'))
-    .pipe(gulpif(env === PRODUCTION, rev.manifest()))
-    .pipe(gulpif(env === PRODUCTION, gulp.dest(BUILD+'/rev/images')))
-});
-gulp.task('clean-images', function() {
-  gulp.src(getOutputDir()+ASSETS+'/images', { read: false })
-    .pipe(gulpif(env === PRODUCTION, clean()))
-});
+//gulp.task('images',['clean-images'], function() {
+//  return gulp.src([MOCKUPS+'/{images,sprite}/*.{jpg,png,gif}'])
+//    .pipe(imagemin({
+//      progressive: true
+//    }))
+//    .pipe(flatten())
+//    .pipe(gulpif(env === PRODUCTION, rev()))
+//    .pipe(gulp.dest(getOutputDir()+ASSETS+'/images'))
+//    .pipe(gulpif(env === PRODUCTION, rev.manifest()))
+//    .pipe(gulpif(env === PRODUCTION, gulp.dest(BUILD+'/rev/images')))
+//});
+//gulp.task('clean-images', function() {
+//  gulp.src(getOutputDir()+ASSETS+'/images', { read: false })
+//    .pipe(gulpif(env === PRODUCTION, clean()))
+//});
 gulp.task('fonts', function() {
   return gulp.src(['node_modules/bootstrap/assets/fonts/**', MOCKUPS+"/fonts/*"])
     .pipe(gulp.dest(getOutputDir()+ASSETS+'/fonts'));
