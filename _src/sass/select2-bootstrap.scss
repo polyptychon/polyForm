@@ -61,6 +61,7 @@ $baseFontSize: 14px !default;
 
 .select2-drop.select2-drop-active {
   border-color: rgba(82, 168, 236, 0.8);
+  margin-top: -2px;
 }
 .select2-container-active .select2-choice,
 .select2-container-multi.select2-container-active .select2-choices {
