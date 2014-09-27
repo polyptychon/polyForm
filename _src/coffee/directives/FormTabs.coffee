@@ -26,7 +26,7 @@ module.exports = () ->
 
     $scope.select = (pane) ->
       $scope.$parent.selectFormTabIndex = $scope.getPaneIndex(pane);
-      return if (typeof pane == "undefined")
+      return unless (pane?)
       angular.forEach(panes, (pane) ->
         pane.selected = false
       )
@@ -34,7 +34,7 @@ module.exports = () ->
       pane.selected = true
 
     $scope.getPaneIndex = @getPaneIndex = (currentPane) ->
-      return -1 if (currentPane == null)
+      return -1 unless (currentPane?)
       for pane,index in panes
         if (pane == currentPane)
           return index;
@@ -63,7 +63,7 @@ module.exports = () ->
 
 
     @removePane = (current_pane) ->
-      return false if (!pane)
+      return false unless (pane?)
 
       for pane,index in panes
         if (pane == current_pane)

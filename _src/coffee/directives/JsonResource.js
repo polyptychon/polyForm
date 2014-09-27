@@ -14,11 +14,11 @@
       link: function(scope, elm, attrs) {
         var load, maximumInputLength, minimumInputLength, quietMillis, timeoutPromise;
         timeoutPromise = null;
-        minimumInputLength = typeof attrs.minimumInputLength !== "undefined" && !isNaN(attrs.minimumInputLength) ? attrs.minimumInputLength : 3;
-        maximumInputLength = typeof attrs.maximumInputLength !== "undefined" && !isNaN(attrs.maximumInputLength) ? attrs.maximumInputLength : null;
-        quietMillis = typeof attrs.quietMillis !== "undefined" && !isNaN(attrs.quietMillis) ? attrs.quietMillis : 500;
+        minimumInputLength = (attrs.minimumInputLength != null) && !isNaN(attrs.minimumInputLength) ? attrs.minimumInputLength : 3;
+        maximumInputLength = (attrs.maximumInputLength != null) && !isNaN(attrs.maximumInputLength) ? attrs.maximumInputLength : null;
+        quietMillis = (attrs.quietMillis != null) && !isNaN(attrs.quietMillis) ? attrs.quietMillis : 500;
         attrs.$observe("updateOnModelChange", function(newValue, oldValue) {
-          if (typeof newValue === "undefined" || newValue === oldValue) {
+          if ((newValue == null) || newValue === oldValue) {
             return;
           }
           $timeout.cancel(timeoutPromise);
@@ -31,7 +31,7 @@
         return load = function() {
           var dataType, onError, onSuccess, url;
           url = mapDataToURL(attrs.path, attrs.mapData, scope);
-          if (typeof url === "undefined" || url === "") {
+          if ((url == null) || url === "") {
             elm.parent().removeClass("ng-loading");
             return;
           }
@@ -45,7 +45,11 @@
                 url = url.replace(/\?/gi, "?callback=JSON_CALLBACK&");
               }
             }
-            $http.jsonp(url).success(onSuccess).error(onError);
+            $http.jsonp(url).success(function(response) {
+              return onSuccess(response);
+            }).error(function() {
+              return onError();
+            });
           } else {
             $http.get(url).success(onSuccess).error(onError);
           }

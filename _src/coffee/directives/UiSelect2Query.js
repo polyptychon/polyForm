@@ -12,10 +12,10 @@
       link: function(scope, elm, attrs) {
         var callback, getData, inputValue, items, maximumInputLength, maximumSelectionSize, minimumInputLength, multiple, quietMillis, timeoutPromise, updateData;
         multiple = attrs.multiple === "true" || attrs.ngMultiple === "true";
-        minimumInputLength = typeof attrs.minimumInputLength !== "undefined" && !isNaN(attrs.minimumInputLength) ? attrs.minimumInputLength : 3;
-        maximumInputLength = typeof attrs.maximumInputLength !== "undefined" && !isNaN(attrs.maximumInputLength) ? attrs.maximumInputLength : null;
-        maximumSelectionSize = typeof attrs.maximumSelectionSize !== "undefined" && !isNaN(attrs.maximumSelectionSize) ? attrs.maximumSelectionSize : null;
-        quietMillis = typeof attrs.quietMillis !== "undefined" && !isNaN(attrs.quietMillis) ? attrs.quietMillis : 500;
+        minimumInputLength = (attrs.minimumInputLength != null) && !isNaN(attrs.minimumInputLength) ? attrs.minimumInputLength : 3;
+        maximumInputLength = (attrs.maximumInputLength != null) && !isNaN(attrs.maximumInputLength) ? attrs.maximumInputLength : null;
+        maximumSelectionSize = (attrs.maximumSelectionSize != null) && !isNaN(attrs.maximumSelectionSize) ? attrs.maximumSelectionSize : null;
+        quietMillis = (attrs.quietMillis != null) && !isNaN(attrs.quietMillis) ? attrs.quietMillis : 500;
         items = [];
         inputValue = "";
         timeoutPromise = null;
@@ -98,7 +98,7 @@
         return getData = function(val) {
           var dataType, obj, onError, onSuccess, url;
           url = attrs.uiSelect2Query;
-          obj = typeof attrs.queryMapData !== "undefined" ? scope.$eval(attrs.queryMapData) : {};
+          obj = (attrs.queryMapData != null) ? scope.$eval(attrs.queryMapData) : {};
           obj.value = val;
           url = formatStringURL(url, obj);
           dataType = attrs.queryDataType || "json";
@@ -136,8 +136,15 @@
             };
             loadedItems = response;
             arrayPath = attrs.queryResultsArrayPath;
-            if (typeof arrayPath !== "undefined" && arrayPath !== "") {
+            if ((arrayPath != null) && arrayPath !== "") {
               loadedItems = eval("loadedItems." + arrayPath);
+            }
+            if (loadedItems == null) {
+              items = [];
+              if (callback) {
+                callback(data);
+              }
+              return;
             }
             id = "id";
             text = "text";
@@ -145,26 +152,26 @@
             childText = "text";
             childrenPath = "children";
             isParentSelectable = false;
-            if (typeof attrs.queryResultId !== "undefined") {
+            if ((attrs.queryResultId != null)) {
               childId = id = attrs.queryResultId;
             }
-            if (typeof attrs.queryResultText !== "undefined") {
+            if ((attrs.queryResultText != null)) {
               childText = text = attrs.queryResultText;
             }
-            if (typeof attrs.queryResultChildId !== "undefined") {
+            if ((attrs.queryResultChildId != null)) {
               childId = attrs.queryResultChildId;
             }
-            if (typeof attrs.queryResultChildText !== "undefined") {
+            if ((attrs.queryResultChildText != null)) {
               childText = attrs.queryResultChildText;
             }
-            if (typeof attrs.queryResultChildrenPath !== "undefined") {
+            if ((attrs.queryResultChildrenPath != null)) {
               childrenPath = attrs.queryResultChildrenPath;
             }
-            if (typeof attrs.queryResultIsParentSelectable !== "undefined") {
+            if ((attrs.queryResultIsParentSelectable != null)) {
               isParentSelectable = attrs.queryResultIsParentSelectable === "true";
             }
             angular.forEach(loadedItems, function(item, key) {
-              if (item[childrenPath] && Array.isArray(item[childrenPath])) {
+              if ((item[childrenPath] != null) && Array.isArray(item[childrenPath])) {
                 item.children = [];
                 angular.forEach(item[childrenPath], function(childItem, key) {
                   childItem.id = childItem[childId];

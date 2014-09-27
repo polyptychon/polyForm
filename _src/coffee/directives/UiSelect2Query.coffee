@@ -5,10 +5,10 @@ module.exports = ($timeout, $http) ->
   restrict: 'A'
   link: (scope, elm, attrs) ->
     multiple = attrs.multiple == "true" || attrs.ngMultiple == "true";
-    minimumInputLength = if (typeof attrs.minimumInputLength != "undefined" && !isNaN(attrs.minimumInputLength)) then attrs.minimumInputLength else 3
-    maximumInputLength = if (typeof attrs.maximumInputLength != "undefined" && !isNaN(attrs.maximumInputLength)) then attrs.maximumInputLength else null
-    maximumSelectionSize = if (typeof attrs.maximumSelectionSize != "undefined" && !isNaN(attrs.maximumSelectionSize)) then attrs.maximumSelectionSize else null
-    quietMillis = if (typeof attrs.quietMillis != "undefined" && !isNaN(attrs.quietMillis)) then attrs.quietMillis else 500
+    minimumInputLength = if (attrs.minimumInputLength? && !isNaN(attrs.minimumInputLength)) then attrs.minimumInputLength else 3
+    maximumInputLength = if (attrs.maximumInputLength? && !isNaN(attrs.maximumInputLength)) then attrs.maximumInputLength else null
+    maximumSelectionSize = if (attrs.maximumSelectionSize? && !isNaN(attrs.maximumSelectionSize)) then attrs.maximumSelectionSize else null
+    quietMillis = if (attrs.quietMillis? && !isNaN(attrs.quietMillis)) then attrs.quietMillis else 500
 
     items = []
     inputValue = ""
@@ -77,7 +77,7 @@ module.exports = ($timeout, $http) ->
 
     getData = (val) ->
       url = attrs.uiSelect2Query
-      obj = if (typeof attrs.queryMapData != "undefined") then scope.$eval(attrs.queryMapData) else {}
+      obj = if (attrs.queryMapData?) then scope.$eval(attrs.queryMapData) else {}
       obj.value = val
 
       url = formatStringURL(url, obj)
@@ -89,6 +89,7 @@ module.exports = ($timeout, $http) ->
         else
           if (url.indexOf("callback=JSON_CALLBACK") < 0)
             url = url.replace(/\?/gi, "?callback=JSON_CALLBACK&")
+
         $http.jsonp(url).success((response) ->
           onSuccess response
         ).error(() ->
@@ -110,7 +111,12 @@ module.exports = ($timeout, $http) ->
         data = { results: [] }
         loadedItems = response
         arrayPath = attrs.queryResultsArrayPath
-        loadedItems = eval("loadedItems." + arrayPath) if (typeof arrayPath != "undefined" && arrayPath != "")
+        loadedItems = eval("loadedItems." + arrayPath) if (arrayPath? && arrayPath != "")
+        if (!loadedItems?)
+          items = []
+          callback(data) if (callback)
+          return
+
 
         id = "id"
         text = "text"
@@ -119,15 +125,15 @@ module.exports = ($timeout, $http) ->
         childrenPath = "children"
         isParentSelectable = false
 
-        childId = id = attrs.queryResultId if (typeof attrs.queryResultId != "undefined")
-        childText = text = attrs.queryResultText if (typeof attrs.queryResultText != "undefined")
-        childId = attrs.queryResultChildId if (typeof attrs.queryResultChildId != "undefined")
-        childText = attrs.queryResultChildText if (typeof attrs.queryResultChildText != "undefined")
-        childrenPath = attrs.queryResultChildrenPath if (typeof attrs.queryResultChildrenPath != "undefined")
-        isParentSelectable = attrs.queryResultIsParentSelectable == "true" if (typeof attrs.queryResultIsParentSelectable != "undefined")
+        childId = id = attrs.queryResultId if (attrs.queryResultId?)
+        childText = text = attrs.queryResultText if (attrs.queryResultText?)
+        childId = attrs.queryResultChildId if (attrs.queryResultChildId?)
+        childText = attrs.queryResultChildText if (attrs.queryResultChildText?)
+        childrenPath = attrs.queryResultChildrenPath if (attrs.queryResultChildrenPath?)
+        isParentSelectable = attrs.queryResultIsParentSelectable == "true" if (attrs.queryResultIsParentSelectable?)
 
         angular.forEach(loadedItems, (item, key) ->
-          if (item[childrenPath] && Array.isArray(item[childrenPath]))
+          if (item[childrenPath]? && Array.isArray(item[childrenPath]))
             item.children = []
             angular.forEach(item[childrenPath], (childItem, key) ->
               childItem.id = childItem[childId]

@@ -7,12 +7,12 @@ module.exports = ($timeout, $http) ->
     isUniqueMapData: '@'
   link: (scope, elm, attrs) ->
     timeoutPromise = null
-    minimumInputLength = if (typeof attrs.minimumInputLength != "undefined" && !isNaN(attrs.minimumInputLength)) then attrs.minimumInputLength else 3
-    maximumInputLength = if (typeof attrs.maximumInputLength != "undefined" && !isNaN(attrs.maximumInputLength)) then attrs.maximumInputLength else null
-    quietMillis = if (typeof attrs.quietMillis != "undefined" && !isNaN(attrs.quietMillis)) then attrs.quietMillis else 500
+    minimumInputLength = if (attrs.minimumInputLength? && !isNaN(attrs.minimumInputLength)) then attrs.minimumInputLength else 3
+    maximumInputLength = if (attrs.maximumInputLength? && !isNaN(attrs.maximumInputLength)) then attrs.maximumInputLength else null
+    quietMillis = if (attrs.quietMillis? && !isNaN(attrs.quietMillis)) then attrs.quietMillis else 500
 
     attrs.$observe("updateOnModelChange", (newValue, oldValue) ->
-      return if (typeof newValue == "undefined" || newValue == oldValue)
+      return if (!newValue? || newValue == oldValue)
       $timeout.cancel(timeoutPromise)
       timeoutPromise = $timeout(
         () ->
@@ -23,7 +23,7 @@ module.exports = ($timeout, $http) ->
 
     load = () ->
       url = mapDataToURL(attrs.path, attrs.mapData, scope)
-      if (typeof url=="undefined" || url=="")
+      if (!url? || url=="")
         elm.parent().removeClass("ng-loading");
         return
       elm.parent().addClass("ng-loading");
@@ -36,7 +36,11 @@ module.exports = ($timeout, $http) ->
           if (url.indexOf("callback=JSON_CALLBACK") < 0)
             url = url.replace(/\?/gi, "?callback=JSON_CALLBACK&")
 
-        $http.jsonp(url).success(onSuccess).error(onError)
+        $http.jsonp(url).success((response) ->
+          onSuccess(response)
+        ).error(() ->
+          onError()
+        )
       else
         $http.get(url).success(onSuccess).error(onError)
 

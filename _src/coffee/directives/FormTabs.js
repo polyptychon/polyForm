@@ -21,7 +21,7 @@
         });
         $scope.select = function(pane) {
           $scope.$parent.selectFormTabIndex = $scope.getPaneIndex(pane);
-          if (typeof pane === "undefined") {
+          if (!(pane != null)) {
             return;
           }
           angular.forEach(panes, function(pane) {
@@ -32,7 +32,7 @@
         };
         $scope.getPaneIndex = this.getPaneIndex = function(currentPane) {
           var index, pane, _i, _len;
-          if (currentPane === null) {
+          if (!(currentPane != null)) {
             return -1;
           }
           for (index = _i = 0, _len = panes.length; _i < _len; index = ++_i) {
@@ -70,7 +70,7 @@
         };
         return this.removePane = function(current_pane) {
           var index, pane, _i, _len;
-          if (!pane) {
+          if (!(typeof pane !== "undefined" && pane !== null)) {
             return false;
           }
           for (index = _i = 0, _len = panes.length; _i < _len; index = ++_i) {

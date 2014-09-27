@@ -27,7 +27,7 @@ module.exports = ($timeout, $http) ->
         $timeout.cancel(timeoutPromise)
         elm.removeClass("ng-is-unique-error-loading")
 
-        if (typeof newValue == "undefined" || newValue.length < 2 || attrs.isUnique == "" || attrs.isUnique.length < 2)
+        if (!newValue? || newValue.length < 2 || attrs.isUnique == "" || attrs.isUnique.length < 2)
           elm.removeClass("ng-is-unique-loading")
           elm.removeClass("ng-loading")
           return
