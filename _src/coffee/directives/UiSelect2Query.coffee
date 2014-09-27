@@ -145,10 +145,3 @@ module.exports = ($timeout, $http) ->
 
         items = data
         callback(data) if (callback)
-
-
-
-
-
-
-

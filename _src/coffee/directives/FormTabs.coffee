@@ -70,4 +70,3 @@ module.exports = () ->
           current_pane.disabled = true
           panes.splice(index, 1)
           return true
-

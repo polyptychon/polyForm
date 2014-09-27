@@ -48,5 +48,3 @@ module.exports = ($timeout, $http) ->
       onError = () ->
         elm.parent().removeClass("ng-loading");
         scope[attrs.variable] = {};
-
-
