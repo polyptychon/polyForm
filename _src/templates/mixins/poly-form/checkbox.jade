@@ -1,0 +1,26 @@
+include form-input
+
+mixin checkbox(options)
+  - options       = options               || {}
+
+  - className     = options.class         || 'col-md-6'
+  - inputClass    = options.inputClass    || 'form-control'
+  - radioClass    = options.radioClass    || 'radio-inline'
+  - name          = options.name          || 'control'
+  - label         = options.label         || 'Ετικέτα'
+  - placeholder   = options.placeholder   || label
+  - autocomplete  = options.autocomplete  || name
+  - type          = options.type          || 'text'
+  - radioValues   = options.radioValues   || null
+  - popover       = options.popover       || null
+
+  - options.inputClass = 'form-input'
+  - options.ngRequired = 'false'
+
+  .row
+    //.col-md-12.form-control(style='opacity:0;')
+    div(class=className)
+      label
+        .input-group
+          +form-input(options)
+          = ' ' + label

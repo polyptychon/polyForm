@@ -1,16 +1,22 @@
 include form-input
 include date-input
 include select2
+include checkbox
+include radio-group
 include validation-messages
+
 mixin form-control(options)
   - options       = options               || {}
 
   - className     = options.class         || 'col-md-6'
+  - inputClass    = options.inputClass    || 'form-control'
+  - radioClass    = options.radioClass    || 'radio-inline'
   - name          = options.name          || 'control'
   - label         = options.label         || 'Ετικέτα'
   - placeholder   = options.placeholder   || label
   - autocomplete  = options.autocomplete  || name
   - type          = options.type          || 'text'
+  - radioValues   = options.radioValues   || null
   - popover       = options.popover       || null
 
   - multidate           = options.multidate           || null
@@ -70,28 +76,25 @@ mixin form-control(options)
   - ngPatternMessage    = options.ngPatternMessage    || 'Παρακαλώ συμπληρώστε το πεδίο σωστά!'
 
   form-control(class=className)
-    if type=="checkbox"
-      - options.inputClass = 'form-input'
-      .row
-        .col-md-12.form-control(style='opacity:0;')
-        div(class=className)
-          .input-group
-            +form-input(options)
-            = ' ' + label
-    else
-      label(for=name+'Input')=type=="checkbox"?'&nbsp;':label
+    case type
+      when "checkbox"
+        +checkbox(options)
+      when "radio"
+        +radio-group(options)
+      default
+        label(for=name+'Input')=type=="checkbox"?'&nbsp;':label
 
-      if type=="select2" && select2Data
-        +select2(options)
-      else if type=="dateInput"
-        +date-input(options)
-      else
-        +form-input(options)
+        if type=="select2" && select2Data
+          +select2(options)
+        else if type=="dateInput"
+          +date-input(options)
+        else
+          +form-input(options)
 
-      valid-icon
-      loader-icon
+        valid-icon
+        loader-icon
 
-      if popover
-        popover= popover
+        if popover
+          popover= popover
 
     +validation-messages(options)

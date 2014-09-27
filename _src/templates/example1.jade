@@ -13,7 +13,9 @@ html(ng-app="PolyForm")
                 +form-control({name:'isUnique',label:'isUnique',isUnique: 'isUnique.json'})
               .col-md-12
                 +form-control({name:'number',label:'number',type:'number'})
+              .col-md-12
                 +form-control({name:'checkbox',label:'checkbox',type:'checkbox'})
+                +form-control({name:'radio',label:'radio',type:'radio', radioValues: ['radio1', 'radio2', 'radio3']})
 
               .col-md-12
                 +form-control({name:'minLength',label:'Min Length',ngMinlength:3})
