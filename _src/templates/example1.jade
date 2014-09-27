@@ -1,4 +1,4 @@
-include mixins/form-control
+include mixins/poly-form/form-control
 html(ng-app="PolyForm")
   head
     include partials/header
@@ -13,11 +13,14 @@ html(ng-app="PolyForm")
                 +form-control({name:'isUnique',label:'isUnique',isUnique: 'isUnique.json'})
               .col-md-12
                 +form-control({name:'number',label:'number',type:'number'})
+                +form-control({name:'checkbox',label:'checkbox',type:'checkbox'})
+
               .col-md-12
-                +form-control({name:'required',label:'Required false',ngRequired:'false'})
                 +form-control({name:'minLength',label:'Min Length',ngMinlength:3})
-              .col-md-12
                 +form-control({name:'maxlength',label:'Max length',ngMaxlength:3})
+              .col-md-12
+
+                +form-control({name:'required',label:'Required false',ngRequired:'false'})
                 +form-control({name:'mypattern',label:'Pattern',type:'password',ngPattern:'/((?=.*[a-z])(?=.*[A-Z]).{8,64})/',ngPatternMessage:'Ensure that password is 8 to 64 characters long and contains a mix of upper and lower case characters, one numeric and one special character'})
               .col-md-12
                 +form-control({class:'col-md-3',name:'ngchange',label:'ng change',ngChange:"$parent.ngchange2=ngchange"})

@@ -1,0 +1,46 @@
+mixin validation-messages(options)
+  - options       = options               || {}
+
+  - className     = options.class         || 'col-md-6'
+  - name          = options.name          || 'control'
+  - label         = options.label         || 'Ετικέτα'
+  - placeholder   = options.placeholder   || label
+  - autocomplete  = options.autocomplete  || name
+  - type          = options.type          || 'text'
+  - popover       = options.popover       || null
+
+  - isUnique        = options.isUnique    || null  // Async Validation. Value must be a URL. Validation is done on server and must return json. example { "isUnique": "true" }
+
+  - ngRequired  = options.ngRequired  || 'true' // Sets required attribute if set to true
+  - ngRequired  = ngRequired=='false' ? null : 'true'
+
+  - ngMinlength = options.ngMinlength || null   // Sets minlength validation error key if the value is shorter than minlength.
+  - ngMaxlength = options.ngMaxlength || null   // Sets maxlength validation error key if the value is longer than maxlength.
+  - ngPattern   = options.ngPattern   || null   // Sets pattern validation error key if the value does not match the RegExp pattern expression. Expected value is /regexp/ for inline patterns or regexp for patterns defined as scope expressions.
+  - ngChange    = options.ngChange    || null   // Angular expression to be executed when input changes due to user interaction with the input element.
+  - ngTrim      = options.ngTrim      || null   // If set to false Angular will not automatically trim the input. This parameter is ignored for input[type=password] controls, which will never trim the input.
+
+  - ngEmailMessage     = options.ngEmailMessage       || 'Συμπληρώστε το πεδίο με μία σωστή διέυθυνση email'
+  - ngNumberMessage    = options.ngNumberMessage       || 'Συμπληρώστε το πεδίο με αριθμούς'
+
+  - isUniqueMessage     = options.isUniqueMessage     || 'Τα στοιχεία που συμπληρώσατε δεν είναι μοναδικά'
+  - ngRequiredMessage   = options.ngRequiredMessage   || 'Παρακαλώ συμπληρώστε το πεδίο'
+  - ngMinlengthMessage  = options.ngMinlengthMessage  || 'Παρακαλώ συμπληρώστε το πεδίο με πάραπανω από ' + ngMinlength +' χαρακτήρες'
+  - ngMaxlengthMessage  = options.ngMaxlengthMessage  || 'Παρακαλώ συμπληρώστε το πεδίο μέχρι ' + ngMaxlength +' χαρακτήρες'
+  - ngPatternMessage    = options.ngPatternMessage    || 'Παρακαλώ συμπληρώστε το πεδίο σωστά!'
+
+  if type=='email' && ngEmailMessage
+    error-message.ng-email= ngEmailMessage
+  if type=='number' && ngNumberMessage
+    error-message.ng-number= ngNumberMessage
+
+  if isUnique && isUniqueMessage
+    error-message.is-uinique= isUniqueMessage
+  if ngRequired && ngRequiredMessage
+    error-message.ng-required= ngRequiredMessage
+  if ngMinlength && ngMinlengthMessage
+    error-message.ng-minlength= ngMinlengthMessage
+  if ngMaxlength && ngMaxlengthMessage
+    error-message.ng-maxlength= ngMaxlengthMessage
+  if ngPattern && ngPatternMessage
+    error-message.ng-pattern= ngPatternMessage
