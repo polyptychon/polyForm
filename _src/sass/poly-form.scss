@@ -110,10 +110,10 @@
   }
 }
 input:focus.ng-valid {
-  border-color: $brand-success;
+  border-color: $state-success-text;
 }
 input:focus.ng-invalid {
-  border-color: $brand-warning;
+  border-color: $state-danger-text;
 }
 
 .form-container h1,
