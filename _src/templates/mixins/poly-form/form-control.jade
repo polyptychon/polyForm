@@ -82,14 +82,16 @@ mixin form-control(options)
       when "radio"
         +radio-group(options)
       default
+
         label(for=name+'Input')=type=="checkbox"?'&nbsp;':label
 
-        if type=="select2" && select2Data
-          +select2(options)
-        else if type=="dateInput"
-          +date-input(options)
-        else
-          +form-input(options)
+        case type
+          when "select2" && select2Data
+            +select2(options)
+          when "dateInput"
+            +date-input(options)
+          default
+            +form-input(options)
 
         valid-icon
         loader-icon
