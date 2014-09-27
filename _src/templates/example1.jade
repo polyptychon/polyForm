@@ -12,6 +12,8 @@ html(ng-app="PolyForm")
                 +form-control({name:'email',label:'Email',type:'email'})
                 +form-control({name:'isUnique',label:'isUnique',isUnique: 'isUnique.json'})
               .col-md-12
+                +form-control({name:'number',label:'number',type:'number'})
+              .col-md-12
                 +form-control({name:'required',label:'Required false',ngRequired:'false'})
                 +form-control({name:'minLength',label:'Min Length',ngMinlength:3})
               .col-md-12
