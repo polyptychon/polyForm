@@ -2,6 +2,7 @@ var gulp = require('gulp'),
     jade = require('gulp-jade'),
     uglify = require('gulp-uglify'),
     sass = require('gulp-sass'),
+    //sass = require('gulp-ruby-sass'),
     prefix = require('gulp-autoprefixer'),
     csso = require('gulp-csso'),
     //imagemin = require('gulp-imagemin'),
@@ -30,6 +31,8 @@ var gulp = require('gulp'),
 
 var DEVELOPMENT = 'development',
     PRODUCTION = 'production',
+    SASS_ENVIROMENT = "ruby",
+    USE_SASS_MAPS = true,
     BUILD = "builds/",
     ASSETS = "/assets",
     MOCKUPS = "_mockups",
@@ -112,17 +115,18 @@ gulp.task('spriteSass', function() {
 });
 gulp.task('sass',['clean-css', 'autoVariables', 'spriteSass'], function() {
   var imagesManifest = env === PRODUCTION ? (JSON.parse(fs.readFileSync("./"+BUILD+'/rev/images/rev-manifest.json', "utf8"))) : {};
-  var config = {};
+  var config = {style: 'compact'};
 
   if (env === DEVELOPMENT) {
-    //config.sourceComments = 'map';
+    config.sourceComments = 'map';
   } else if (env === PRODUCTION) {
+    config.sourcemap = false;
     config.outputStyle = 'compressed';
   }
   return gulp.src(SRC+'/sass/main.scss')
     .pipe(sass(config).on('error', gutil.log))
-    .pipe(prefix("last 2 versions", "> 1%", "ie 8", "ie 7", { cascade: true }))
-    .pipe(gulpif(env === PRODUCTION, csso()))
+    .pipe(gulpif(!USE_SASS_MAPS, prefix("last 1 version", "> 1%", "ie 8", "ie 7")))
+    .pipe(gulpif(env === PRODUCTION, csso().on('error', gutil.log)))
     .pipe(gulpif(env === PRODUCTION, size()))
     .pipe(gulpif(env === PRODUCTION, fingerprint(imagesManifest, { base:'../images/', prefix: '../images/' })))
     .pipe(gulpif(env === PRODUCTION, rev()))
@@ -155,6 +159,7 @@ gulp.task('fonts', function() {
 });
 
 gulp.task('watch', function() {
+  env = DEVELOPMENT;
   gulp.watch(SRC+'/**/*.{jade,svg,json}', ['jade']);
   gulp.watch(SRC+'/**/*.{js,coffee}', ['coffee']);
   gulp.watch(SRC+'/**/*.scss', ['sass']);
