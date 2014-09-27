@@ -77,7 +77,8 @@ module.exports = ($timeout, $http) ->
 
     getData = (val) ->
       url = attrs.uiSelect2Query
-      obj = if (attrs.queryMapData?) then scope.$eval(attrs.queryMapData) else {}
+      ob = {}
+      obj = scope.$eval(attrs.queryMapData) if (attrs.queryMapData?)
       obj.value = val
 
       url = formatStringURL(url, obj)

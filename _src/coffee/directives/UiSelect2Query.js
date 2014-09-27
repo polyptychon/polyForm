@@ -96,9 +96,12 @@
           }, quietMillis);
         };
         return getData = function(val) {
-          var dataType, obj, onError, onSuccess, url;
+          var dataType, ob, obj, onError, onSuccess, url;
           url = attrs.uiSelect2Query;
-          obj = (attrs.queryMapData != null) ? scope.$eval(attrs.queryMapData) : {};
+          ob = {};
+          if ((attrs.queryMapData != null)) {
+            obj = scope.$eval(attrs.queryMapData);
+          }
           obj.value = val;
           url = formatStringURL(url, obj);
           dataType = attrs.queryDataType || "json";
