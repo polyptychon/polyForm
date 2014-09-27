@@ -48,7 +48,7 @@
     .form-control-feedback {
       display: block;
     }
-    .form-control {
+    .form-control:not(.select2-container) {
       padding-right: 42.5px;
     }
   }
