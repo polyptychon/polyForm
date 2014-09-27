@@ -25,7 +25,7 @@ module.exports = () ->
       childScope = angular.element(this).scope();
       model = $(@).attr("ng-model");
       childScope.$watch(model, (newValue) =>
-        scope.copyChildClassesToParent(@) if (typeof newValue != "undefined")
+        scope.copyChildClassesToParent(@) if (newValue?)
       )
     )
 
@@ -37,7 +37,7 @@ module.exports = () ->
     element = $element;
 
     $scope.copyChildClassesToParent = @copyChildClassesToParent = (childElement, updateOnNextFrame) ->
-      return if (typeof childElement == "undefined")
+      return unless (childElement?)
       childElement = $(childElement)
       select2DropActive = $(".select2-drop-active")
       attrClasses = $(element).attr("class").replace(/ng-(\w|\-)+\s?/gi, "")
@@ -63,7 +63,7 @@ module.exports = () ->
       attrClasses = attrClasses.replace(/ng-\w+-?\w+\s/gi, "")
       $(element).attr("class", attrClasses + " " + inputClasses)
 
-      if (typeof updateOnNextFrame == "undefined")
+      unless (updateOnNextFrame?)
         requestAnimFrame ( () ->
           $scope.copyChildClassesToParent(childElement, false)
         )

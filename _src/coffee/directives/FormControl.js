@@ -37,7 +37,7 @@
           model = $(this).attr("ng-model");
           return childScope.$watch(model, (function(_this) {
             return function(newValue) {
-              if (typeof newValue !== "undefined") {
+              if ((newValue != null)) {
                 return scope.copyChildClassesToParent(_this);
               }
             };
@@ -52,7 +52,7 @@
         element = $element;
         return $scope.copyChildClassesToParent = this.copyChildClassesToParent = function(childElement, updateOnNextFrame) {
           var attrClasses, inputClasses, isValid, select2DropActive;
-          if (typeof childElement === "undefined") {
+          if (!(childElement != null)) {
             return;
           }
           childElement = $(childElement);
@@ -80,7 +80,7 @@
           }
           attrClasses = attrClasses.replace(/ng-\w+-?\w+\s/gi, "");
           $(element).attr("class", attrClasses + " " + inputClasses);
-          if (typeof updateOnNextFrame === "undefined") {
+          if (!(updateOnNextFrame != null)) {
             return requestAnimFrame((function() {
               return $scope.copyChildClassesToParent(childElement, false);
             }));
