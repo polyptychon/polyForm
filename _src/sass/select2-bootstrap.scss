@@ -4,8 +4,10 @@ $inputBorder: #ccc !default;
 $baseBorderRadius: 4px !default;
 $inputBorderRadius: $baseBorderRadius !default;
 $inputBackground: $white !default;
-$errorText: #b94a48 !default;
 $baseFontSize: 14px !default;
+$state-success-text: #3c763d !default;
+$state-danger-text: #a94442 !default;
+$errorText: $state-danger-text !default;
 
 @mixin border-radius($radius) {
   -webkit-border-radius: $radius;
@@ -63,9 +65,16 @@ $baseFontSize: 14px !default;
 }
 
 .select2-drop.select2-drop-active {
-  border-color: rgba(82, 168, 236, 0.8);
   margin-top: -2px;
+  border-color: rgba(82, 168, 236, 0.8);
+  &.has-success {
+    border-color: $state-success-text;
+  }
+  &.has-error {
+    border-color: $state-danger-text;
+  }
 }
+
 .select2-container-active .select2-choice,
 .select2-container-multi.select2-container-active .select2-choices {
   border-color: rgba(82, 168, 236, 0.8);
@@ -74,6 +83,18 @@ $baseFontSize: 14px !default;
   outline: none;
   top: 0px;
   @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6));
+}
+&.has-success {
+  .select2-container-active .select2-choice,
+  .select2-container-multi.select2-container-active .select2-choices {
+    border-color: $state-success-text;
+  }
+}
+&.has-error {
+  .select2-container-active .select2-choice,
+  .select2-container-multi.select2-container-active .select2-choices {
+    border-color: $state-danger-text;
+  }
 }
 
 [class^="input-"] .select2-container {
