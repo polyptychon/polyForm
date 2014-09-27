@@ -16,37 +16,34 @@
         var controlElements, controls, form, formTab, update;
         form = ctrls[0];
         formTab = ctrls[1];
-        controlElements = element.find(formElements);
+        controlElements = elm.find(formElements);
         controls = [];
-        if (typeof formTab !== "undefined" && typeof formTab.scope.disabled !== "undefined") {
+        if ((formTab != null) && (formTab.scope.disabled != null)) {
           formTab.scope.$watch("disabled", function(value) {
             return update(scope.$eval(attrs.ngShow));
           });
         }
-        if (typeof attrs.ngShow !== "undefined") {
+        if ((attrs.ngShow != null)) {
           scope.$watch(attrs.ngShow, function(value) {
             return update(value);
           });
         }
-        if (typeof attrs.ngHide !== "undefined") {
+        if ((attrs.ngHide != null)) {
           scope.$watch(attrs.ngHide, function(value) {
             return update(!value);
           });
         }
         return update = function(value) {
-          var i;
-          i = 0;
-          return controlElements.each(function() {
+          return controlElements.each(function(controlElement) {
             var control, element;
             element = $(this);
             control = form[element.attr("name")];
-            if (typeof control === "undefined") {
-              control = controls[i];
-              i++;
+            if (!(control != null)) {
+              control = controlElement;
             } else {
               controls.push(control);
             }
-            if (typeof control === "undefined") {
+            if (!(control != null)) {
               return;
             }
             if (value === true) {

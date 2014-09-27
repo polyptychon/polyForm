@@ -10,36 +10,34 @@ module.exports = () ->
     form = ctrls[0]
     formTab = ctrls[1]
 
-    controlElements = element.find(formElements)
+    controlElements = elm.find(formElements)
     controls = []
 
-    if (typeof formTab != "undefined" && typeof formTab.scope.disabled != "undefined")
+    if (formTab? && formTab.scope.disabled?)
       formTab.scope.$watch("disabled", (value) ->
         update(scope.$eval(attrs.ngShow))
       )
-    if (typeof attrs.ngShow != "undefined")
+    if (attrs.ngShow?)
       scope.$watch(attrs.ngShow, (value) ->
         update(value)
       )
-    if (typeof attrs.ngHide != "undefined")
+    if (attrs.ngHide?)
       scope.$watch(attrs.ngHide, (value) ->
         update(!value)
       )
 
     update = (value) ->
-      i = 0
       controlElements.each(
-        () ->
+        (controlElement) ->
           element = $(this);
           control = form[element.attr("name")]
 
-          if (typeof control == "undefined")
-            control = controls[i]
-            i++
+          unless (control?)
+            control = controlElement
           else
             controls.push(control)
 
-          return if (typeof control == "undefined")
+          return unless (control?)
 
           if (value == true)
             $(element).removeAttr('disabled')
