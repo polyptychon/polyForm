@@ -37,7 +37,7 @@
           model = $(this).attr("ng-model");
           return childScope.$watch(model, (function(_this) {
             return function(newValue) {
-              if (newValue !== null) {
+              if (typeof newValue !== "undefined") {
                 return scope.copyChildClassesToParent(_this);
               }
             };

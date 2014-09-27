@@ -25,7 +25,7 @@ module.exports = () ->
       childScope = angular.element(this).scope();
       model = $(@).attr("ng-model");
       childScope.$watch(model, (newValue) =>
-        scope.copyChildClassesToParent(@) if (newValue != null)
+        scope.copyChildClassesToParent(@) if (typeof newValue != "undefined")
       )
     )
 

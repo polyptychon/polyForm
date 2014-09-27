@@ -48,6 +48,8 @@ mixin form-input(options)
   - isUnique        = options.isUnique    || null  // Async Validation. Value must be a URL. Validation is done on server and must return json. example { "isUnique": "true" }
   - isUniqueMapData = options.mapData     || null  // Maps json data to isUnique url. example isUnique="test.json?param:value" isUniqueMapData="{value=true}"
 
+  - ngChecked   = options.ngChecked   || null
+
   - ngRequired  = options.ngRequired  || 'true' // Sets required attribute if set to true
   - ngRequired  = ngRequired=='false' ? null : 'true'
 
@@ -65,6 +67,7 @@ mixin form-input(options)
     type=(type=='select2'?null:type),
     placeholder=placeholder,
     ng-model='$parent.'+name,
+    ng-checked=ngChecked
 
     ui-select2= select2Input,
     data-ui-select2-query=                  ( select2Input ? uiSelect2Query ? uiSelect2Query : 'http://www.weighttraining.com/api/v2/sm/search?types%5B%5D=:type&term=:value&limit=:limit':null),

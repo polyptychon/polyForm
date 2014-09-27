@@ -20,6 +20,7 @@ mixin radio-group(options)
     div(class=className)
       if (radioValues)
         each val, index in radioValues
+          - options.ngChecked = index==0?true:null
           div(class=radioClass)
             label
               +form-input(options)
