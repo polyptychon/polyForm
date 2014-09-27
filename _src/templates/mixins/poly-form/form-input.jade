@@ -10,14 +10,6 @@ mixin form-input(options)
   - type          = options.type          || 'text'
   - popover       = options.popover       || null
 
-  - multidate           = options.multidate           || null
-  - forceParse          = options.forceParse          || null
-  - todayHighlight      = options.todayHighlight      || null
-  - autoclose           = options.autoclose           || null
-  - multidateSeperator  = options.multidateSeperator  || null
-  - format              = options.format              || 'dd/mm/yyyy'
-  - language            = options.language            || null
-
   - select2Data   = options.select2Data   || null
 
   - select2Input       = type=='select2-input' ? name+'.uiSelect2QueryData' : null

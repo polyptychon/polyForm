@@ -9,6 +9,22 @@ html(ng-app="PolyForm")
           form-tab(tab-title="Validation")
             .row
               .col-md-12
+                +form-control({name:'email',label:'Email',type:'email'})
+                +form-control({name:'number',label:'number',type:'number'})
+              .col-md-12
+                +form-control({name:'minLength',label:'Min Length',ngMinlength:3})
+                +form-control({name:'maxlength',label:'Max length',ngMaxlength:3})
+              .col-md-12
+                +form-control({name:'required',label:'Required false',ngRequired:'false'})
+                +form-control({name:'mypattern',label:'Pattern',type:'password',ngPattern:'/((?=.*[a-z])(?=.*[A-Z]).{8,64})/',ngPatternMessage:'Ensure that value is 8 to 64 characters long and contains a mix of upper and lower case characters'})
+              .col-md-12
+                +form-control({class:'col-md-3',name:'ngchange',label:'ng change',ngChange:"$parent.ngchange2=ngchange"})
+                +form-control({class:'col-md-3',name:'ngchange2',label:'ng change 2'})
+                +form-control({name:'isUnique',label:'isUnique',isUnique: 'isUnique.json'})
+        form-tabs
+          form-tab(tab-title="Block Controls")
+            .row
+              .col-md-12
                 +form-control({name:'popover',label:'popover',popover: 'Παρακαλώ συμπληρώστε το πεδίο'})
                 +form-control({name:'popover2',label:'popover2',popover: 'Παρακαλώ συμπληρώστε το πεδίο'})
               .col-md-12
@@ -17,21 +33,9 @@ html(ng-app="PolyForm")
 
               .col-md-12
                 +form-control({name:'dateInput',label:'dateInput',type:'dateInput'})
-                +form-control({name:'isUnique',label:'isUnique',isUnique: 'isUnique.json'})
-              .col-md-12
-                +form-control({name:'email',label:'Email',type:'email'})
-                +form-control({name:'number',label:'number',type:'number'})
-
-              .col-md-12
-                +form-control({name:'minLength',label:'Min Length',ngMinlength:3})
-                +form-control({name:'maxlength',label:'Max length',ngMaxlength:3})
-              .col-md-12
-                +form-control({name:'required',label:'Required false',ngRequired:'false'})
-                +form-control({name:'mypattern',label:'Pattern',type:'password',ngPattern:'/((?=.*[a-z])(?=.*[A-Z]).{8,64})/',ngPatternMessage:'Ensure that password is 8 to 64 characters long and contains a mix of upper and lower case characters, one numeric and one special character'})
-              .col-md-12
-                +form-control({class:'col-md-3',name:'ngchange',label:'ng change',ngChange:"$parent.ngchange2=ngchange"})
-                +form-control({class:'col-md-3',name:'ngchange2',label:'ng change 2'})
-
+        form-tabs
+          form-tab(tab-title="Inline Controls")
+            .row
               .col-md-12
                 +form-control({name:'checkbox',label:'checkbox',type:'checkbox'})
               .col-md-12
