@@ -25,11 +25,11 @@ mixin select2(options)
 
 
   select(
-    ui-select2="{ allowClear: '"+(allowClear || false)+"' }",
+    ui-select2="{ allowClear:#{(allowClear || false)}}",
     id=name+'Select',
     data-placeholder=placeholder,
     class="form-control",
-    ng-model='$parent.'+name,
+    ng-model='$parent.#{name}',
     ng-required=ngRequired,
     ng-change=ngChange,
     ng-trim=ngTrim

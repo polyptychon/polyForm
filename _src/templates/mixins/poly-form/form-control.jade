@@ -83,7 +83,7 @@ mixin form-control(options)
         +radio-group(options)
       default
 
-        label(for=name+'Input')=type=="checkbox"?'&nbsp;':label
+        label(for='#{name}Input')= label
 
         case type
           when "select2"
