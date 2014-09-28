@@ -43,7 +43,7 @@
             };
           })(this));
         });
-        return controlElements.on("keyup input blur change click", function() {
+        return controlElements.on("keyup input blur change click focus select2-opening", function(e) {
           return scope.copyChildClassesToParent($(this));
         });
       },

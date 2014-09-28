@@ -29,7 +29,7 @@ module.exports = () ->
       )
     )
 
-    controlElements.on("keyup input blur change click", () ->
+    controlElements.on("keyup input blur change click focus select2-opening", (e) ->
       scope.copyChildClassesToParent($(@))
     )
 

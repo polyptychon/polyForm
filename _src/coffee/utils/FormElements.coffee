@@ -1,1 +1,1 @@
-module.exports = "input, select, datalist, textarea, [ui-select2], select2-container"
+module.exports = "input, select, datalist, textarea, .form-control .select2-chosen"
