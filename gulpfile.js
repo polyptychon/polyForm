@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+    watch = require('gulp-watch'),
     jade = require('gulp-jade'),
     uglify = require('gulp-uglify'),
     sass = require('gulp-sass'),
@@ -6,7 +7,7 @@ var gulp = require('gulp'),
     prefix = require('gulp-autoprefixer'),
     csso = require('gulp-csso'),
     //imagemin = require('gulp-imagemin'),
-    watchify = require('watchify'),
+    plumber = require('gulp-plumber'),
     browserify = require('browserify'),
     concat = require('gulp-concat'),
     sourcemaps = require('gulp-sourcemaps'),
@@ -73,10 +74,14 @@ gulp.task('jade', function() {
     .pipe(gulpif(env === PRODUCTION, size()))
     .pipe(gulp.dest(getOutputDir()));
 });
-gulp.task('coffee', function() {
+function myCoffee() {
   var bundler = browserify({debug: env === DEVELOPMENT})
     .add('./'+SRC+'/coffee/main.coffee');
-  return bundler.bundle().on('error', gutil.log)
+  return bundler.bundle()
+    .on('error', function(err) {
+      console.log(err.message);
+      this.end();
+    })
     .pipe(source('main.js'))
     .pipe(buffer())
     .pipe(gulpif(env === PRODUCTION, uglify()))
@@ -85,6 +90,11 @@ gulp.task('coffee', function() {
     .pipe(gulp.dest(getOutputDir()+ASSETS+'/js'))
     .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, rev.manifest()))
     .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, gulp.dest(BUILD+'/rev/js')))
+}
+gulp.task('coffee', function() {
+  gulp.src('./'+SRC+'/coffee/main.coffee')
+    .pipe(plumber())
+    .pipe(myCoffee())
 });
 
 gulp.task('clean-js', function() {
@@ -160,15 +170,13 @@ gulp.task('fonts', function() {
 });
 
 gulp.task('watch', function() {
-  env = DEVELOPMENT;
   gulp.watch(SRC+'/**/*.{jade,svg,json}', ['jade']);
   gulp.watch(SRC+'/**/*.{js,coffee}', ['coffee']);
   gulp.watch(SRC+'/**/*.scss', ['sass']);
   var server = livereload();
   gulp.watch(BUILD+'**').on('change', function(file) {
     server.changed(file.path);
-  })
-  .on('error', gutil.log);
+  }).on('error', gutil.log);
 });
 
 gulp.task('browserify-test', function() {
