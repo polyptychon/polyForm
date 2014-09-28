@@ -6,6 +6,7 @@ var gulp = require('gulp'),
     prefix = require('gulp-autoprefixer'),
     csso = require('gulp-csso'),
     //imagemin = require('gulp-imagemin'),
+    watchify = require('watchify'),
     browserify = require('browserify'),
     concat = require('gulp-concat'),
     sourcemaps = require('gulp-sourcemaps'),
@@ -31,6 +32,7 @@ var gulp = require('gulp'),
 
 var DEVELOPMENT = 'development',
     PRODUCTION = 'production',
+    USE_FINGERPRINTING = false,
     SASS_ENVIROMENT = "ruby",
     USE_SASS_MAPS = true,
     BUILD = "builds/",
@@ -54,36 +56,35 @@ function getOutputDir() {
 gulp.task('jade', function() {
   var config = { "production": env == PRODUCTION }
 
-  var jsManifest      = env === PRODUCTION ? (JSON.parse(fs.readFileSync("./"+BUILD+'/rev/js/rev-manifest.json', "utf8"))) : {},
-      //vendorManifest  = env === PRODUCTION ? (JSON.parse(fs.readFileSync("./"+BUILD+'/rev/js-vendor/rev-manifest.json', "utf8"))) : {},
-      cssManifest     = env === PRODUCTION ? (JSON.parse(fs.readFileSync("./"+BUILD+'/rev/css/rev-manifest.json', "utf8"))) : {},
-      imagesManifest  = env === PRODUCTION ? (JSON.parse(fs.readFileSync("./"+BUILD+'/rev/images/rev-manifest.json', "utf8"))) : {};
+  var jsManifest      = env === PRODUCTION && USE_FINGERPRINTING ? (JSON.parse(fs.readFileSync("./"+BUILD+'/rev/js/rev-manifest.json', "utf8"))) : {},
+      //vendorManifest  = env === PRODUCTION && USE_FINGERPRINTING ? (JSON.parse(fs.readFileSync("./"+BUILD+'/rev/js-vendor/rev-manifest.json', "utf8"))) : {},
+      cssManifest     = env === PRODUCTION && USE_FINGERPRINTING ? (JSON.parse(fs.readFileSync("./"+BUILD+'/rev/css/rev-manifest.json', "utf8"))) : {},
+      imagesManifest  = env === PRODUCTION && USE_FINGERPRINTING ? (JSON.parse(fs.readFileSync("./"+BUILD+'/rev/images/rev-manifest.json', "utf8"))) : {};
 
   if (env === DEVELOPMENT) {
     config.pretty = true;
   }
   gulp.src(SRC+"/templates/*.jade")
     .pipe(jade(config).on('error', gutil.log))
-    .pipe(gulpif(env === PRODUCTION, fingerprint(jsManifest, { base:'assets/js/', prefix: 'assets/js/' })))
-    //.pipe(gulpif(env === PRODUCTION, fingerprint(vendorManifest, { base:'assets/js/', prefix: 'assets/js/' })))
-    .pipe(gulpif(env === PRODUCTION, fingerprint(cssManifest, { base:'assets/css/', prefix: 'assets/css/' })))
-    .pipe(gulpif(env === PRODUCTION, fingerprint(imagesManifest, { base:'assets/images/', prefix: 'assets/images/' })))
+    .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, fingerprint(jsManifest, { base:'assets/js/', prefix: 'assets/js/' })))
+    //.pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, fingerprint(vendorManifest, { base:'assets/js/', prefix: 'assets/js/' })))
+    .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, fingerprint(cssManifest, { base:'assets/css/', prefix: 'assets/css/' })))
+    .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, fingerprint(imagesManifest, { base:'assets/images/', prefix: 'assets/images/' })))
     .pipe(gulpif(env === PRODUCTION, size()))
     .pipe(gulp.dest(getOutputDir()));
 });
 gulp.task('coffee', function() {
   var bundler = browserify({debug: env === DEVELOPMENT})
-    .add('./'+SRC+'/coffee/main.coffee')
-    .bundle();
-  return bundler
+    .add('./'+SRC+'/coffee/main.coffee');
+  return bundler.bundle().on('error', gutil.log)
     .pipe(source('main.js'))
     .pipe(buffer())
     .pipe(gulpif(env === PRODUCTION, uglify()))
     .pipe(gulpif(env === PRODUCTION, size()))
-    .pipe(gulpif(env === PRODUCTION, rev()))
+    .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, rev()))
     .pipe(gulp.dest(getOutputDir()+ASSETS+'/js'))
-    .pipe(gulpif(env === PRODUCTION, rev.manifest()))
-    .pipe(gulpif(env === PRODUCTION, gulp.dest(BUILD+'/rev/js')))
+    .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, rev.manifest()))
+    .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, gulp.dest(BUILD+'/rev/js')))
 });
 
 gulp.task('clean-js', function() {
@@ -97,10 +98,10 @@ gulp.task('vendor', function() {
     .pipe(gulpif(env === DEVELOPMENT, sourcemaps.write()))
     .pipe(gulpif(env === PRODUCTION, uglify({mangle:false})))
     .pipe(gulpif(env === PRODUCTION, size()))
-    .pipe(gulpif(env === PRODUCTION, rev()))
+    .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, rev()))
     .pipe(gulp.dest(getOutputDir()+ASSETS+'/js'))
-    .pipe(gulpif(env === PRODUCTION, rev.manifest()))
-    .pipe(gulpif(env === PRODUCTION, gulp.dest(BUILD+'/rev/js-vendor')))
+    .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, rev.manifest()))
+    .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, gulp.dest(BUILD+'/rev/js-vendor')))
 });
 
 gulp.task('autoVariables', function() {
@@ -126,13 +127,13 @@ gulp.task('sass',['clean-css', 'autoVariables', 'spriteSass'], function() {
   return gulp.src(SRC+'/sass/main.scss')
     .pipe(sass(config).on('error', gutil.log))
     .pipe(gulpif(!USE_SASS_MAPS, prefix("last 1 version", "> 1%", "ie 8", "ie 7")))
-    .pipe(gulpif(env === PRODUCTION, csso().on('error', gutil.log)))
+    .pipe(gulpif(env === PRODUCTION, csso()))
     .pipe(gulpif(env === PRODUCTION, size()))
-    .pipe(gulpif(env === PRODUCTION, fingerprint(imagesManifest, { base:'../images/', prefix: '../images/' })))
-    .pipe(gulpif(env === PRODUCTION, rev()))
+    .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, fingerprint(imagesManifest, { base:'../images/', prefix: '../images/' })))
+    .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, rev()))
     .pipe(gulp.dest(getOutputDir()+ASSETS+'/css'))
-    .pipe(gulpif(env === PRODUCTION, rev.manifest()))
-    .pipe(gulpif(env === PRODUCTION, gulp.dest(BUILD+'/rev/css')))
+    .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, rev.manifest()))
+    .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, gulp.dest(BUILD+'/rev/css')))
 });
 gulp.task('clean-css', function() {
   gulp.src(getOutputDir()+ASSETS+'/css', { read: false })

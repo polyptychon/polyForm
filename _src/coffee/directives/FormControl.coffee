@@ -44,13 +44,15 @@ module.exports = () ->
       attrClasses = attrClasses.replace(/\s?has-success|has-error\s?/gi, "")
       attrClasses = attrClasses.replace(/\s\s/gi, "")
       inputClasses = ""
-      isValid = (childElement.hasClass("ng-valid"))
       inputClasses += childElement.attr("class").toString().match(/ng-(\w|\-)+\s?/gi).join(" ")
-      select2DropActive.removeClass("has-success").removeClass("has-error")
-      if (isValid)
+
+      select2DropActive.removeClass("has-success") if (select2DropActive.hasClass("has-success"))
+      select2DropActive.removeClass("has-error") if (select2DropActive.hasClass("has-error"))
+
+      if (childElement.hasClass("ng-valid"))
         attrClasses += " has-success"
         select2DropActive.addClass("has-success")
-      else if (childElement.hasClass("ng-invalid") && !childElement.hasClass("ng-pristine"))
+      else if (childElement.hasClass("ng-invalid") && childElement.hasClass("ng-dirty"))
         attrClasses += " has-error"
         select2DropActive.addClass("has-error")
 
