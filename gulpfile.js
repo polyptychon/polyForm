@@ -42,10 +42,20 @@ var DEVELOPMENT = 'development',
     SRC = "_src",
     TEST = "test",
     libs = [
-      './node_modules/angular/angular.min.js',
-      './node_modules/angular-route/angular-route.min.js',
+      './node_modules/jquery/dist/jquery.min.js',
       './node_modules/underscore/underscore-min.js',
-      './node_modules/jquery/dist/jquery.min.js'
+      './node_modules/bootstrapify/lib/bootstrapify.js',
+      './node_modules/select2/select2.js',
+      './node_modules/bootstrap-datepicker/js/bootstrap-datepicker.js',
+      './node_modules/angular/angular.min.js',
+    ],
+    ignoreLibs = [
+      'jquery',
+      'underscore',
+      'bootstrapify',
+      'select2/select2',
+      'bootstrap-datepicker/js/bootstrap-datepicker',
+      'angular/angular'
     ];
 
 var env = process.env.NODE_ENV || DEVELOPMENT;
@@ -77,6 +87,7 @@ gulp.task('jade', function() {
 function myCoffee() {
   var bundler = browserify({debug: env === DEVELOPMENT})
     .add('./'+SRC+'/coffee/main.coffee');
+
   return bundler.bundle()
     .on('error', function(err) {
       console.log(err.message);
@@ -106,8 +117,8 @@ gulp.task('vendor', function() {
     .pipe(gulpif(env === DEVELOPMENT, sourcemaps.init()))
     .pipe(concat('vendor.js'))
     .pipe(gulpif(env === DEVELOPMENT, sourcemaps.write()))
-    .pipe(gulpif(env === PRODUCTION, uglify({mangle:false})))
-    .pipe(gulpif(env === PRODUCTION, size()))
+    .pipe(gulpif(env === DEVELOPMENT, uglify({mangle:false})))
+    .pipe(size())
     .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, rev()))
     .pipe(gulp.dest(getOutputDir()+ASSETS+'/js'))
     .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, rev.manifest()))
@@ -125,7 +136,7 @@ gulp.task('spriteSass', function() {
     .pipe(gulp.dest(SRC+'/sass'));
 });
 gulp.task('sass',['clean-css', 'autoVariables', 'spriteSass'], function() {
-  var imagesManifest = env === PRODUCTION ? (JSON.parse(fs.readFileSync("./"+BUILD+'/rev/images/rev-manifest.json', "utf8"))) : {};
+  var imagesManifest = env === PRODUCTION && USE_FINGERPRINTING ? (JSON.parse(fs.readFileSync("./"+BUILD+'/rev/images/rev-manifest.json', "utf8"))) : {};
   var config = {style: 'compact'};
 
   if (env === DEVELOPMENT) {
@@ -214,5 +225,5 @@ gulp.task('build', function() {
 
 gulp.task('production', function() {
   env = PRODUCTION;
-  runSequence(['images','clean-js'],['fonts','coffee','sass'],['jade']);
+  runSequence(['clean-js'],['fonts','coffee','sass'],['jade']);
 });
