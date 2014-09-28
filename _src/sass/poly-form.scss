@@ -63,27 +63,34 @@
     margin-top: 5px;
     color: $brand-danger;
   }
-
-  &.ng-dirty.ng-invalid-required > .ng-required,
-  &.ng-dirty.ng-invalid-pattern > .ng-pattern,
-  &.ng-dirty.ng-invalid-email > .ng-email,
-  &.ng-dirty.ng-invalid-number > .ng-number,
-  &.ng-dirty.ng-invalid-maxlength > .ng-maxlength,
-  &.ng-dirty.ng-invalid-minlength > .ng-minlength,
-  &.ng-dirty.ng-invalid-url > .ng-url,
-  &.ng-dirty.ng-invalid-is-unique > .is-unique,
-  &.ng-dirty.ng-is-unique-loading > .is-unique-loading,
-  &.ng-dirty.ng-is-unique-error-loading > .is-unique-error-loading,
-  &.ng-loading > .loader,
-  &.ng-dirty.ng-invalid-is-equal > .is-equal {
-    display: block;
+  &.ng-dirty {
+    &.ng-invalid-required > .ng-required,
+    &.ng-invalid-pattern > .ng-pattern,
+    &.ng-invalid-email > .ng-email,
+    &.ng-invalid-number > .ng-number,
+    &.ng-invalid-maxlength > .ng-maxlength,
+    &.ng-invalid-minlength > .ng-minlength,
+    &.ng-invalid-url > .ng-url,
+    &.ng-invalid-is-unique > .is-unique,
+    &.ng-is-unique-loading > .is-unique-loading,
+    &.ng-is-unique-error-loading > .is-unique-error-loading,
+    &.ng-loading > .loader,
+    &.ng-invalid-is-equal > .is-equal {
+      display: block;
+    }
+    //&.has-success > .loader,
+    &.ng-is-unique-pending > .is-unique,
+    &.ng-is-unique-loading > .is-unique {
+      display: none;
+    }
+    input:focus.ng-valid {
+      border-color: $state-success-text;
+    }
+    input:focus.ng-invalid {
+      border-color: $state-danger-text;
+    }
   }
 
-  //&.ng-dirty.has-success > .loader,
-  &.ng-dirty.ng-is-unique-pending > .is-unique,
-  &.ng-dirty.ng-is-unique-loading > .is-unique {
-    display: none;
-  }
   .select2-container {
     height: auto;
     padding: 0px;
@@ -114,12 +121,6 @@
       padding: 3px 12px;
     }
   }
-}
-input:focus.ng-valid {
-  border-color: $state-success-text;
-}
-input:focus.ng-invalid {
-  border-color: $state-danger-text;
 }
 
 .form-container h1,

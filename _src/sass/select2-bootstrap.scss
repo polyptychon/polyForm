@@ -67,11 +67,14 @@ $errorText: $state-danger-text !default;
 .select2-drop.select2-drop-active {
   margin-top: -2px;
   border-color: rgba(82, 168, 236, 0.8);
+  @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 2px 6px rgba(82, 168, 236, 0.4));
   &.has-success {
     border-color: $state-success-text;
+    @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0px 2px 6px rgba($state-success-text, 0.4));
   }
   &.has-error {
     border-color: $state-danger-text;
+    @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0px 2px 6px rgba($state-danger-text, 0.4));
   }
 }
 
@@ -84,16 +87,18 @@ $errorText: $state-danger-text !default;
   top: 0px;
   @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6));
 }
-&.has-success {
+.has-success {
   .select2-container-active .select2-choice,
   .select2-container-multi.select2-container-active .select2-choices {
     border-color: $state-success-text;
+    @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba($state-success-text, 0.6));
   }
 }
-&.has-error {
+.has-error {
   .select2-container-active .select2-choice,
   .select2-container-multi.select2-container-active .select2-choices {
     border-color: $state-danger-text;
+    @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba($state-danger-text, 0.6));
   }
 }
 
