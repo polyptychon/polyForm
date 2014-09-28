@@ -1,1 +1,1 @@
-module.exports = "input, select, datalist, textarea, .form-control .select2-chosen"
+module.exports = "input, select, datalist, textarea, .form-control"
