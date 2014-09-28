@@ -149,6 +149,7 @@ gulp.task('clean-css', function() {
   gulp.src(getOutputDir()+ASSETS+'/css', { read: false })
     .pipe(gulpif(env === PRODUCTION, clean()))
 });
+
 //gulp.task('images',['clean-images'], function() {
 //  return gulp.src([MOCKUPS+'/{images,sprite}/*.{jpg,png,gif}'])
 //    .pipe(imagemin({
@@ -164,6 +165,7 @@ gulp.task('clean-css', function() {
 //  gulp.src(getOutputDir()+ASSETS+'/images', { read: false })
 //    .pipe(gulpif(env === PRODUCTION, clean()))
 //});
+
 gulp.task('fonts', function() {
   return gulp.src(['node_modules/bootstrap/assets/fonts/**', MOCKUPS+"/fonts/*"])
     .pipe(gulp.dest(getOutputDir()+ASSETS+'/fonts'));
