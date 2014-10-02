@@ -20,7 +20,7 @@ mixin form-control(options)
   - radioValues   = options.radioValues   || null
   - popover       = options.popover       || null
 
-  - useLabel      = options.useLabel      || true
+  - useLabel      = options.useLabel      || 'true'
 
   - multidate           = options.multidate           || null
   - forceParse          = options.forceParse          || null
@@ -85,7 +85,7 @@ mixin form-control(options)
       when "radio"
         +radio-group(options)
       default
-        if useLabel
+        if useLabel=="true"
           label(for='#{name}Input')= label
 
         case type
