@@ -40,7 +40,7 @@ module.exports = () ->
         (index) ->
           element = $(@);
           control = form[element.attr("name")]
-          controls.push(control)
+          controls.push(control) unless _.contains(controls, control)
           if (value)
             $(element).removeAttr('disabled')
           else

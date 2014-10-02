@@ -47,7 +47,9 @@
             var control, element;
             element = $(this);
             control = form[element.attr("name")];
-            controls.push(control);
+            if (!_.contains(controls, control)) {
+              controls.push(control);
+            }
             if (value) {
               return $(element).removeAttr('disabled');
             } else {
