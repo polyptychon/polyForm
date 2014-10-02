@@ -1,5 +1,6 @@
 $ = require "jquery"
 formElements = require "../utils/FormElements.coffee"
+_ = require "lodash"
 
 module.exports = () ->
   restrict: 'A'
@@ -36,24 +37,23 @@ module.exports = () ->
 
     update = (value) ->
       controlElements.each(
-        (controlElement) ->
-          element = $(this);
+        (index) ->
+          element = $(@);
           control = form[element.attr("name")]
-
-          unless (control?)
-            control = controlElement
-          else
-            controls.push(control)
-
-          return unless (control?)
-
-          if (value == true)
+          controls.push(control)
+          if (value)
             $(element).removeAttr('disabled')
+          else
+            $(element).attr('disabled', 'disabled')
+      )
+      _.forEach(controls,
+        (control) ->
+          return unless (control?)
+          if (value)
             form.$addControl(control)
             angular.forEach(control.$error, (validity, validationToken) ->
               form.$setValidity(validationToken, !validity, control)
             )
           else
-            $(element).attr('disabled', 'disabled')
             form.$removeControl(control)
       )

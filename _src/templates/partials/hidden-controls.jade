@@ -1,6 +1,6 @@
 .row
   .col-md-12
-    +form-control({name:'hideCheckbox',label:'Hide below controls when checked',type:'checkbox'})
+    +form-control({name:'hideCheckbox',label:'Disable below controls when checked',type:'checkbox', class:'col-md-12'})
   .col-md-12(ng-hide="hideCheckbox", disable-validation-when-hidden)
     +form-control({name:'email',label:'Email',type:'email'})
     +form-control({name:'number',label:'number',type:'number'})
