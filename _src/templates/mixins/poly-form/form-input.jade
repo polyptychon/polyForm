@@ -58,7 +58,7 @@ mixin form-input(options)
     autocomplete=autocomplete,
     type=(type=='select2'?null:type),
     placeholder=placeholder,
-    ng-model='$parent.#{name}',
+    ng-model='$parent.$parent.#{name}',
     ng-checked=ngChecked
 
     ui-select2= select2Input,
