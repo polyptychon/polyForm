@@ -78,7 +78,7 @@ mixin form-control(options)
   - ngMaxlengthMessage  = options.ngMaxlengthMessage  || 'Παρακαλώ συμπληρώστε το πεδίο μέχρι ' + ngMaxlength +' χαρακτήρες'
   - ngPatternMessage    = options.ngPatternMessage    || 'Παρακαλώ συμπληρώστε το πεδίο σωστά!'
 
-  form-control(class=className)
+  form-control(class=className+(useLabel=="true"?'':' no-label'))
     case type
       when "checkbox"
         +checkbox(options)

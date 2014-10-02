@@ -25,6 +25,11 @@
     display: none;
     z-index: 20;
   }
+  &.no-label {
+    .form-control-feedback {
+      top: 0px;
+    }
+  }
   &.select {
     .form-control-feedback {
       right: 30px;
