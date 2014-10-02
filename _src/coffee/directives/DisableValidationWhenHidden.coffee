@@ -29,6 +29,11 @@ module.exports = () ->
         update(!value)
       )
 
+    if (attrs.ngDisabled?)
+      scope.$parent.$watch(attrs.ngDisabled, (value) ->
+        update(!value)
+      )
+
     update = (value) ->
       controlElements.each(
         (controlElement) ->

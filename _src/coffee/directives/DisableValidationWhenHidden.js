@@ -35,6 +35,11 @@
             return update(!value);
           });
         }
+        if ((attrs.ngDisabled != null)) {
+          scope.$parent.$watch(attrs.ngDisabled, function(value) {
+            return update(!value);
+          });
+        }
         return update = function(value) {
           return controlElements.each(function(controlElement) {
             var control, element;
