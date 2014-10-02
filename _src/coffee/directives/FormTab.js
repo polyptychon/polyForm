@@ -12,9 +12,10 @@
       transclude: true,
       scope: {
         tabTitle: '@',
-        nextTabButtonLabel: '@'
+        nextTabButtonLabel: '@',
+        showNextButton: '@'
       },
-      template: '<div class="tab-pane" ng-class="{ active: selected }"> <div ng-transclude></div> <form-control class="col-md-12" ng-hide="isLastPane()"> <button type="button" ng-click="selectNextPane()" class="btn btn-primary" ng-disabled="isPaneInValid"> {{ nextTabButtonLabel }} </button> </form-control> </div>',
+      template: '<div class="tab-pane" ng-class="{ active: selected }"> <div ng-transclude></div> <form-control class="col-md-12" ng-hide="isLastPane()"> <button type="button" ng-click="selectNextPane()" class="btn btn-primary" ng-disabled="isPaneInValid" ng-show="showNextButton"> {{ nextTabButtonLabel }} </button> </form-control> </div>',
       replace: true,
       require: ['^form', '^formTabs'],
       link: function(scope, element, attrs, ctrls) {
@@ -27,6 +28,7 @@
         removeIndex = -1;
         controlElements = element.find(formElements);
         controls = [];
+        scope.showNextButton = true;
         if (attrs.ngShow) {
           scope.$parent.$watch(attrs.ngShow, function(value) {
             return togglePane(value);
@@ -46,6 +48,9 @@
           if (!(value != null)) {
             return scope.nextTabButtonLabel = "Next";
           }
+        });
+        attrs.$observe("showNextButton", function(value) {
+          return scope.showNextButton = (value === "false" ? false : true);
         });
         formTabs.addPane(scope);
         scope.isLastPane = function() {

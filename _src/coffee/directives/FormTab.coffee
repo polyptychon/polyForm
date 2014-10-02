@@ -7,11 +7,12 @@ module.exports = () ->
   scope:
     tabTitle: '@'
     nextTabButtonLabel: '@'
+    showNextButton: '@'
   template:
     '<div class="tab-pane" ng-class="{ active: selected }">
       <div ng-transclude></div>
       <form-control class="col-md-12" ng-hide="isLastPane()">
-        <button type="button" ng-click="selectNextPane()" class="btn btn-primary" ng-disabled="isPaneInValid">
+        <button type="button" ng-click="selectNextPane()" class="btn btn-primary" ng-disabled="isPaneInValid" ng-show="showNextButton">
           {{ nextTabButtonLabel }}
         </button>
       </form-control>
@@ -28,6 +29,8 @@ module.exports = () ->
     controlElements = element.find(formElements)
     controls = []
 
+    scope.showNextButton = true
+
     if (attrs.ngShow)
       scope.$parent.$watch(attrs.ngShow, (value) ->
         togglePane(value)
@@ -43,6 +46,10 @@ module.exports = () ->
 
     attrs.$observe("nextTabButtonLabel", (value) ->
       scope.nextTabButtonLabel = "Next" unless (value?)
+    )
+
+    attrs.$observe("showNextButton", (value) ->
+      scope.showNextButton = (if value=="false" then false else true )
     )
 
     formTabs.addPane(scope);
