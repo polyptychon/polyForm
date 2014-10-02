@@ -3,6 +3,7 @@ include date-input
 include select2
 include checkbox
 include radio-group
+include textarea
 include validation-messages
 
 mixin form-control(options)
@@ -18,6 +19,8 @@ mixin form-control(options)
   - type          = options.type          || 'text'
   - radioValues   = options.radioValues   || null
   - popover       = options.popover       || null
+
+  - useLabel      = options.useLabel      || true
 
   - multidate           = options.multidate           || null
   - forceParse          = options.forceParse          || null
@@ -82,10 +85,12 @@ mixin form-control(options)
       when "radio"
         +radio-group(options)
       default
-
-        label(for='#{name}Input')= label
+        if useLabel
+          label(for='#{name}Input')= label
 
         case type
+          when "textarea"
+            +textarea(options)
           when "select2"
             +select2(options)
           when "dateInput"

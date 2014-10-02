@@ -1,0 +1,52 @@
+mixin form-input(options)
+  - options       = options               || {}
+
+  - className     = options.class         || 'col-md-6'
+  - inputClass    = options.inputClass    || 'form-control'
+  - name          = options.name          || 'control'
+  - label         = options.label         || 'Ετικέτα'
+  - placeholder   = options.placeholder   || label
+  - autocomplete  = options.autocomplete  || name
+  - type          = options.type          || 'text'
+  - popover       = options.popover       || null
+
+  - rows          = options.rows          || "4"
+  - cols          = options.cols          || "50"
+  - text          = options.text          || ""
+
+  - isUnique        = options.isUnique    || null  // Async Validation. Value must be a URL. Validation is done on server and must return json. example { "isUnique": "true" }
+  - isUniqueMapData = options.mapData     || null  // Maps json data to isUnique url. example isUnique="test.json?param:value" isUniqueMapData="{value=true}"
+
+  - ngChecked   = options.ngChecked   || null
+
+  - ngRequired  = options.ngRequired  || 'true' // Sets required attribute if set to true
+  - ngRequired  = ngRequired=='false' ? null : 'true'
+
+  - ngMinlength = options.ngMinlength || null   // Sets minlength validation error key if the value is shorter than minlength.
+  - ngMaxlength = options.ngMaxlength || null   // Sets maxlength validation error key if the value is longer than maxlength.
+  - ngPattern   = options.ngPattern   || null   // Sets pattern validation error key if the value does not match the RegExp pattern expression. Expected value is /regexp/ for inline patterns or regexp for patterns defined as scope expressions.
+  - ngChange    = options.ngChange    || null   // Angular expression to be executed when input changes due to user interaction with the input element.
+  - ngTrim      = options.ngTrim      || null   // If set to false Angular will not automatically trim the input. This parameter is ignored for input[type=password] controls, which will never trim the input.
+
+  textarea(
+    class=inputClass
+    id= '#{name}Input',
+    name=name,
+    autocomplete=autocomplete,
+    type=(type=='select2'?null:type),
+    placeholder=placeholder,
+    ng-model='$parent.#{name}',
+
+    rows=rows,
+    cols=cols,
+
+    is-unique=isUnique,
+    is-unique-map-data=isUniqueMapData,
+
+    ng-required=ngRequired,
+    ng-minlength=ngMinlength,
+    ng-maxlength=ngMaxlength,
+    ng-pattern=ngPattern,
+    ng-change=ngChange,
+    ng-trim=ngTrim
+  )= text
