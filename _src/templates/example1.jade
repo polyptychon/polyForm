@@ -28,4 +28,9 @@ html(ng-app="PolyForm")
           form-tab(tab-title="Form Tab 3")
             include partials/inline-controls
 
+      form(name="myform5", ng-cloak="true")
+        form-tabs
+          form-tab(tab-title="Hidden Controls")
+            include partials/hidden-controls
+
     include partials/footer

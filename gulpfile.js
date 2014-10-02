@@ -184,7 +184,7 @@ gulp.task('fonts', function() {
 
 gulp.task('watch', function() {
   gulp.watch(SRC+'/**/*.{jade,svg,json}', ['jade']);
-  gulp.watch(SRC+'/**/*.{js,coffee}', ['coffee']);
+  gulp.watch(SRC+'/**/*.js', ['coffee']);
   gulp.watch(SRC+'/**/*.scss', ['sass']);
   var server = livereload();
   gulp.watch(BUILD+'**').on('change', function(file) {

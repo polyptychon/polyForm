@@ -1,3 +1,4 @@
+$ = require "jquery"
 formElements = require "../utils/FormElements.coffee"
 
 module.exports = () ->
@@ -13,16 +14,18 @@ module.exports = () ->
     controlElements = elm.find(formElements)
     controls = []
 
-    if (formTab? && formTab.scope.disabled?)
+    if (formTab?.scope?.disabled?)
       formTab.scope.$watch("disabled", (value) ->
         update(scope.$eval(attrs.ngShow))
       )
+
     if (attrs.ngShow?)
-      scope.$watch(attrs.ngShow, (value) ->
+      scope.$parent.$watch(attrs.ngShow, (value) ->
         update(value)
       )
+
     if (attrs.ngHide?)
-      scope.$watch(attrs.ngHide, (value) ->
+      scope.$parent.$watch(attrs.ngHide, (value) ->
         update(!value)
       )
 
