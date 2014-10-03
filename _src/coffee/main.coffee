@@ -20,6 +20,7 @@ module.exports =
   .directive("loaderIcon", require("./directives/LoaderIcon"))
   .directive("dateInput", require("./directives/DateInput"))
   .directive("popover", require("./directives/Popover"))
+  .directive("isEqual", require("./directives/IsEqual"))
   .directive("disableValidationWhenHidden", require("./directives/DisableValidationWhenHidden"))
   .directive("isUnique", ['$timeout', '$http', require("./directives/IsUnique")])
   .directive("jsonResource", ['$timeout', '$http', require("./directives/JsonResource")])
