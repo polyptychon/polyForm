@@ -1,6 +1,7 @@
 $ = require "jquery"
 formElements = require "../utils/FormElements.coffee"
 _ = require "lodash"
+requestAnimFrame = require "animationframe"
 
 module.exports = () ->
   restrict: 'A'
@@ -17,25 +18,37 @@ module.exports = () ->
 
     if (formTab?.scope?.disabled?)
       formTab.scope.$watch("disabled", (value) ->
-        update(scope.$eval(attrs.ngShow))
+        update(scope.$eval(attrs.ngShow)) if (attrs.ngShow?)
+        update(scope.$eval(attrs.ngHide)) if (attrs.ngHide?)
+        update(scope.$eval(attrs.ngDisabled)) if (attrs.ngDisabled?)
       )
 
     if (attrs.ngShow?)
       scope.$parent.$watch(attrs.ngShow, (value) ->
         update(value)
+        requestAnimFrame ( () ->
+          update(value)
+        )
       )
 
     if (attrs.ngHide?)
       scope.$parent.$watch(attrs.ngHide, (value) ->
         update(!value)
+        requestAnimFrame ( () ->
+          update(!value)
+        )
       )
 
     if (attrs.ngDisabled?)
       scope.$parent.$watch(attrs.ngDisabled, (value) ->
         update(!value)
+        requestAnimFrame ( () ->
+          update(!value)
+        )
       )
 
     update = (value) ->
+
       controlElements.each(
         (index) ->
           element = $(@);
