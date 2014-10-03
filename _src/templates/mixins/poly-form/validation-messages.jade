@@ -9,7 +9,8 @@ mixin validation-messages(options)
   - type          = options.type          || 'text'
   - popover       = options.popover       || null
 
-  - isUnique        = options.isUnique    || null  // Async Validation. Value must be a URL. Validation is done on server and must return json. example { "isUnique": "true" }
+  - isUnique      = options.isUnique      || null  // Async Validation. Value must be a URL. Validation is done on server and must return json. example { "isUnique": "true" }
+  - isEqual       = options.isEqual       || null
 
   - ngRequired  = options.ngRequired  || 'true' // Sets required attribute if set to true
   - ngRequired  = ngRequired=='false' ? null : 'true'
@@ -24,6 +25,7 @@ mixin validation-messages(options)
   - ngNumberMessage    = options.ngNumberMessage       || 'Συμπληρώστε το πεδίο με αριθμούς'
 
   - isUniqueMessage     = options.isUniqueMessage     || 'Τα στοιχεία που συμπληρώσατε δεν είναι μοναδικά'
+  - isEqualMessage      = options.isEqualMessage      || 'Τα στοιχεία που συμπληρώσατε δεν ταιριάζουν'
   - ngRequiredMessage   = options.ngRequiredMessage   || 'Παρακαλώ συμπληρώστε το πεδίο'
   - ngMinlengthMessage  = options.ngMinlengthMessage  || 'Παρακαλώ συμπληρώστε το πεδίο με πάραπανω από ' + ngMinlength +' χαρακτήρες'
   - ngMaxlengthMessage  = options.ngMaxlengthMessage  || 'Παρακαλώ συμπληρώστε το πεδίο μέχρι ' + ngMaxlength +' χαρακτήρες'
@@ -34,6 +36,8 @@ mixin validation-messages(options)
   if type=='number' && ngNumberMessage
     error-message.ng-number= ngNumberMessage
 
+  if isEqual && isEqualMessage
+    error-message.is-equal= isEqualMessage
   if isUnique && isUniqueMessage
     error-message.is-uinique= isUniqueMessage
   if ngRequired && ngRequiredMessage

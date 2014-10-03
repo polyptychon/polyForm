@@ -39,6 +39,7 @@ mixin form-input(options)
 
   - isUnique        = options.isUnique    || null  // Async Validation. Value must be a URL. Validation is done on server and must return json. example { "isUnique": "true" }
   - isUniqueMapData = options.mapData     || null  // Maps json data to isUnique url. example isUnique="test.json?param:value" isUniqueMapData="{value=true}"
+  - isEqual         = options.isEqual     || null
 
   - ngChecked   = options.ngChecked   || null
 
@@ -87,6 +88,8 @@ mixin form-input(options)
 
     is-unique=isUnique,
     is-unique-map-data=isUniqueMapData,
+
+    is-equal=isEqual,
 
     ng-required=ngRequired,
     ng-minlength=ngMinlength,
