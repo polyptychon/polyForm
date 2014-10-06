@@ -8,6 +8,7 @@ mixin form-input(options)
   - placeholder   = options.placeholder   || label
   - autocomplete  = options.autocomplete  || name
   - type          = options.type          || 'text'
+  - value         = options.value         || null
   - popover       = options.popover       || null
 
   - select2Data   = options.select2Data   || null
@@ -42,6 +43,7 @@ mixin form-input(options)
   - isEqual         = options.isEqual     || null
 
   - ngChecked   = options.ngChecked   || null
+  - ngValue   = options.ngValue       || null
 
   - ngRequired  = options.ngRequired  || 'true' // Sets required attribute if set to true
   - ngRequired  = ngRequired=='false' ? null : 'true'
@@ -59,8 +61,10 @@ mixin form-input(options)
     autocomplete=autocomplete,
     type=(type=='select2'?null:type),
     placeholder=placeholder,
+    value=value,
     ng-model='$parent.$parent.#{name}',
-    ng-checked=ngChecked
+    ng-checked=ngChecked,
+    ng-value=ngValue,
 
     ui-select2= select2Input,
     data-ui-select2-query=                  ( select2Input ? uiSelect2Query ? uiSelect2Query : 'http://www.weighttraining.com/api/v2/sm/search?types%5B%5D=:type&term=:value&limit=:limit':null),

@@ -3,14 +3,14 @@ include form-input
 mixin radio-group(options)
   - options       = options               || {}
 
-  - className     = options.class         || 'col-md-6'
+  - className     = options.class         || 'col-md-12'
   - inputClass    = options.inputClass    || 'form-control'
   - radioClass    = options.radioClass    || 'radio-inline'
   - name          = options.name          || 'control'
   - label         = options.label         || 'Ετικέτα'
   - placeholder   = options.placeholder   || label
   - autocomplete  = options.autocomplete  || name
-  - type          = options.type          || 'text'
+  - type          = options.type          || 'radio'
   - radioValues   = options.radioValues   || null
   - popover       = options.popover       || null
 
@@ -23,8 +23,9 @@ mixin radio-group(options)
           - options.ngChecked = index==0?true:null
           div(class=radioClass)
             label
+              - options.value = (typeof val == 'string' ? val: val.value)
               +form-input(options)
-              = ' ' + val
+              = ' ' + (typeof val == 'string' ? val: val.label)
       else
         label
           .input-group
