@@ -1,0 +1,17 @@
+include form-control
+mixin h-form-control(options)
+  - options = options         || {}
+
+  - labelClass           = options.labelClass   || 'col-md-4'
+  - options.class        = options.class        || 'col-md-8'
+  - options.name         = options.name         || 'control'
+  - options.label        = options.label        || 'Ετικέτα'
+  - options.useLabel     = options.useLabel     || 'false'
+  - options.placeholder  = options.placeholder  || ' '
+
+  .row
+    .col-md-12
+      div(class=labelClass)
+        label.input-label(for='#{options.name}Input')= options.label
+
+      +form-control(options)
