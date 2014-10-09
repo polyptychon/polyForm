@@ -1,6 +1,7 @@
 include form-input
 include date-input
 include select2
+include select
 include checkbox
 include radio-group
 include textarea
@@ -93,6 +94,8 @@ mixin form-control(options)
         case type
           when "textarea"
             +textarea(options)
+          when "select"
+            +select(options)
           when "select2"
             +select2(options)
           when "dateInput"

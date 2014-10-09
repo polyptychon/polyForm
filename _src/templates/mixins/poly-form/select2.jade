@@ -3,13 +3,16 @@ mixin select2(options)
 
   - className     = options.class         || 'col-md-6'
   - name          = options.name          || 'control'
-  - label         = options.label         || 'Ετικέτα'
+  - label         = options.label         || null
   - placeholder   = options.placeholder   || label
   - autocomplete  = options.autocomplete  || name
   - type          = options.type          || 'text'
   - popover       = options.popover       || null
 
-  - select2Data   = options.select2Data   || []
+  - value         = options.value         || null
+  - ngValue       = options.ngValue       || null
+
+  - selectData   = options.selectData   || []
 
   - isUnique        = options.isUnique    || null  // Async Validation. Value must be a URL. Validation is done on server and must return json. example { "isUnique": "true" }
   - isUniqueMapData = options.mapData     || null  // Maps json data to isUnique url. example isUnique="test.json?param:value" isUniqueMapData="{value=true}"
@@ -29,6 +32,8 @@ mixin select2(options)
     id=name+'Select',
     data-placeholder=placeholder,
     class="form-control",
+    value=value,
+    ng-value=ngValue,
     ng-model='$parent.#{name}',
     ng-required=ngRequired,
     ng-change=ngChange,
@@ -36,8 +41,8 @@ mixin select2(options)
   )
     if placeholder
       option(value="")
-    each val, index in select2Data
-      if typeof val == 'string'
+    each val, index in selectData
+      if typeof val == 'string' || typeof val == 'number'
         option(value=val)= val
       else
         option(value=val.value)= val.label
