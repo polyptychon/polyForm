@@ -1,9 +1,10 @@
 .spinner {
   margin: 0px auto;
   width: 50px;
-  height: 20px;
+  height: $input-height-base;
   text-align: center;
   font-size: 10px;
+  display: table-cell;
   & > div {
     width: 8px;
     height: 8px;
@@ -16,8 +17,6 @@
     /* Prevent first frame from flickering when animation starts */
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
-  }
-  & > div {
     margin-right: 2px;
   }
   & > div:last-child {

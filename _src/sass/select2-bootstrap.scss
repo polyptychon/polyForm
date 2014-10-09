@@ -15,6 +15,7 @@ $errorText: $state-danger-text !default;
   border-radius: $radius;
 }
 
+
 .select2-container {
   vertical-align: middle;
   &.input-mini       { width: 60px; }
@@ -107,23 +108,23 @@ $errorText: $state-danger-text !default;
 }
 
 .input-prepend [class^="select2-choice"] {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+  border-top-left-radius: $inputBorderRadius;
+  border-bottom-left-radius: $inputBorderRadius;
 }
 
 .input-append [class^="select2-choice"] {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  border-top-right-radius: $inputBorderRadius;
+  border-bottom-right-radius: $inputBorderRadius;
 }
 
 .select2-dropdown-open [class^="select2-choice"] {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-bottom-left-radius: $inputBorderRadius;
+  border-bottom-right-radius: $inputBorderRadius;
 }
 
 .select2-dropdown-open.select2-drop-above [class^="select2-choice"] {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  border-top-left-radius: $inputBorderRadius;
+  border-top-right-radius: $inputBorderRadius;
 }
 
 [class^="input-"] .select2-offscreen {
@@ -137,6 +138,6 @@ $errorText: $state-danger-text !default;
  */
 
 select.select2 {
-  height: 28px;
+  height: $baseLineHeight + 8px;
   visibility: hidden;
 }
