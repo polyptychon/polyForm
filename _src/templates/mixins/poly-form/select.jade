@@ -1,0 +1,44 @@
+mixin select(options)
+  - options       = options               || {}
+
+  - className     = options.class         || 'col-md-6'
+  - name          = options.name          || 'control'
+  - label         = options.label         || 'Ετικέτα'
+  - placeholder   = options.placeholder   || null
+  - autocomplete  = options.autocomplete  || name
+  - type          = options.type          || 'text'
+  - popover       = options.popover       || null
+
+  - value         = options.value         || null
+  - ngValue       = options.ngValue       || null
+
+  - selectData    = options.selectData     || []
+
+  - isUnique        = options.isUnique    || null  // Async Validation. Value must be a URL. Validation is done on server and must return json. example { "isUnique": "true" }
+  - isUniqueMapData = options.mapData     || null  // Maps json data to isUnique url. example isUnique="test.json?param:value" isUniqueMapData="{value=true}"
+
+  - ngRequired  = options.ngRequired  || 'true' // Sets required attribute if set to true
+  - ngRequired  = ngRequired=='false' ? null : 'true'
+
+  - ngMinlength = options.ngMinlength || null   // Sets minlength validation error key if the value is shorter than minlength.
+  - ngMaxlength = options.ngMaxlength || null   // Sets maxlength validation error key if the value is longer than maxlength.
+  - ngPattern   = options.ngPattern   || null   // Sets pattern validation error key if the value does not match the RegExp pattern expression. Expected value is /regexp/ for inline patterns or regexp for patterns defined as scope expressions.
+  - ngChange    = options.ngChange    || null   // Angular expression to be executed when input changes due to user interaction with the input element.
+  - ngTrim      = options.ngTrim      || null   // If set to false Angular will not automatically trim the input. This parameter is ignored for input[type=password] controls, which will never trim the input.
+
+
+  select(
+    id=name+'Select',
+    class="form-control",
+    value=value,
+    ng-value=ngValue,
+    ng-model='$parent.#{name}',
+    ng-required=ngRequired,
+    ng-change=ngChange,
+    ng-trim=ngTrim
+  )
+    each val, index in selectData
+      if typeof val == 'string' || typeof val == 'number'
+        option(value=val)= val
+      else
+        option(value=val.value)= val.label
