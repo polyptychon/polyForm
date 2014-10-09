@@ -10,7 +10,7 @@
     return {
       restrict: 'E',
       transclude: true,
-      template: '<div class="popover" role="tooltip"> <div class="arrow"></div> <h3 class="popover-title"></h3> <div class="popover-content" ng-transclude></div> </div>',
+      template: require('./popover.jade'),
       replace: false,
       scope: {
         preventCloseOnPopOverClick: '@',

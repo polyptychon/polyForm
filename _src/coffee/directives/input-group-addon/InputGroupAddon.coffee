@@ -1,5 +1,5 @@
 module.exports = () ->
   restrict: 'E'
   transclude: true
-  template: '<span class="input-group-addon"ng-transclude></span>'
+  template: require './input-group-addon.jade'
   replace: true

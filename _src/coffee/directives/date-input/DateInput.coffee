@@ -1,11 +1,7 @@
 module.exports = () ->
   restrict: 'E'
   transclude: true
-  template:
-    '<div class="input-group date">
-      <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-      <div ng-transclude></div>
-     </div>'
+  template: require './date-input.jade'
   replace: true
 
   link: (scope, element, attrs) ->

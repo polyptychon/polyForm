@@ -4,7 +4,7 @@
     return {
       restrict: 'E',
       transclude: true,
-      template: '<div class="form-group" ng-transclude></div>',
+      template: require('./form-group.jade'),
       replace: true
     };
   };

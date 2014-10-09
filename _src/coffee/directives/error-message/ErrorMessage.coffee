@@ -1,5 +1,5 @@
 module.exports = () ->
   restrict: 'E'
   transclude: true
-  template: '<div class="error-message" ng-transclude></div>'
+  template: require './error-message.jade'
   replace: true

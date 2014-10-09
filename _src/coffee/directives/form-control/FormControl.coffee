@@ -5,7 +5,7 @@ requestAnimFrame = require "animationframe"
 module.exports = () ->
   restrict: 'E'
   transclude: true
-  template: '<div class="has-feedback ng-transclude"></div>'
+  template: require './form-control.jade'
   replace: true
   require: ['^form']
   scope:
