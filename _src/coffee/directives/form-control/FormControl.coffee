@@ -1,5 +1,5 @@
 $ = require "jquery"
-formElements = require "../utils/FormElements.coffee"
+formElements = require "../../utils/FormElements.coffee"
 requestAnimFrame = require "animationframe"
 
 module.exports = () ->

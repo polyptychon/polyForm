@@ -1,5 +1,5 @@
 $ = require "jquery"
-formatStringURL = require "../utils/FormatStringURL.coffee"
+formatStringURL = require "../../utils/FormatStringURL.coffee"
 
 module.exports = ($timeout, $http) ->
   restrict: 'A'

@@ -2,7 +2,7 @@
 (function() {
   var mapDataToURL;
 
-  mapDataToURL = require("../utils/MapDataToURL.coffee");
+  mapDataToURL = require("../../utils/MapDataToURL.coffee");
 
   module.exports = function($timeout, $http) {
     return {

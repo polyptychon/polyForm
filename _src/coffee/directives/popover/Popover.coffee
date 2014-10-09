@@ -1,5 +1,5 @@
 $ = require "jquery"
-formElements = require "../utils/FormElements.coffee"
+formElements = require "../../utils/FormElements.coffee"
 
 module.exports = () ->
   restrict: 'E'
