@@ -26,47 +26,39 @@ module.exports = () ->
     if (attrs.ngShow?)
       scope.$parent.$watch(attrs.ngShow, (value) ->
         update(value)
-        requestAnimFrame ( () ->
-          update(value)
-        )
       )
 
     if (attrs.ngHide?)
       scope.$parent.$watch(attrs.ngHide, (value) ->
         update(!value)
-        requestAnimFrame ( () ->
-          update(!value)
-        )
       )
 
     if (attrs.ngDisabled?)
       scope.$parent.$watch(attrs.ngDisabled, (value) ->
         update(!value)
-        requestAnimFrame ( () ->
-          update(!value)
-        )
       )
 
     update = (value) ->
-
-      controlElements.each(
-        (index) ->
-          element = $(@);
-          control = form[element.attr("name")]
-          controls.push(control) unless _.contains(controls, control)
-          if (value)
-            $(element).removeAttr('disabled')
-          else
-            $(element).attr('disabled', 'disabled')
-      )
-      _.forEach(controls,
-        (control) ->
-          return unless (control?)
-          if (value)
-            form.$addControl(control)
-            angular.forEach(control.$error, (validity, validationToken) ->
-              form.$setValidity(validationToken, !validity, control)
-            )
-          else
-            form.$removeControl(control)
+      requestAnimFrame ( () ->
+        controlElements.each(
+          (index) ->
+            element = $(@);
+            control = form[element.attr("name")]
+            controls.push(control) unless _.contains(controls, control)
+            if (value)
+              $(element).removeAttr('disabled')
+            else
+              $(element).attr('disabled', 'disabled')
+        )
+        _.forEach(controls,
+          (control) ->
+            return unless (control?)
+            if (value)
+              form.$addControl(control)
+              angular.forEach(control.$error, (validity, validationToken) ->
+                form.$setValidity(validationToken, !validity, control)
+              )
+            else
+              form.$removeControl(control)
+        )
       )

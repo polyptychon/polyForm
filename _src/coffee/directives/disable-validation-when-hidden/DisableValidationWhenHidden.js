@@ -39,55 +39,48 @@
         }
         if ((attrs.ngShow != null)) {
           scope.$parent.$watch(attrs.ngShow, function(value) {
-            update(value);
-            return requestAnimFrame((function() {
-              return update(value);
-            }));
+            return update(value);
           });
         }
         if ((attrs.ngHide != null)) {
           scope.$parent.$watch(attrs.ngHide, function(value) {
-            update(!value);
-            return requestAnimFrame((function() {
-              return update(!value);
-            }));
+            return update(!value);
           });
         }
         if ((attrs.ngDisabled != null)) {
           scope.$parent.$watch(attrs.ngDisabled, function(value) {
-            update(!value);
-            return requestAnimFrame((function() {
-              return update(!value);
-            }));
+            return update(!value);
           });
         }
         return update = function(value) {
-          controlElements.each(function(index) {
-            var control, element;
-            element = $(this);
-            control = form[element.attr("name")];
-            if (!_.contains(controls, control)) {
-              controls.push(control);
-            }
-            if (value) {
-              return $(element).removeAttr('disabled');
-            } else {
-              return $(element).attr('disabled', 'disabled');
-            }
-          });
-          return _.forEach(controls, function(control) {
-            if (!(control != null)) {
-              return;
-            }
-            if (value) {
-              form.$addControl(control);
-              return angular.forEach(control.$error, function(validity, validationToken) {
-                return form.$setValidity(validationToken, !validity, control);
-              });
-            } else {
-              return form.$removeControl(control);
-            }
-          });
+          return requestAnimFrame((function() {
+            controlElements.each(function(index) {
+              var control, element;
+              element = $(this);
+              control = form[element.attr("name")];
+              if (!_.contains(controls, control)) {
+                controls.push(control);
+              }
+              if (value) {
+                return $(element).removeAttr('disabled');
+              } else {
+                return $(element).attr('disabled', 'disabled');
+              }
+            });
+            return _.forEach(controls, function(control) {
+              if (!(control != null)) {
+                return;
+              }
+              if (value) {
+                form.$addControl(control);
+                return angular.forEach(control.$error, function(validity, validationToken) {
+                  return form.$setValidity(validationToken, !validity, control);
+                });
+              } else {
+                return form.$removeControl(control);
+              }
+            });
+          }));
         };
       }
     };
