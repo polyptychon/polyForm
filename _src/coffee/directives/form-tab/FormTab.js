@@ -103,32 +103,34 @@
         };
       },
       controller: function($scope, $element) {
-        var formControls, validatePane;
+        var formControls, isPaneValid;
         $scope.disabled = true;
         $scope.isPaneInValid = true;
         formControls = $scope.formControls = [];
-        validatePane = function() {
+        isPaneValid = function() {
           var enabledElements, nextPane;
           nextPane = $scope.getNextPane();
-          if (nextPane) {
-            nextPane.enabled = false;
-          }
           $scope.isPaneInValid = false;
           enabledElements = formElements.split(", ").join(":enabled, ") + ":enabled";
           $($element).find(enabledElements).each(function() {
             if ($(this).hasClass("ng-invalid")) {
-              if (nextPane) {
-                nextPane.enabled = true;
-              }
               return $scope.isPaneInValid = true;
             }
           });
-          return $scope.$digest();
+          if (nextPane) {
+            nextPane.disabled = $scope.isPaneInValid;
+            nextPane.$digest();
+          }
+          $scope.$digest();
+          return $scope.isPaneInValid;
         };
         $scope.$evalAsync(function() {
+          requestAnimFrame((function() {
+            return isPaneValid();
+          }));
           return $($element).find(formElements).bind("keyup input blur change click", function() {
             return requestAnimFrame((function() {
-              return validatePane();
+              return isPaneValid();
             }));
           });
         });

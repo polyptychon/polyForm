@@ -95,24 +95,30 @@ module.exports = () ->
 
     formControls = $scope.formControls = []
 
-    validatePane = () ->
+    isPaneValid = () ->
       nextPane = $scope.getNextPane()
-      nextPane.enabled = false if (nextPane)
-      $scope.isPaneInValid = false;
+      $scope.isPaneInValid = false
       enabledElements = formElements.split(", ").join(":enabled, ") + ":enabled"
 
       $($element).find(enabledElements).each(() ->
         if ($(@).hasClass("ng-invalid"))
-          nextPane.enabled = true if (nextPane)
           $scope.isPaneInValid = true
       )
+      if (nextPane)
+        nextPane.disabled = $scope.isPaneInValid
+        nextPane.$digest()
 
-      $scope.$digest();
+      $scope.$digest()
+
+      return $scope.isPaneInValid
 
     $scope.$evalAsync(() ->
+      requestAnimFrame ( () ->
+        isPaneValid()
+      )
       $($element).find(formElements).bind("keyup input blur change click", () ->
         requestAnimFrame ( () ->
-          validatePane()
+          isPaneValid()
         )
       )
     )
