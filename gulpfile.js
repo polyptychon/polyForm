@@ -191,7 +191,7 @@ gulp.task('watch', function() {
   watching = true;
   livereload.listen();
   gulp.watch(SRC+'/**/*.jade', ['jade']).on('error', gutil.log);
-  gulp.watch(SRC+'/**/*.{js,coffee}', ['coffee']).on('error', gutil.log);
+  gulp.watch(SRC+'/**/*.coffee', ['coffee']).on('error', gutil.log);
   gulp.watch(SRC+'/**/*.scss', ['sass']).on('error', gutil.log);
   gulp.watch(BUILD+env+'/assets/**').on('change', function(file) {
     console.log(file.path);
@@ -246,19 +246,19 @@ gulp.task('production', function() {
   runSequence(['images','clean-js'],['fonts','coffee','sass'],['jade']);
 });
 
-function sha1(buf) {
-  return crypto.createHash('sha1').update(buf).digest('hex');
-}
+//function sha1(buf) {
+//  return crypto.createHash('sha1').update(buf).digest('hex');
+//}
 
-function getFilesWithSha1(path) {
-  var a = [];
-  fs.readdirSync(path).map(function(file) {
-    var filePath = path+'/'+file;
-    var stats = fs.lstatSync(filePath);
-    if (stats.isFile()) {
-      var targetDigest = sha1(fs.readFileSync(filePath));
-      a.push(targetDigest)
-    }
-  });
-  return a;
-}
+//function getFilesWithSha1(path) {
+//  var a = [];
+//  fs.readdirSync(path).map(function(file) {
+//    var filePath = path+'/'+file;
+//    var stats = fs.lstatSync(filePath);
+//    if (stats.isFile()) {
+//      var targetDigest = sha1(fs.readFileSync(filePath));
+//      a.push(targetDigest)
+//    }
+//  });
+//  return a;
+//}

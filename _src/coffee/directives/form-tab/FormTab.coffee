@@ -1,5 +1,6 @@
 $ = require "jquery"
 formElements = require "../../utils/FormElements.coffee"
+requestAnimFrame = require "animationframe"
 
 module.exports = () ->
   restrict: 'E'
@@ -93,25 +94,32 @@ module.exports = () ->
     $scope.isPaneInValid = true
 
     formControls = $scope.formControls = []
+
+    validatePane = () ->
+      nextPane = $scope.getNextPane()
+      nextPane.enabled = false if (nextPane)
+      $scope.isPaneInValid = false;
+      enabledElements = formElements.split(", ").join(":enabled, ") + ":enabled"
+
+      $($element).find(enabledElements).each(() ->
+        if ($(@).hasClass("ng-invalid"))
+          nextPane.enabled = true if (nextPane)
+          $scope.isPaneInValid = true
+      )
+
+      $scope.$digest();
+
     $scope.$evalAsync(() ->
       $($element).find(formElements).bind("keyup input blur change click", () ->
-        nextPane = $scope.getNextPane()
-        nextPane.enabled = false if (nextPane)
-        $scope.isPaneInValid = false;
-        $($element).find("input:visible, select:visible, textarea:visible, datalist:visible, [select2]:visible").each(() ->
-          if ($(@).hasClass("ng-invalid"))
-            nextPane.enabled = true if (nextPane)
-            $scope.isPaneInValid = true
+        requestAnimFrame ( () ->
+          validatePane()
         )
-        $scope.$digest();
       )
     )
 
     $scope.setFocus = () ->
-      $scope.$evalAsync(() ->
-        setTimeout(() ->
-          $($element).find(formElements).first().focus()
-        , 200)
+      requestAnimFrame ( () ->
+        $($element).find(formElements).first().focus()
       )
 
     @addFormControl = (formControl) ->
