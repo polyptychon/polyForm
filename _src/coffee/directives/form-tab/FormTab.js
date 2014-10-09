@@ -119,9 +119,8 @@
           });
           if (nextPane) {
             nextPane.disabled = $scope.isPaneInValid;
-            nextPane.$digest();
           }
-          $scope.$digest();
+          $scope.$apply();
           return $scope.isPaneInValid;
         };
         $scope.$evalAsync(function() {

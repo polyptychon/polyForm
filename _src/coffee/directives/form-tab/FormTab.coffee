@@ -104,11 +104,9 @@ module.exports = () ->
         if ($(@).hasClass("ng-invalid"))
           $scope.isPaneInValid = true
       )
-      if (nextPane)
-        nextPane.disabled = $scope.isPaneInValid
-        nextPane.$digest()
 
-      $scope.$digest()
+      nextPane.disabled = $scope.isPaneInValid if (nextPane)
+      $scope.$apply()
 
       return $scope.isPaneInValid
 
