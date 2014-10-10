@@ -128,7 +128,7 @@ gulp.task('lib', function() {
   env = PRODUCTION;
   gulp.src('./'+SRC+'/coffee/main.coffee')
     .pipe(plumber())
-    .pipe(myCoffee('_lib', 'main.min.js'));
+    .pipe(myCoffee('_lib', 'poly-form.min.js'));
 
   gulp.src(libs)
     return browserify()
@@ -138,7 +138,7 @@ gulp.task('lib', function() {
         console.log(err.message);
         this.end();
       })
-      .pipe(source('vendor.min.js'))
+      .pipe(source('poly-form-lib.min.js'))
       .pipe(duration('vendor'))
       .pipe(buffer())
       .pipe(gulpif(env === PRODUCTION, uglify()))
@@ -186,7 +186,7 @@ gulp.task('sass', function() {
   } else if (env === PRODUCTION) {
     config.outputStyle = 'compressed';
   }
-  return gulp.src(SRC+'/sass/main.scss')
+  return gulp.src(SRC+'/sass/poly-form.scss')
     .pipe(duration('sass'))
     .pipe(plumber())
     .pipe(sass(config).on('error', gutil.log))
