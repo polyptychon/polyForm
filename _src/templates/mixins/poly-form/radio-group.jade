@@ -11,15 +11,16 @@ mixin radio-group(options)
   - placeholder   = options.placeholder   || label
   - autocomplete  = options.autocomplete  || name
   - type          = options.type          || 'radio'
-  - radioValues   = options.radioValues   || null
   - popover       = options.popover       || null
+
+  - collection    = options.collection    || null
 
   - options.inputClass = 'form-input'
 
   .row
     div(class=className)
-      if (radioValues)
-        each val, index in radioValues
+      if (collection)
+        each val, index in collection
           - options.ngChecked = index==0?'true':null
           div(class=radioClass)
             label

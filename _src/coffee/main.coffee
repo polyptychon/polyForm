@@ -1,5 +1,4 @@
 global.jQuery = $ = require "jquery"
-
 require "bootstrapify"
 require "select2/select2"
 require "bootstrap-datepicker/js/bootstrap-datepicker"

@@ -12,7 +12,7 @@ mixin select2(options)
   - value         = options.value         || null
   - ngValue       = options.ngValue       || null
 
-  - selectData   = options.selectData   || []
+  - collection   = options.collection   || []
 
   - isUnique        = options.isUnique    || null  // Async Validation. Value must be a URL. Validation is done on server and must return json. example { "isUnique": "true" }
   - isUniqueMapData = options.mapData     || null  // Maps json data to isUnique url. example isUnique="test.json?param:value" isUniqueMapData="{value=true}"
@@ -41,7 +41,7 @@ mixin select2(options)
   )
     if placeholder
       option(value="")
-    each val, index in selectData
+    each val, index in collection
       if typeof val == 'string' || typeof val == 'number'
         option(value=val)= val
       else
