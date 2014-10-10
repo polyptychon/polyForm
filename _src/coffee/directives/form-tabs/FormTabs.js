@@ -71,7 +71,7 @@
           };
           return this.removePane = function(current_pane) {
             var index, pane, _i, _len;
-            if (!(typeof pane !== "undefined" && pane !== null)) {
+            if (!(current_pane != null)) {
               return false;
             }
             for (index = _i = 0, _len = panes.length; _i < _len; index = ++_i) {

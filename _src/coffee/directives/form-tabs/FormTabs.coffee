@@ -58,7 +58,7 @@ module.exports = () ->
 
 
         @removePane = (current_pane) ->
-          return false unless (pane?)
+          return false unless (current_pane?)
 
           for pane,index in panes
             if (pane == current_pane)
