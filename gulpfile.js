@@ -46,15 +46,24 @@ var DEVELOPMENT = 'development',
     TEST = "test",
     watching = false,
     libs = [
-      './node_modules/angular/angular.min.js',
-      './node_modules/angular-route/angular-route.min.js',
-      './node_modules/jquery/dist/jquery.min.js'
+      'jquery',
+      'bootstrapify',
+      'select2/select2',
+      'bootstrap-datepicker/js/bootstrap-datepicker',
+      'angular',
     ];
 
 var env = process.env.NODE_ENV || DEVELOPMENT;
 if (env!==DEVELOPMENT) env = PRODUCTION;
 
 var jadeFiles = argv.jade || '*';
+
+var packageJson = require('./package.json');
+var dependencies = Object.keys(packageJson && packageJson.dependencies || {});
+
+_.forEach(libs, function(d) {
+  dependencies.push(d);
+});
 
 function getOutputDir() {
   return BUILD+env;
@@ -86,10 +95,13 @@ gulp.task('jade', function() {
 });
 
 function myCoffee(dest, name) {
+  dest = dest || getOutputDir()+ASSETS+'/js';
+  name = name || 'main.js';
+
   var bundler = browserify({debug: env === DEVELOPMENT})
-    .add('./'+SRC+'/coffee/main.coffee');
-  dest = dest || getOutputDir()+ASSETS+'/js'
-  name = name || 'main.js'
+    .add('./'+SRC+'/coffee/main.coffee')
+    .external(dependencies);
+
   return bundler.bundle()
     .on('error', function(err) {
       console.log(err.message);
@@ -117,6 +129,21 @@ gulp.task('lib', function() {
   gulp.src('./'+SRC+'/coffee/main.coffee')
     .pipe(plumber())
     .pipe(myCoffee('_lib', 'main.min.js'));
+
+  gulp.src(libs)
+    return browserify()
+      .require(dependencies)
+      .bundle()
+      .on('error', function(err) {
+        console.log(err.message);
+        this.end();
+      })
+      .pipe(source('vendor.min.js'))
+      .pipe(duration('vendor'))
+      .pipe(buffer())
+      .pipe(gulpif(env === PRODUCTION, uglify()))
+      .pipe(gulpif(env === PRODUCTION, size()))
+      .pipe(gulp.dest('_lib'));
 });
 
 gulp.task('clean-js', function() {
@@ -125,15 +152,19 @@ gulp.task('clean-js', function() {
 });
 gulp.task('vendor', function() {
   gulp.src(libs)
-    .pipe(gulpif(env === DEVELOPMENT, sourcemaps.init()))
-    .pipe(concat('vendor.js'))
-    .pipe(gulpif(env === DEVELOPMENT, sourcemaps.write()))
-    .pipe(gulpif(env === PRODUCTION, uglify({mangle:false})))
-    .pipe(gulpif(env === PRODUCTION, size()))
-    .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, rev()))
-    .pipe(gulp.dest(getOutputDir()+ASSETS+'/js'))
-    .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, rev.manifest()))
-    .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, gulp.dest(BUILD+'/rev/js-vendor')))
+    return browserify()
+      .require(dependencies)
+      .bundle()
+        .on('error', function(err) {
+          console.log(err.message);
+          this.end();
+        })
+      .pipe(source('vendor.js'))
+      .pipe(duration('vendor'))
+      .pipe(buffer())
+      .pipe(gulpif(env === PRODUCTION, uglify()))
+      .pipe(gulpif(env === PRODUCTION, size()))
+      .pipe(gulp.dest(getOutputDir()+ASSETS+'/js'));
 });
 
 gulp.task('autoVariables', function() {
@@ -249,7 +280,7 @@ gulp.task('build', function() {
 gulp.task('server', ['connect', 'watch']);
 gulp.task('production', function() {
   env = PRODUCTION;
-  runSequence(['images','clean-js'],['fonts','coffee','sass'],['jade']);
+  runSequence(['images','clean-js'],['fonts','coffee','vendor','sass'],['jade']);
 });
 
 //function sha1(buf) {

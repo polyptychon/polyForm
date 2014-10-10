@@ -2,6 +2,7 @@ global.jQuery = $ = require "jquery"
 require "bootstrapify"
 require "select2/select2"
 require "bootstrap-datepicker/js/bootstrap-datepicker"
+require "lodash"
 
 require 'angular'
 require "../js/angular-ui-select2"
