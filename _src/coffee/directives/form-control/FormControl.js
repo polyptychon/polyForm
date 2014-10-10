@@ -47,50 +47,52 @@
           return scope.copyChildClassesToParent($(this));
         });
       },
-      controller: function($scope, $element) {
-        var element;
-        element = $element;
-        return $scope.copyChildClassesToParent = this.copyChildClassesToParent = function(childElement, updateOnNextFrame) {
-          var attrClasses, inputClasses, select2DropActive;
-          if (!(childElement != null)) {
-            return;
-          }
-          childElement = $(childElement);
-          select2DropActive = $(".select2-drop-active");
-          attrClasses = $(element).attr("class").replace(/ng-(\w|\-)+\s?/gi, "");
-          attrClasses = attrClasses.replace(/\s?has-success|has-error\s?/gi, "");
-          attrClasses = attrClasses.replace(/\s\s/gi, "");
-          inputClasses = "";
-          inputClasses += childElement.attr("class").toString().match(/ng-(\w|\-)+\s?/gi).join(" ");
-          if (select2DropActive.hasClass("has-success")) {
-            select2DropActive.removeClass("has-success");
-          }
-          if (select2DropActive.hasClass("has-error")) {
-            select2DropActive.removeClass("has-error");
-          }
-          if (childElement.hasClass("ng-valid")) {
-            attrClasses += " has-success";
-            select2DropActive.addClass("has-success");
-          } else if (childElement.hasClass("ng-invalid") && childElement.hasClass("ng-dirty")) {
-            attrClasses += " has-error";
-            select2DropActive.addClass("has-error");
-          }
-          if (element.find('.select2-allowclear').length > 0) {
-            if (attrClasses.indexOf("select-clear") < 0) {
-              attrClasses += " select-clear ";
+      controller: [
+        '$scope', '$element', function($scope, $element) {
+          var element;
+          element = $element;
+          return $scope.copyChildClassesToParent = this.copyChildClassesToParent = function(childElement, updateOnNextFrame) {
+            var attrClasses, inputClasses, select2DropActive;
+            if (!(childElement != null)) {
+              return;
             }
-          } else {
-            attrClasses = attrClasses.replace(/select-clear/gi, "");
-          }
-          attrClasses = attrClasses.replace(/ng-\w+-?\w+\s/gi, "");
-          $(element).attr("class", attrClasses + " " + inputClasses);
-          if (!(updateOnNextFrame != null)) {
-            return requestAnimFrame((function() {
-              return $scope.copyChildClassesToParent(childElement, false);
-            }));
-          }
-        };
-      }
+            childElement = $(childElement);
+            select2DropActive = $(".select2-drop-active");
+            attrClasses = $(element).attr("class").replace(/ng-(\w|\-)+\s?/gi, "");
+            attrClasses = attrClasses.replace(/\s?has-success|has-error\s?/gi, "");
+            attrClasses = attrClasses.replace(/\s\s/gi, "");
+            inputClasses = "";
+            inputClasses += childElement.attr("class").toString().match(/ng-(\w|\-)+\s?/gi).join(" ");
+            if (select2DropActive.hasClass("has-success")) {
+              select2DropActive.removeClass("has-success");
+            }
+            if (select2DropActive.hasClass("has-error")) {
+              select2DropActive.removeClass("has-error");
+            }
+            if (childElement.hasClass("ng-valid")) {
+              attrClasses += " has-success";
+              select2DropActive.addClass("has-success");
+            } else if (childElement.hasClass("ng-invalid") && childElement.hasClass("ng-dirty")) {
+              attrClasses += " has-error";
+              select2DropActive.addClass("has-error");
+            }
+            if (element.find('.select2-allowclear').length > 0) {
+              if (attrClasses.indexOf("select-clear") < 0) {
+                attrClasses += " select-clear ";
+              }
+            } else {
+              attrClasses = attrClasses.replace(/select-clear/gi, "");
+            }
+            attrClasses = attrClasses.replace(/ng-\w+-?\w+\s/gi, "");
+            $(element).attr("class", attrClasses + " " + inputClasses);
+            if (!(updateOnNextFrame != null)) {
+              return requestAnimFrame((function() {
+                return $scope.copyChildClassesToParent(childElement, false);
+              }));
+            }
+          };
+        }
+      ]
     };
   };
 

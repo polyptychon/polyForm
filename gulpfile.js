@@ -48,7 +48,6 @@ var DEVELOPMENT = 'development',
     libs = [
       './node_modules/angular/angular.min.js',
       './node_modules/angular-route/angular-route.min.js',
-      './node_modules/underscore/underscore-min.js',
       './node_modules/jquery/dist/jquery.min.js'
     ];
 
@@ -86,31 +85,38 @@ gulp.task('jade', function() {
     });
 });
 
+function myCoffee(dest, name) {
+  var bundler = browserify({debug: env === DEVELOPMENT})
+    .add('./'+SRC+'/coffee/main.coffee');
+  dest = dest || getOutputDir()+ASSETS+'/js'
+  name = name || 'main.js'
+  return bundler.bundle()
+    .on('error', function(err) {
+      console.log(err.message);
+      this.end();
+    })
+    .pipe(duration('coffee'))
+    .pipe(source(name))
+    .pipe(buffer())
+    .pipe(gulpif(env === PRODUCTION, uglify()))
+    .pipe(gulpif(env === PRODUCTION, size()))
+    .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, rev()))
+    .pipe(gulp.dest(dest))
+    .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, rev.manifest()))
+    .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, gulp.dest(BUILD+'/rev/js')))
+}
 
 gulp.task('coffee', function() {
-  function myCoffee() {
-    var bundler = browserify({debug: env === DEVELOPMENT})
-      .add('./'+SRC+'/coffee/main.coffee');
-
-    return bundler.bundle()
-      .on('error', function(err) {
-        console.log(err.message);
-        this.end();
-      })
-      .pipe(duration('coffee'))
-      .pipe(source('main.js'))
-      .pipe(buffer())
-      .pipe(gulpif(env === PRODUCTION, uglify()))
-      .pipe(gulpif(env === PRODUCTION, size()))
-      .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, rev()))
-      .pipe(gulp.dest(getOutputDir()+ASSETS+'/js'))
-      .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, rev.manifest()))
-      .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, gulp.dest(BUILD+'/rev/js')))
-  }
-
   gulp.src('./'+SRC+'/coffee/main.coffee')
     .pipe(plumber())
     .pipe(myCoffee());
+});
+
+gulp.task('lib', function() {
+  env = PRODUCTION;
+  gulp.src('./'+SRC+'/coffee/main.coffee')
+    .pipe(plumber())
+    .pipe(myCoffee('_lib', 'main.min.js'));
 });
 
 gulp.task('clean-js', function() {
@@ -141,7 +147,7 @@ gulp.task('spriteSass', function() {
     .pipe(gulp.dest(SRC+'/sass'))
 });
 gulp.task('sass', function() {
-  var imagesManifest = env === PRODUCTION ? (JSON.parse(fs.readFileSync("./"+BUILD+'/rev/images/rev-manifest.json', "utf8"))) : {};
+  var imagesManifest = env === PRODUCTION && USE_FINGERPRINTING ? (JSON.parse(fs.readFileSync("./"+BUILD+'/rev/images/rev-manifest.json', "utf8"))) : {};
   var config = { errLogToConsole: true };
 
   if (env === DEVELOPMENT) {

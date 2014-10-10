@@ -89,42 +89,47 @@ module.exports = () ->
 
       toggleValidation(value)
 
-  controller: ($scope, $element) ->
-    $scope.disabled = true
-    $scope.isPaneInValid = true
+  controller:
+    [
+      '$scope'
+      '$element'
+      ($scope, $element) ->
+        $scope.disabled = true
+        $scope.isPaneInValid = true
 
-    formControls = $scope.formControls = []
+        formControls = $scope.formControls = []
 
-    isPaneValid = () ->
-      nextPane = $scope.getNextPane()
-      $scope.isPaneInValid = false
-      enabledElements = formElements.split(", ").join(":enabled, ") + ":enabled"
+        isPaneValid = () ->
+          nextPane = $scope.getNextPane()
+          $scope.isPaneInValid = false
+          enabledElements = formElements.split(", ").join(":enabled, ") + ":enabled"
 
-      $($element).find(enabledElements).each(() ->
-        if ($(@).hasClass("ng-invalid"))
-          $scope.isPaneInValid = true
-      )
+          $($element).find(enabledElements).each(() ->
+            if ($(@).hasClass("ng-invalid"))
+              $scope.isPaneInValid = true
+          )
 
-      nextPane.disabled = $scope.isPaneInValid if (nextPane)
-      $scope.$apply()
+          nextPane.disabled = $scope.isPaneInValid if (nextPane)
+          $scope.$apply()
 
-      return $scope.isPaneInValid
+          return $scope.isPaneInValid
 
-    $scope.$evalAsync(() ->
-      requestAnimFrame ( () ->
-        isPaneValid()
-      )
-      $($element).find(formElements).bind("keyup input blur change click", () ->
-        requestAnimFrame ( () ->
-          isPaneValid()
+        $scope.$evalAsync(() ->
+          requestAnimFrame ( () ->
+            isPaneValid()
+          )
+          $($element).find(formElements).bind("keyup input blur change click", () ->
+            requestAnimFrame ( () ->
+              isPaneValid()
+            )
+          )
         )
-      )
-    )
 
-    $scope.setFocus = () ->
-      requestAnimFrame ( () ->
-        $($element).find(formElements).first().focus()
-      )
+        $scope.setFocus = () ->
+          requestAnimFrame ( () ->
+            $($element).find(formElements).first().focus()
+          )
 
-    @addFormControl = (formControl) ->
-      formControls.push(formControl)
+        @addFormControl = (formControl) ->
+          formControls.push(formControl)
+    ]

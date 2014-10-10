@@ -102,46 +102,48 @@
           return toggleValidation(value);
         };
       },
-      controller: function($scope, $element) {
-        var formControls, isPaneValid;
-        $scope.disabled = true;
-        $scope.isPaneInValid = true;
-        formControls = $scope.formControls = [];
-        isPaneValid = function() {
-          var enabledElements, nextPane;
-          nextPane = $scope.getNextPane();
-          $scope.isPaneInValid = false;
-          enabledElements = formElements.split(", ").join(":enabled, ") + ":enabled";
-          $($element).find(enabledElements).each(function() {
-            if ($(this).hasClass("ng-invalid")) {
-              return $scope.isPaneInValid = true;
+      controller: [
+        '$scope', '$element', function($scope, $element) {
+          var formControls, isPaneValid;
+          $scope.disabled = true;
+          $scope.isPaneInValid = true;
+          formControls = $scope.formControls = [];
+          isPaneValid = function() {
+            var enabledElements, nextPane;
+            nextPane = $scope.getNextPane();
+            $scope.isPaneInValid = false;
+            enabledElements = formElements.split(", ").join(":enabled, ") + ":enabled";
+            $($element).find(enabledElements).each(function() {
+              if ($(this).hasClass("ng-invalid")) {
+                return $scope.isPaneInValid = true;
+              }
+            });
+            if (nextPane) {
+              nextPane.disabled = $scope.isPaneInValid;
             }
-          });
-          if (nextPane) {
-            nextPane.disabled = $scope.isPaneInValid;
-          }
-          $scope.$apply();
-          return $scope.isPaneInValid;
-        };
-        $scope.$evalAsync(function() {
-          requestAnimFrame((function() {
-            return isPaneValid();
-          }));
-          return $($element).find(formElements).bind("keyup input blur change click", function() {
-            return requestAnimFrame((function() {
+            $scope.$apply();
+            return $scope.isPaneInValid;
+          };
+          $scope.$evalAsync(function() {
+            requestAnimFrame((function() {
               return isPaneValid();
             }));
+            return $($element).find(formElements).bind("keyup input blur change click", function() {
+              return requestAnimFrame((function() {
+                return isPaneValid();
+              }));
+            });
           });
-        });
-        $scope.setFocus = function() {
-          return requestAnimFrame((function() {
-            return $($element).find(formElements).first().focus();
-          }));
-        };
-        return this.addFormControl = function(formControl) {
-          return formControls.push(formControl);
-        };
-      }
+          $scope.setFocus = function() {
+            return requestAnimFrame((function() {
+              return $($element).find(formElements).first().focus();
+            }));
+          };
+          return this.addFormControl = function(formControl) {
+            return formControls.push(formControl);
+          };
+        }
+      ]
     };
   };
 

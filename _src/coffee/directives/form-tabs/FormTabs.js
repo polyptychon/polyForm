@@ -13,76 +13,78 @@
       scope: {
         selectFormTabIndex: '@'
       },
-      controller: function($scope, $element, $attrs) {
-        var panes;
-        panes = $scope.panes = [];
-        $attrs.$observe('selectFormTabIndex', function(newValue) {
-          return $scope.select(panes[newValue]);
-        });
-        $scope.select = function(pane) {
-          $scope.$parent.selectFormTabIndex = $scope.getPaneIndex(pane);
-          if (!(pane != null)) {
-            return;
-          }
-          angular.forEach(panes, function(pane) {
-            return pane.selected = false;
+      controller: [
+        '$scope', '$element', '$attrs', function($scope, $element, $attrs) {
+          var panes;
+          panes = $scope.panes = [];
+          $attrs.$observe('selectFormTabIndex', function(newValue) {
+            return $scope.select(panes[newValue]);
           });
-          pane.disabled = false;
-          return pane.selected = true;
-        };
-        $scope.getPaneIndex = this.getPaneIndex = function(currentPane) {
-          var index, pane, _i, _len;
-          if (!(currentPane != null)) {
+          $scope.select = function(pane) {
+            $scope.$parent.selectFormTabIndex = $scope.getPaneIndex(pane);
+            if (!(pane != null)) {
+              return;
+            }
+            angular.forEach(panes, function(pane) {
+              return pane.selected = false;
+            });
+            pane.disabled = false;
+            return pane.selected = true;
+          };
+          $scope.getPaneIndex = this.getPaneIndex = function(currentPane) {
+            var index, pane, _i, _len;
+            if (!(currentPane != null)) {
+              return -1;
+            }
+            for (index = _i = 0, _len = panes.length; _i < _len; index = ++_i) {
+              pane = panes[index];
+              if (pane === currentPane) {
+                return index;
+              }
+            }
             return -1;
-          }
-          for (index = _i = 0, _len = panes.length; _i < _len; index = ++_i) {
-            pane = panes[index];
-            if (pane === currentPane) {
-              return index;
+          };
+          this.getNextPane = function(pane) {
+            return panes[$scope.getPaneIndex(pane) + 1];
+          };
+          this.selectNextPane = function(pane) {
+            var nextPane;
+            nextPane = this.getNextPane(pane);
+            $scope.select(nextPane);
+            return $scope.$evalAsync(function() {
+              return nextPane.setFocus();
+            });
+          };
+          this.isLastPane = function(pane) {
+            return $scope.getPaneIndex(pane) === panes.length - 1 || this.getNextPane() === null;
+          };
+          this.addPane = function(pane) {
+            return this.addPaneAt(pane, panes.length);
+          };
+          this.addPaneAt = function(pane, index) {
+            if (panes.length === 0) {
+              $scope.select(pane);
             }
-          }
-          return -1;
-        };
-        this.getNextPane = function(pane) {
-          return panes[$scope.getPaneIndex(pane) + 1];
-        };
-        this.selectNextPane = function(pane) {
-          var nextPane;
-          nextPane = this.getNextPane(pane);
-          $scope.select(nextPane);
-          return $scope.$evalAsync(function() {
-            return nextPane.setFocus();
-          });
-        };
-        this.isLastPane = function(pane) {
-          return $scope.getPaneIndex(pane) === panes.length - 1 || this.getNextPane() === null;
-        };
-        this.addPane = function(pane) {
-          return this.addPaneAt(pane, panes.length);
-        };
-        this.addPaneAt = function(pane, index) {
-          if (panes.length === 0) {
-            $scope.select(pane);
-          }
-          if ($scope.getPaneIndex(pane) < 0) {
-            return panes.splice(index, 0, pane);
-          }
-        };
-        return this.removePane = function(current_pane) {
-          var index, pane, _i, _len;
-          if (!(typeof pane !== "undefined" && pane !== null)) {
-            return false;
-          }
-          for (index = _i = 0, _len = panes.length; _i < _len; index = ++_i) {
-            pane = panes[index];
-            if (pane === current_pane) {
-              current_pane.disabled = true;
-              panes.splice(index, 1);
-              return true;
+            if ($scope.getPaneIndex(pane) < 0) {
+              return panes.splice(index, 0, pane);
             }
-          }
-        };
-      }
+          };
+          return this.removePane = function(current_pane) {
+            var index, pane, _i, _len;
+            if (!(typeof pane !== "undefined" && pane !== null)) {
+              return false;
+            }
+            for (index = _i = 0, _len = panes.length; _i < _len; index = ++_i) {
+              pane = panes[index];
+              if (pane === current_pane) {
+                current_pane.disabled = true;
+                panes.splice(index, 1);
+                return true;
+              }
+            }
+          };
+        }
+      ]
     };
   };
 

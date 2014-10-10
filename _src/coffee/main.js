@@ -10,7 +10,7 @@
 
   require("bootstrap-datepicker/js/bootstrap-datepicker");
 
-  require("angular/angular");
+  require('angular');
 
   require("../js/angular-ui-select2");
 
