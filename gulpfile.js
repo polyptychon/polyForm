@@ -50,6 +50,8 @@ var DEVELOPMENT = 'development',
       'bootstrapify',
       'select2/select2',
       'bootstrap-datepicker/js/bootstrap-datepicker',
+      'angular-ui-utils/modules/validate/validate',
+      'angular-ui-utils/modules/mask/mask',
       'angular',
     ];
 

@@ -5,10 +5,12 @@ require "bootstrap-datepicker/js/bootstrap-datepicker"
 require "lodash"
 
 require 'angular'
+require 'angular-ui-utils/modules/validate/validate'
+require 'angular-ui-utils/modules/mask/mask'
 require "../js/angular-ui-select2"
 
 module.exports =
-  angular.module('PolyForm', ['ui.select2'])
+  angular.module('PolyForm', ['ui.validate','ui.mask','ui.select2'])
   .directive("formTabs", require("./directives/form-tabs/FormTabs"))
   .directive("formTab", require("./directives/form-tab/FormTab"))
   .directive("formControl", require("./directives/form-control/FormControl"))
