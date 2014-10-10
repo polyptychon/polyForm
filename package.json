@@ -2,7 +2,7 @@
   "name": "polyForm",
   "version": "0.1.0",
   "description": "Angular based form directives",
-  "main": "src/coffee/main.js",
+  "main": "_src/coffee/main.js",
   "author": "Harris Sidiropoulos",
   "license": "ISC",
   "bugs": {
