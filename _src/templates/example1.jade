@@ -30,8 +30,8 @@ html(ng-app="PolyForm")
         form-tabs
           form-tab(tab-title="Form Tab 1")
             include partials/hidden-controls
-          form-tab(tab-title="Form Tab 2", ng-show="myform4.hideNextTabCheckbox")
-            include partials/block-controls
+          form-tab(tab-title="Form Tab 2", ng-hide="myform4.hideNextTabCheckbox")
+            include partials/validation
           form-tab(tab-title="Form Tab 3")
             include partials/inline-controls
 

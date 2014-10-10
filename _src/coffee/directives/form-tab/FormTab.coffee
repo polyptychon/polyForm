@@ -67,7 +67,7 @@ module.exports = () ->
         else
           controls.push(control)
 
-        return if (!control)
+        return unless (control?)
 
         if (value == true)
           $(element).removeAttr('disabled');

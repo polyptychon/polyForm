@@ -77,7 +77,7 @@
             } else {
               controls.push(control);
             }
-            if (!control) {
+            if (!(control != null)) {
               return;
             }
             if (value === true) {
