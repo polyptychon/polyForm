@@ -4,34 +4,34 @@ html(ng-app="PolyForm")
     include partials/header
   body
     .container
-      //form(name="myform5", ng-cloak="true")
-      //  form-tabs
-      //    form-tab(tab-title="Hidden Controls")
-      //      include partials/hidden-controls
-      //      .col-md-12
-      //        button.btn.btn-primary.pull-right(type="submit", ng-disabled="myform5.$invalid") Send
-      //
-      //form(name="myform1", ng-cloak="true")
-      //  form-tabs
-      //    form-tab(tab-title="Validation")
-      //      include partials/validation
-      //
-      //form(name="myform2", ng-cloak="true")
-      //  form-tabs
-      //    form-tab(tab-title="Block Controls")
-      //      include partials/block-controls
-      //
-      //form(name="myform3", ng-cloak="true")
-      //  form-tabs
-      //    form-tab(tab-title="Inline Controls")
-      //      include partials/inline-controls
+      form(name="myform5", ng-cloak="true")
+        form-tabs
+          form-tab(tab-title="Hidden Controls")
+            include partials/hidden-controls
+            .col-md-12
+              button.btn.btn-primary.pull-right(type="submit", ng-disabled="myform5.$invalid") Send
+
+      form(name="myform1", ng-cloak="true")
+        form-tabs
+          form-tab(tab-title="Validation")
+            include partials/validation
+
+      form(name="myform2", ng-cloak="true")
+        form-tabs
+          form-tab(tab-title="Block Controls")
+            include partials/block-controls
+
+      form(name="myform3", ng-cloak="true")
+        form-tabs
+          form-tab(tab-title="Inline Controls")
+            include partials/inline-controls
 
       form(name="myform4", ng-cloak="true")
         form-tabs
           form-tab(tab-title="Form Tab 1")
             include partials/hidden-controls
             .col-md-12
-              button.btn.btn-primary(type="submit", ng-show="myform4.hideNextTabCheckbox", ng-disabled="myform5.$invalid") Send
+              button.btn.btn-primary(type="submit", ng-show="myform4.hideNextTabCheckbox", ng-disabled="myform4.$invalid") Send
           form-tab(tab-title="Form Tab 2", ng-hide="myform4.hideNextTabCheckbox")
             include partials/validation
 
