@@ -61,7 +61,7 @@ module.exports = () ->
       controlElements.each(() ->
         element = $(@);
         control = form[element.attr("name")];
-        if (control == null)
+        if (!control?)
           control = controls[i]
           i++
         else
@@ -69,7 +69,7 @@ module.exports = () ->
 
         return unless (control?)
 
-        if (value == true)
+        if (value)
           $(element).removeAttr('disabled');
           form.$addControl(control);
           angular.forEach(control.$error, (validity, validationToken) ->
@@ -105,12 +105,11 @@ module.exports = () ->
           enabledElements = formElements.split(", ").join(":enabled, ") + ":enabled"
 
           $($element).find(enabledElements).each(() ->
-            if ($(@).hasClass("ng-invalid"))
-              $scope.isPaneInValid = true
+            $scope.isPaneInValid = true if ($(@).hasClass("ng-invalid"))
           )
 
           nextPane.disabled = $scope.isPaneInValid if (nextPane)
-          $scope.$apply()
+          $scope.$digest()
 
           return $scope.isPaneInValid
 
