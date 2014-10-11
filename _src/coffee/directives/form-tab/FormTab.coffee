@@ -1,4 +1,5 @@
 $ = require "jquery"
+_ = require "lodash"
 formElements = require "../../utils/FormElements.coffee"
 requestAnimFrame = require "animationframe"
 
@@ -57,27 +58,28 @@ module.exports = () ->
       formTabs.selectNextPane(scope)
 
     toggleValidation = (value) ->
-      i = 0;
-      controlElements.each(() ->
-        element = $(@);
-        control = form[element.attr("name")];
-        if (!control?)
-          control = controls[i]
-          i++
-        else
-          controls.push(control)
-
-        return unless (control?)
-
-        if (value)
-          $(element).removeAttr('disabled');
-          form.$addControl(control);
-          angular.forEach(control.$error, (validity, validationToken) ->
-            form.$setValidity(validationToken, !validity, control)
-          )
-        else
-          $(element).attr('disabled', 'disabled')
-          form.$removeControl(control)
+      scope.$evalAsync(() ->
+        controlElements.each(
+          (index) ->
+            element = $(@);
+            control = form[element.attr("name")]
+            controls.push(control) unless _.contains(controls, control)
+            if (value)
+              $(element).removeAttr('disabled')
+            else
+              $(element).attr('disabled', 'disabled')
+        )
+        _.forEach(controls,
+        (control) ->
+          return unless (control?)
+          if (value)
+            form.$addControl(control)
+            angular.forEach(control.$error, (validity, validationToken) ->
+              form.$setValidity(validationToken, !validity, control)
+            )
+          else
+            form.$removeControl(control)
+        )
       )
 
     togglePane = (value) ->

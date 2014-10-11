@@ -27,12 +27,12 @@ html(ng-app="PolyForm")
             include partials/inline-controls
 
       form(name="myform4", ng-cloak="true")
-        form-tabs
+        form-tabs(ng-init="myform4.showNextTabCheckbox=false;")
           form-tab(tab-title="Form Tab 1")
             include partials/hidden-controls
             .col-md-12
-              button.btn.btn-primary(type="submit", ng-show="myform4.hideNextTabCheckbox", ng-disabled="myform4.$invalid") Send
-          form-tab(tab-title="Form Tab 2", ng-hide="myform4.hideNextTabCheckbox")
+              button.btn.btn-primary(type="submit", ng-hide="myform4.showNextTabCheckbox", ng-disabled="myform4.$invalid") Send
+          form-tab(tab-title="Form Tab 2", ng-show="myform4.showNextTabCheckbox")
             include partials/validation
 
 
