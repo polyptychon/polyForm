@@ -132,10 +132,10 @@ gulp.task('lib', function() {
     return browserify()
       .require(dependencies)
       .bundle()
-      .on('error', function(err) {
-        console.log(err.message);
-        this.end();
-      })
+        .on('error', function(err) {
+          console.log(err.message);
+          this.end();
+        })
       .pipe(source('poly-form-lib.min.js'))
       .pipe(duration('vendor'))
       .pipe(buffer())
