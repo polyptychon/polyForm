@@ -69,11 +69,14 @@
     "yargs": "^1.3.2"
   },
   "dependencies": {
+    "Select2": "git://github.com/ivaynberg/select2",
+    "angular": "git://github.com/angular/bower-angular",
     "animationframe": "git://github.com/HarrisSidiropoulos/animationframe",
     "bootstrapify": "git://github.com/HarrisSidiropoulos/bootstrapify",
     "jquery": "^2.1.1",
     "lodash": "^2.4.1",
     "modernizrify": "git://github.com/HarrisSidiropoulos/modernizrify",
+    "select2": "^3.5.1-browserify-fix",
     "url": "^0.10.1",
     "xhr-browserify": "0.0.1"
   },
@@ -88,11 +91,9 @@
   "napa": {
     "bootstrap": "twbs/bootstrap-sass",
     "bootstrap-datepicker": "eternicode/bootstrap-datepicker",
-    "angular": "angular/bower-angular",
     "angular-route": "angular/bower-angular-route",
     "angular-mocks": "angular/bower-angular-mocks",
     "angular-ui-utils": "angular-ui/ui-utils",
-    "select2": "ivaynberg/select2",
     "select2-bootstrap-css": "t0m/select2-bootstrap-css"
   }
 }

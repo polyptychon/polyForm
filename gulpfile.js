@@ -46,13 +46,9 @@ var DEVELOPMENT = 'development',
     TEST = "test",
     watching = false,
     libs = [
-      'jquery',
-      'bootstrapify',
-      'select2/select2',
       'bootstrap-datepicker/js/bootstrap-datepicker',
       'angular-ui-utils/modules/validate/validate',
-      'angular-ui-utils/modules/mask/mask',
-      'angular',
+      'angular-ui-utils/modules/mask/mask'
     ];
 
 var env = process.env.NODE_ENV || DEVELOPMENT;
@@ -62,6 +58,7 @@ var jadeFiles = argv.jade || '*';
 
 var packageJson = require('./package.json');
 var dependencies = Object.keys(packageJson && packageJson.dependencies || {});
+//var napaDependencies = Object.keys(packageJson && packageJson.napa || {});
 
 _.forEach(libs, function(d) {
   dependencies.push(d);
