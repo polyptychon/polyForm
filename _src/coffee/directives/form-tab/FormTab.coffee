@@ -83,13 +83,15 @@ module.exports = () ->
       )
 
     togglePane = (value) ->
-      if (value)
-        formTabs.addPaneAt(scope, removeIndex)
-      else
-        removeIndex = formTabs.getPaneIndex(scope)
-        formTabs.removePane(scope)
+      scope.$evalAsync(() ->
+        if (value)
+          formTabs.addPaneAt(scope, removeIndex)
+        else
+          removeIndex = formTabs.getPaneIndex(scope)
+          formTabs.removePane(scope)
 
-      toggleValidation(value)
+        toggleValidation(value)
+      )
 
   controller:
     [
@@ -105,7 +107,6 @@ module.exports = () ->
           nextPane = $scope.getNextPane()
           $scope.isPaneInValid = false
           enabledElements = formElements.split(", ").join(":enabled, ") + ":enabled"
-
           $($element).find(enabledElements).each(() ->
             $scope.isPaneInValid = true if ($(@).hasClass("ng-invalid"))
           )

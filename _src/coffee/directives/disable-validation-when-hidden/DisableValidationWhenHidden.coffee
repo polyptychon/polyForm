@@ -39,7 +39,7 @@ module.exports = () ->
       )
 
     update = (value) ->
-      requestAnimFrame ( () ->
+      scope.$evalAsync ( () ->
         controlElements.each(
           (index) ->
             element = $(@);
