@@ -31,6 +31,8 @@ html(ng-app="PolyForm")
           form-tab(tab-title="Form Tab 1")
             include partials/hidden-controls
             .col-md-12
+              +form-control({name:'myform4.showNextTabCheckbox',label:'show next tab when checked',type:'checkbox', class:'col-md-12'})
+            .col-md-12
               button.btn.btn-primary(type="submit", ng-hide="myform4.showNextTabCheckbox", ng-disabled="myform4.$invalid") Send
           form-tab(tab-title="Form Tab 2", ng-show="myform4.showNextTabCheckbox")
             include partials/validation
