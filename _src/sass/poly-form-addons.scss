@@ -71,6 +71,7 @@
   }
   &.ng-dirty {
     &.ng-invalid-required > .ng-required,
+    &.ng-invalid-validator > .ui-validate,
     &.ng-invalid-pattern > .ng-pattern,
     &.ng-invalid-email > .ng-email,
     &.ng-invalid-number > .ng-number,

@@ -15,6 +15,9 @@ mixin validation-messages(options)
   - ngRequired  = options.ngRequired  || 'true' // Sets required attribute if set to true
   - ngRequired  = ngRequired=='false' ? null : 'true'
 
+  - uiValidate       = options.uiValidate       || null   // The ui-validate directive makes it very easy to create custom validator expressions.
+  - uiValidateWatch  = options.uiValidateWatch  || null
+
   - ngMinlength = options.ngMinlength || null   // Sets minlength validation error key if the value is shorter than minlength.
   - ngMaxlength = options.ngMaxlength || null   // Sets maxlength validation error key if the value is longer than maxlength.
   - ngPattern   = options.ngPattern   || null   // Sets pattern validation error key if the value does not match the RegExp pattern expression. Expected value is /regexp/ for inline patterns or regexp for patterns defined as scope expressions.
@@ -23,6 +26,8 @@ mixin validation-messages(options)
 
   - ngEmailMessage     = options.ngEmailMessage       || 'Please type a correct email'
   - ngNumberMessage    = options.ngNumberMessage      || 'Please type a number'
+
+  - uiValidateMessage  = options.isUniqueMessage     || 'Validation failed'
 
   - isUniqueMessage     = options.isUniqueMessage     || 'Please type a unique name'
   - isEqualMessage      = options.isEqualMessage      || 'Fields don\'t match'
@@ -49,3 +54,5 @@ mixin validation-messages(options)
     error-message.ng-maxlength(ng-cloak)= ngMaxlengthMessage
   if ngPattern && ngPatternMessage
     error-message.ng-pattern(ng-cloak)= ngPatternMessage
+  if uiValidate && uiValidateMessage
+    error-message.ui-validate(ng-cloak)= uiValidateMessage
