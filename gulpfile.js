@@ -45,7 +45,7 @@ var DEVELOPMENT = 'development',
     useServer = false,
     TEST = "test",
     watching = false,
-    libs = [
+    not_in_dependencies_libs = [
       'bootstrap-datepicker/js/bootstrap-datepicker',
       'angular-ui-utils/modules/validate/validate',
       'angular-ui-utils/modules/mask/mask'
@@ -58,9 +58,8 @@ var jadeFiles = argv.jade || '*';
 
 var packageJson = require('./package.json');
 var dependencies = Object.keys(packageJson && packageJson.dependencies || {});
-//var napaDependencies = Object.keys(packageJson && packageJson.napa || {});
 
-_.forEach(libs, function(d) {
+_.forEach(not_in_dependencies_libs, function(d) {
   dependencies.push(d);
 });
 
@@ -72,7 +71,7 @@ gulp.task('jade', function() {
   var config = {
     "production": env === PRODUCTION,
     "pretty": env === DEVELOPMENT,
-    "locals": {}
+    "locals": { "production": env === PRODUCTION }
   };
 
   var jsManifest      = env === PRODUCTION && USE_FINGERPRINTING ? (JSON.parse(fs.readFileSync("./"+BUILD+'/rev/js/rev-manifest.json', "utf8"))) : {},
@@ -274,7 +273,7 @@ gulp.task('default', ['coffee', 'sass', 'jade']);
 gulp.task('live', ['coffee', 'jade', 'sass', 'watch']);
 
 gulp.task('build', function() {
-  runSequence(['fonts','images','spriteSass','autoVariables'],['fonts','coffee','sass'],['jade']);
+  runSequence(['fonts','images','spriteSass','autoVariables'],['fonts','coffee','vendor','sass'],['jade']);
 });
 gulp.task('server', ['connect', 'watch']);
 gulp.task('production', function() {
