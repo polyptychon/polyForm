@@ -1,7 +1,7 @@
 .row
   .col-md-12(ng-hide="hideCheckbox", disable-validation-when-hidden)
-    +form-control({name:'validatePassword',label:'password',type:'password'})
-    +form-control({name:'uiValidate',label:'ui-validate',type:'password', uiValidate:"'$value==validatePassword'", uiValidateWatch:"'validatePassword'"})
+    +form-control({name:'validatePassword',label:'password',type:'password', model:'myform1.validatePasswordValue'})
+    +form-control({name:'uiValidate',label:'ui-validate',type:'password', uiValidate:"'$value==myform1.validatePasswordValue'", uiValidateWatch:"'myform1.validatePasswordValue'"})
   .col-md-12
     +form-control({name:'email',label:'Email',type:'email'})
     +form-control({name:'number',label:'number',type:'number'})
@@ -12,6 +12,6 @@
     +form-control({name:'required',label:'Required false',ngRequired:'false'})
     +form-control({name:'mypattern',label:'Pattern',type:'password',ngPattern:'/((?=.*[a-z])(?=.*[A-Z]).{8,64})/',ngPatternMessage:'Ensure that value is 8 to 64 characters long and contains a mix of upper and lower case characters'})
   .col-md-12
-    +form-control({class:'col-md-3',name:'ngchange',label:'ng change',ngChange:"$parent.$parent.ngchange2=ngchange"})
-    +form-control({class:'col-md-3',name:'ngchange2',label:'ng change 2'})
+    +form-control({class:'col-md-3',name:'ngchange',label:'ng change',ngChange:"myform1.ngchange2Value=myform1.ngchangeValue", model:'myform1.ngchangeValue'})
+    +form-control({class:'col-md-3',name:'ngchange2',label:'ng change 2', model:'myform1.ngchange2Value'})
     +form-control({name:'isUnique',label:'isUnique',isUnique: 'isUnique.json'})
