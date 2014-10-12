@@ -6,7 +6,7 @@ mixin form-input(options)
   - inputClass    = options.inputClass    || 'form-control'
   - name          = options.name          || 'control'
   - $$id = $$id || 0
-  - id            = options.id            || (options.name+$$id || 'controlInput'+$$id)
+  - id            = options.id            || (options.name+$$id || 'control'+$$id)
   - $$id++
   - model         = options.model         || (options.id || '$parent.$parent.'+id)
   - label         = options.label         || 'Ετικέτα'

@@ -4,7 +4,7 @@ mixin select(options)
   - className     = options.class         || 'col-md-6'
   - name          = options.name          || 'control'
   - $$id = $$id || 0
-  - id            = options.id            || (options.name+$$id || 'controlInput'+$$id)
+  - id            = options.id            || (options.name+$$id || 'control'+$$id)
   - $$id++
   - model         = options.model         || (options.id || '$parent.$parent.'+id)
   - label         = options.label         || 'Ετικέτα'
@@ -32,11 +32,12 @@ mixin select(options)
 
 
   select(
-    id=name+'Select',
+    name=name,
+    id=id,
+    ng-model=model,
     class="form-control",
     value=value,
     ng-value=ngValue,
-    ng-model='$parent.#{name}',
     ng-required=ngRequired,
     ng-change=ngChange,
     ng-trim=ngTrim

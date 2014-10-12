@@ -15,7 +15,7 @@ mixin form-control(options)
   - radioClass    = options.radioClass    || 'radio-inline'
   - name          = options.name          || 'control'
   - $$id = $$id || 0
-  - id            = options.id            || (options.name+$$id || 'controlInput'+$$id)
+  - id            = options.id            || (options.name+$$id || 'control'+$$id)
   - model         = options.model         || (options.id || '$parent.$parent.'+id)
   - label         = options.label         || 'Ετικέτα'
   - placeholder   = options.placeholder   || label
@@ -92,7 +92,7 @@ mixin form-control(options)
         +radio-group(options)
       default
         if useLabel=="true"
-          label(for='#{name}Input')= label
+          label(for=id)= label
 
         case type
           when "textarea"
