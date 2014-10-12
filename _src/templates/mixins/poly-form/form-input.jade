@@ -4,6 +4,8 @@ mixin form-input(options)
   - className     = options.class         || 'col-md-6'
   - inputClass    = options.inputClass    || 'form-control'
   - name          = options.name          || 'control'
+  - id            = options.id            || (options.name || 'controlDate')
+  - model         = options.model         || (options.id || '$parent.$parent.'+id)
   - label         = options.label         || 'Ετικέτα'
   - placeholder   = options.placeholder   || label
   - autocomplete  = options.autocomplete  || name
@@ -60,14 +62,16 @@ mixin form-input(options)
 
   input(
     class=inputClass
-    id= '#{name}Input',
+
     name=name,
+    id= id,
+    ng-model=model,
+
     autocomplete=autocomplete,
     type=(type=='select2'?null:type),
     placeholder=placeholder,
     value=value,
     ng-value=ngValue,
-    ng-model='$parent.$parent.#{name}',
     checked=checked,
     ng-checked=ngChecked,
 

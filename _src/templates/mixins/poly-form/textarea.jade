@@ -4,6 +4,8 @@ mixin textarea(options)
   - className     = options.class         || 'col-md-6'
   - inputClass    = options.inputClass    || 'form-control'
   - name          = options.name          || 'control'
+  - id            = options.id            || (options.name || 'controlSelect2')
+  - model         = options.model         || (options.id || '$parent.$parent.'+id)
   - label         = options.label         || 'Ετικέτα'
   - placeholder   = options.placeholder   || label
   - autocomplete  = options.autocomplete  || name
@@ -30,12 +32,12 @@ mixin textarea(options)
 
   textarea(
     class=inputClass
-    id= '#{name}Input',
     name=name,
+    id= id,
+    ng-model=model,
     autocomplete=autocomplete,
     type=(type=='select2'?null:type),
     placeholder=placeholder,
-    ng-model='$parent.#{name}',
 
     rows=rows,
     cols=cols,

@@ -7,6 +7,8 @@ mixin checkbox(options)
   - inputClass    = options.inputClass    || 'form-control'
   - radioClass    = options.radioClass    || 'radio-inline'
   - name          = options.name          || 'control'
+  - id            = options.id            || (options.name || 'controlCheckbox')
+  - model         = options.model         || (options.id || '$parent.$parent.'+id)
   - label         = options.label         || 'Ετικέτα'
   - placeholder   = options.placeholder   || label
   - autocomplete  = options.autocomplete  || name

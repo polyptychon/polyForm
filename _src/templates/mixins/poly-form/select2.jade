@@ -3,6 +3,8 @@ mixin select2(options)
 
   - className     = options.class         || 'col-md-6'
   - name          = options.name          || 'control'
+  - id            = options.id            || (options.name || 'controlSelect2')
+  - model         = options.model         || (options.id || '$parent.$parent.'+id)
   - label         = options.label         || null
   - placeholder   = options.placeholder   || label
   - autocomplete  = options.autocomplete  || name
@@ -29,12 +31,13 @@ mixin select2(options)
 
   select(
     ui-select2="{ allowClear:#{(allowClear || false)}}",
-    id=name+'Select',
+    name=name,
+    id=id,
+    ng-model=model,
     data-placeholder=placeholder,
     class="form-control",
     value=value,
     ng-value=ngValue,
-    ng-model='$parent.#{name}',
     ng-required=ngRequired,
     ng-change=ngChange,
     ng-trim=ngTrim

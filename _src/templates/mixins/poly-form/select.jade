@@ -3,6 +3,8 @@ mixin select(options)
 
   - className     = options.class         || 'col-md-6'
   - name          = options.name          || 'control'
+  - id            = options.id            || (options.name || 'controlSelect')
+  - model         = options.model         || (options.id || '$parent.$parent.'+id)
   - label         = options.label         || 'Ετικέτα'
   - placeholder   = options.placeholder   || null
   - autocomplete  = options.autocomplete  || name
