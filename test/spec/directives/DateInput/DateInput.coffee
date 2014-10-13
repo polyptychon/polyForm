@@ -9,19 +9,22 @@ require 'angular-ui-utils/modules/validate/validate'
 require 'angular-ui-utils/modules/mask/mask'
 require "../../../../_src/js/angular-ui-select2"
 
+require "../../../../_src/coffee/main.coffee"
+
 require "angular-mocks/angular-mocks"
-DateInput = require "../../../../_src/coffee/directives/date-input/DateInput.coffee"
 template = require "./date-input-example.jade"
 
 describe('DateInput', ->
+  parent = "../../../../_src/coffee/"
 
-  angular.module('myApp', ['ui.validate','ui.mask','ui.select2'])
-  .directive("dateInput", DateInput)
+  angular.module('myApp', ['PolyForm'])
+
 
   $compile = null
   $rootScope = null
   element = null
   scope = null
+  formControlElement = null
 
   beforeEach(angular.mock.module("myApp"))
 
@@ -31,9 +34,12 @@ describe('DateInput', ->
     scope = $rootScope
 
     element = $("<div></div>").html(template())
+    element.css('display', 'block')
 
     $compile(element)(scope)
     scope.$digest()
+
+    formControlElement = $(element).find('.has-feedback')
   ))
 
   it("dateInput parent div should have class input-group", ->
@@ -57,6 +63,13 @@ describe('DateInput', ->
       expect($(element).find('input').hasClass('ng-pristine')).toBeFalsy()
       expect($(element).find('input').hasClass('ng-dirty')).toBeTruthy()
     )
+    describe('formControl', ->
+      it("should have the same classes", ->
+        expect(formControlElement.hasClass('ng-valid')).toBeTruthy()
+        expect(formControlElement.hasClass('ng-valid-required')).toBeTruthy()
+        expect(formControlElement.hasClass('has-success')).toBeTruthy()
+      )
+    )
   )
 
   describe('DateInput on empty input', ->
@@ -74,6 +87,15 @@ describe('DateInput', ->
 
     it("should be invalid", ->
       expect($(element).find('input').hasClass('ng-invalid-required')).toBeTruthy()
+    )
+    describe('formControl', ->
+      it("should have the same classes", ->
+        expect(formControlElement.hasClass('ng-valid')).toBeFalsy()
+        expect(formControlElement.hasClass('ng-valid-required')).toBeFalsy()
+        expect(formControlElement.hasClass('ng-invalid-required')).toBeTruthy()
+        expect(formControlElement.hasClass('has-success')).toBeFalsy()
+        expect(formControlElement.hasClass('has-error')).toBeTruthy()
+      )
     )
   )
 
