@@ -1,22 +1,9 @@
-global.$ = global.jQuery = $ = require "jquery"
-require "bootstrapify"
-require "select2/select2"
-require "bootstrap-datepicker/js/bootstrap-datepicker"
-require "lodash"
-
-require 'angular'
-require 'angular-ui-utils/modules/validate/validate'
-require 'angular-ui-utils/modules/mask/mask'
-require "../../../../_src/js/angular-ui-select2"
-
 require "../../../../_src/coffee/main.coffee"
 
 require "angular-mocks/angular-mocks"
 template = require "./date-input-example.jade"
 
 describe('DateInput', ->
-  parent = "../../../../_src/coffee/"
-
   angular.module('myApp', ['PolyForm'])
 
 
