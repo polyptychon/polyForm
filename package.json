@@ -90,12 +90,13 @@
     "start": "gulp server"
   },
   "napa": {
-    "select2" : "ivaynberg/select2",
     "bootstrap": "twbs/bootstrap-sass",
     "bootstrap-datepicker": "eternicode/bootstrap-datepicker",
     "angular-route": "angular/bower-angular-route",
     "angular-mocks": "angular/bower-angular-mocks",
+    "angular-scenario": "angular/bower-angular-scenario",
     "angular-ui-utils": "angular-ui/ui-utils",
-    "select2-bootstrap-css": "t0m/select2-bootstrap-css"
+    "select2-bootstrap-css": "t0m/select2-bootstrap-css",
+    "select2": "ivaynberg/select2"
   }
 }

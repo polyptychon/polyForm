@@ -4,7 +4,7 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     prefix = require('gulp-autoprefixer'),
     csso = require('gulp-csso'),
-    imagemin = require('gulp-imagemin'),
+    //imagemin = require('gulp-imagemin'),
     plumber = require('gulp-plumber'),
     browserify = require('browserify'),
     concat = require('gulp-concat'),
@@ -256,7 +256,6 @@ gulp.task('karma', ['browserify-test'], function() {
   // Be sure to return the stream
   return gulp.src(TEST+"/bundle-tests.js")
     .pipe(karma({
-      configFile: TEST+'/karma.conf.js',
       action: 'start'
     }))
     .on('error', function(err) {
