@@ -129,7 +129,7 @@ gulp.task('lib', function() {
     .pipe(plumber())
     .pipe(myCoffee('_lib', 'poly-form.min.js'));
 
-  gulp.src(libs)
+  gulp.src(dependencies)
     return browserify()
       .require(dependencies)
       .bundle()
