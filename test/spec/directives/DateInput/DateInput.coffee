@@ -39,7 +39,7 @@ describe('DateInput', ->
     expect($(element).find('input').hasClass('ng-pristine')).toBeTruthy()
   )
 
-  describe('DateInput on input', ->
+  describe('DateInput on valid input', ->
     beforeEach(
       () ->
         $(element).find('input').val("18/10/1977")
@@ -57,9 +57,14 @@ describe('DateInput', ->
         expect(formControlElement.hasClass('has-success')).toBeTruthy()
       )
     )
+    describe('form', ->
+      it("should be valid", ->
+        expect(element.scope().testForm.$valid).toBeTruthy()
+      )
+    )
   )
 
-  describe('DateInput on empty input', ->
+  describe('DateInput on invalid input', ->
     beforeEach(
       () ->
         $(element).find('input').val(" ")
@@ -84,18 +89,10 @@ describe('DateInput', ->
         expect(formControlElement.hasClass('has-error')).toBeTruthy()
       )
     )
-  )
-
-  describe('DateInput multidate', ->
-    beforeEach(
-      () ->
-        $(element).find('input').attr('multidate', 'true')
-        scope.$digest()
+    describe('form', ->
+      it("should be invalid", ->
+        expect(element.scope().testForm.$valid).toBeFalsy()
+      )
     )
-
-    it("should be dirty", ->
-      expect($(element).find('input').attr('multidate')).toBe 'true'
-    )
-
   )
 )
