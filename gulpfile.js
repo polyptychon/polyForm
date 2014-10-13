@@ -149,7 +149,7 @@ gulp.task('clean-js', function() {
     .pipe(gulpif(env === PRODUCTION, clean()))
 });
 gulp.task('vendor', function() {
-  gulp.src(libs)
+  gulp.src(dependencies)
     return browserify()
       .require(dependencies)
       .bundle()
