@@ -50,11 +50,14 @@ describe('DateInput', ->
       expect($(element).find('input').hasClass('ng-pristine')).toBeFalsy()
       expect($(element).find('input').hasClass('ng-dirty')).toBeTruthy()
     )
+
     describe('formControl', ->
       it("should have the same classes", ->
         expect(formControlElement.hasClass('ng-valid')).toBeTruthy()
         expect(formControlElement.hasClass('ng-valid-required')).toBeTruthy()
+        expect(formControlElement.hasClass('ng-invalid-required')).toBeFalsy()
         expect(formControlElement.hasClass('has-success')).toBeTruthy()
+        expect(formControlElement.hasClass('has-error')).toBeFalsy()
       )
     )
     describe('form', ->
