@@ -6,6 +6,7 @@ html(ng-app="PolyForm")
   body
     .container
       form(name="myform5", ng-cloak="true")
+        - formName = 'myform5'
         form-tabs
           form-tab(tab-title="Hidden Controls")
             include partials/hidden-controls
@@ -13,21 +14,25 @@ html(ng-app="PolyForm")
               button.btn.btn-primary.pull-right(type="submit", ng-disabled="myform5.$invalid") Send
 
       form(name="myform1", ng-cloak="true")
+        - formName = 'myform1'
         form-tabs
           form-tab(tab-title="Validation")
             include partials/validation
 
       form(name="myform2", ng-cloak="true")
+        - formName = 'myform2'
         form-tabs
           form-tab(tab-title="Block Controls")
             include partials/block-controls
 
       form(name="myform3", ng-cloak="true")
+        - formName = 'myform3'
         form-tabs
           form-tab(tab-title="Inline Controls")
             include partials/inline-controls
 
       form(name="myform4", ng-cloak="true")
+        - formName = 'myform4'
         form-tabs(ng-init="myform4.showNextTab=false;")
           form-tab(tab-title="Form Tab 1")
             include partials/hidden-controls
@@ -36,6 +41,7 @@ html(ng-app="PolyForm")
               button.btn.btn-primary(type="submit", ng-hide="myform4.showNextTab", ng-disabled="myform4.$invalid") Send
           form-tab(tab-title="Form Tab 2", ng-show="myform4.showNextTab")
             include partials/validation
-
+            .col-md-12
+              button.btn.btn-primary(type="submit", ng-disabled="myform4.$invalid") Send
 
     include partials/footer
