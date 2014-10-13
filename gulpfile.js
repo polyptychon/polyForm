@@ -46,6 +46,7 @@ var DEVELOPMENT = 'development',
     TEST = "test",
     watching = false,
     not_in_dependencies_libs = [
+      'select2/select2',
       'bootstrap-datepicker/js/bootstrap-datepicker',
       'angular-ui-utils/modules/validate/validate',
       'angular-ui-utils/modules/mask/mask'
@@ -98,7 +99,7 @@ function myCoffee(dest, name) {
 
   var bundler = browserify({debug: env === DEVELOPMENT})
     .add('./'+SRC+'/coffee/main.coffee')
-    .external(dependencies);
+      .external(dependencies);
 
   return bundler.bundle()
     .on('error', function(err) {

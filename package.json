@@ -78,7 +78,6 @@
     "jquery": "^2.1.1",
     "lodash": "^2.4.1",
     "modernizrify": "git://github.com/HarrisSidiropoulos/modernizrify",
-    "select2": "^3.5.1-browserify-fix",
     "url": "^0.10.1",
     "xhr-browserify": "0.0.1"
   },
@@ -91,6 +90,7 @@
     "start": "gulp server"
   },
   "napa": {
+    "select2" : "ivaynberg/select2",
     "bootstrap": "twbs/bootstrap-sass",
     "bootstrap-datepicker": "eternicode/bootstrap-datepicker",
     "angular-route": "angular/bower-angular-route",
