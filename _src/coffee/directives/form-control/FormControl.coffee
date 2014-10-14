@@ -52,7 +52,7 @@ module.exports = () ->
           select2DropActive = $(".select2-drop-active")
           attrClasses = $(element).attr("class").replace(/ng-(\w|\-)+\s?/gi, "")
           attrClasses = attrClasses.replace(/\s?has-success|has-error\s?/gi, "")
-          attrClasses = attrClasses.replace(/\s\s/gi, "")
+          attrClasses = attrClasses.replace(/\s\s/gi, " ")
           inputClasses = ""
           inputClasses += childElement.attr("class").toString().match(/ng-(\w|\-)+\s?/gi).join(" ")
 
@@ -73,6 +73,8 @@ module.exports = () ->
             attrClasses = attrClasses.replace(/select-clear/gi, "")
 
           attrClasses = attrClasses.replace(/ng-\w+-?\w+\s/gi, "")
+          attrClasses = attrClasses.replace(/\s\s/gi, " ")
+          inputClasses = inputClasses.replace(/\s\s/gi, " ")
           $(element).attr("class", attrClasses + " " + inputClasses)
 
           unless (updateOnNextFrame?)
