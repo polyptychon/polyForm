@@ -129,6 +129,4 @@ describe('DateInput mixin', ->
       expect($(element).find('.input-group.date').attr('language')).toBeUndefined()
     )
   )
-
-
 )
