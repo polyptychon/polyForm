@@ -47,7 +47,7 @@ describe('DateInput mixin', ->
       )
     )
   )
-  describe('default attribute multidate', ->
+  describe('attribute multidate', ->
     it("should be true when set", ->
       compileElement({name:'dateInput',label:'dateInput',type:'dateInput', multidate: 'true'})
       expect($(element).find('.input-group.date').attr('multidate')).toBe 'true'
@@ -58,7 +58,7 @@ describe('DateInput mixin', ->
     )
   )
 
-  describe('default attribute force-parse', ->
+  describe('attribute force-parse', ->
     it("should be true when set", ->
       compileElement({name:'dateInput',label:'dateInput',type:'dateInput', forceParse: 'true'})
       expect($(element).find('.input-group.date').attr('force-parse')).toBe 'true'
@@ -69,7 +69,7 @@ describe('DateInput mixin', ->
     )
   )
 
-  describe('default attribute clear-btn', ->
+  describe('attribute clear-btn', ->
     it("should be true when set", ->
       compileElement({name:'dateInput',label:'dateInput',type:'dateInput', clearBtn: 'true'})
       expect($(element).find('.input-group.date').attr('clear-btn')).toBe 'true'
@@ -80,7 +80,7 @@ describe('DateInput mixin', ->
     )
   )
 
-  describe('default attribute today-highlight', ->
+  describe('attribute today-highlight', ->
     it("should be true when set", ->
       compileElement({name:'dateInput',label:'dateInput',type:'dateInput', todayHighlight: 'true'})
       expect($(element).find('.input-group.date').attr('today-highlight')).toBe 'true'
@@ -91,7 +91,7 @@ describe('DateInput mixin', ->
     )
   )
 
-  describe('default attribute autoclose', ->
+  describe('attribute autoclose', ->
     it("should be true when set", ->
       compileElement({name:'dateInput',label:'dateInput',type:'dateInput', autoclose: 'true'})
       expect($(element).find('.input-group.date').attr('autoclose')).toBe 'true'
@@ -102,4 +102,32 @@ describe('DateInput mixin', ->
     )
   )
 
+  describe('attribute multidate-separator', ->
+    it("should be true when set", ->
+      compileElement({name:'dateInput',label:'dateInput',type:'dateInput', multidateSeperator: ':'})
+      expect($(element).find('.input-group.date').attr('multidate-separator')).toBe ':'
+    )
+    it("should be undefined when is not set", ->
+      compileElement({name:'dateInput',label:'dateInput',type:'dateInput', multidateSeperator: null})
+      expect($(element).find('.input-group.date').attr('multidate-separator')).toBeUndefined()
+    )
+  )
+
+  describe('attribute format', ->
+    it("should be true when set", ->
+      compileElement({name:'dateInput',label:'dateInput',type:'dateInput', format: 'mm/dd/yyyy'})
+      expect($(element).find('.input-group.date').attr('format')).toBe 'mm/dd/yyyy'
+    )
+  )
+
+  describe('attribute language', ->
+    it("should be true when set", ->
+      compileElement({name:'dateInput',label:'dateInput',type:'dateInput', language: 'en'})
+      expect($(element).find('.input-group.date').attr('language')).toBe 'en'
+    )
+    it("should be true when set", ->
+      compileElement({name:'dateInput',label:'dateInput',type:'dateInput', language: null})
+      expect($(element).find('.input-group.date').attr('language')).toBeUndefined()
+    )
+  )
 )
