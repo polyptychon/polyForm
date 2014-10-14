@@ -1,6 +1,6 @@
 require "../../../../_src/coffee/main.coffee"
 require "angular-mocks/angular-mocks"
-template = require "./date-input-example.jade"
+compileTemplate = require "../../utils/compileTemplate.coffee"
 
 describe('DateInput', ->
   angular.module('myApp', ['PolyForm'])
@@ -11,6 +11,10 @@ describe('DateInput', ->
   element = null
   scope = null
   formControlElement = null
+
+  compileElement = (options) ->
+    element = compileTemplate(options, scope, $compile)
+
   beforeEach(angular.mock.module("myApp"))
 
   beforeEach(inject((_$rootScope_, _$compile_) ->
@@ -18,13 +22,7 @@ describe('DateInput', ->
     $compile = _$compile_
     scope = $rootScope
 
-    element = $("<div></div>").html(template({
-      options: {name:'dateInput',label:'dateInput',type:'dateInput'}
-    }))
-
-    $compile(element)(scope)
-    scope.$digest()
-
+    compileElement({name:'dateInput',label:'dateInput',type:'dateInput'})
     formControlElement = $(element).find('.has-feedback')
   ))
 

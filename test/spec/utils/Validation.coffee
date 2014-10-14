@@ -2,7 +2,7 @@ require "../../../_src/coffee/main.coffee"
 require "angular-mocks/angular-mocks"
 compileTemplate = require "./compileTemplate.coffee"
 
-module.exports = (type, template)->
+module.exports = (type)->
   describe('validation attributes', ->
     angular.module('myApp', ['PolyForm'])
 
@@ -13,7 +13,7 @@ module.exports = (type, template)->
     scope = null
 
     compileElement = (options) ->
-      element = compileTemplate(options, template, scope, $compile)
+      element = compileTemplate(options, scope, $compile)
 
     beforeEach(angular.mock.module("myApp"))
 

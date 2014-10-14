@@ -1,6 +1,5 @@
 require "../../../../_src/coffee/main.coffee"
 require "angular-mocks/angular-mocks"
-template = require "./date-input-example.jade"
 compileTemplate = require "../../utils/compileTemplate.coffee"
 
 describe('DateInput mixin', ->
@@ -14,7 +13,7 @@ describe('DateInput mixin', ->
   formControlElement = null
 
   compileElement = (options) ->
-    element = compileTemplate(options, template, scope, $compile)
+    element = compileTemplate(options, scope, $compile)
 
   beforeEach(angular.mock.module("myApp"))
 
