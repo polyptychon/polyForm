@@ -73,9 +73,9 @@ module.exports = () ->
             attrClasses = attrClasses.replace(/select-clear/gi, "")
 
           attrClasses = attrClasses.replace(/ng-\w+-?\w+\s/gi, "")
-          attrClasses = attrClasses.replace(/\s\s/gi, " ")
-          inputClasses = inputClasses.replace(/\s\s/gi, " ")
-          $(element).attr("class", attrClasses + " " + inputClasses)
+          classes = attrClasses + " " + inputClasses
+          classes = classes.replace(/\s\s/gi, " ")
+          $(element).attr("class", classes)
 
           unless (updateOnNextFrame?)
             requestAnimFrame ( () ->
