@@ -5,43 +5,65 @@ html(ng-app="PolyForm")
     include partials/header
   body
     .container
-      form(name="myform5", ng-cloak="true")
-        - formName = 'myform5'
+      - formName = 'myform0'
+      form(name=formName, ng-cloak="true")
         form-tabs
           form-tab(tab-title="Hidden Controls")
             include partials/hidden-controls
             .col-md-12
-              button.btn.btn-primary.pull-right(type="submit", ng-disabled="myform5.$invalid") Send
+              button.btn.btn-primary.pull-right(type="submit", ng-disabled=(formName+".$invalid")) Send
 
-      form(name="myform1", ng-cloak="true")
-        - formName = 'myform1'
+      - formName = 'myform1'
+      form(name=formName, ng-cloak="true")
         form-tabs
           form-tab(tab-title="Validation")
             include partials/validation
 
-      form(name="myform2", ng-cloak="true")
-        - formName = 'myform2'
+      - formName = 'myform2'
+      form(name=formName, ng-cloak="true")
         form-tabs
           form-tab(tab-title="Block Controls")
             include partials/block-controls
 
-      form(name="myform3", ng-cloak="true")
-        - formName = 'myform3'
+      - formName = 'myform3'
+      form(name=formName, ng-cloak="true")
         form-tabs
           form-tab(tab-title="Inline Controls")
             include partials/inline-controls
 
-      form(name="myform4", ng-cloak="true")
+      - formName = 'myform4'
+      form(name=formName, ng-cloak="true")
         - formName = 'myform4'
-        form-tabs(ng-init="myform4.showNextTab=true;")
-          form-tab(tab-title="Form Tab 1")
+        form-tabs(ng-init=(formName+".showNextTab=true;"))
+          form-tab(tab-title="DisableValidation When Hidden Test")
             include partials/hidden-controls
-            +form-control({name:'showNextTabCheckbox', model:'myform4.showNextTab', label:'show next tab when checked',type:'checkbox', class:'col-md-12'})
+            +form-control({name:'showNextTabCheckbox', model:(formName+'.showNextTab'), label:'show next tab when checked',type:'checkbox', class:'col-md-12'})
             .col-md-12
-              button.btn.btn-primary(type="submit", ng-hide="myform4.showNextTab", ng-disabled="myform4.$invalid") Send
-          form-tab(tab-title="Form Tab 2", ng-show="myform4.showNextTab")
+              button.btn.btn-primary(type="submit", ng-hide=(formName+".showNextTab"), ng-disabled=(formName+".$invalid")) Send
+          form-tab(tab-title="Form Tab 2", ng-show=(formName+".showNextTab"))
             include partials/validation
             .col-md-12
-              button.btn.btn-primary(type="submit", ng-disabled="myform4.$invalid") Send
+              button.btn.btn-primary(type="submit", ng-disabled=(formName+".$invalid")) Send
+
+      - formName = 'myform5'
+      form(name=formName, ng-cloak="true")
+        form-tabs(ng-init=(formName+".showNextTab=true;"))
+          form-tab(tab-title="DisableValidation When Hidden Test")
+            .row
+              .col-md-12
+                +form-control({name:'hideCheckbox', model:formName+'.hideControls' ,label:'Disable below controls when checked',type:'checkbox', class:'col-md-12'})
+              .col-md-12(ng-hide=(formName+'.hideControls'), disable-validation-when-hidden)
+                +form-control({name:'password',label:'password',type:'password',model:'$parent.$parent.myPassword'})
+                +form-control({name:'uiValidateControl',label:'ui-validate',type:'password', uiValidate:"'$value==myPassword'", uiValidateWatch:"'myPassword'"})
+              .col-md-12
+                //+form-control({name:'minLength',label:'Min Length',ngMinlength:3, useLabel: 'false'})
+                +form-control({name:'maxlength',label:'Max length',ngMaxlength:3, useLabel: 'false'})
+            +form-control({name:'showNextTabCheckbox', model:formName+'.showNextTab', label:'show next tab when checked',type:'checkbox', class:'col-md-12'})
+            .col-md-12
+              button.btn.btn-primary(type="submit", ng-hide=(formName+".showNextTab"), ng-disabled=formName+".$invalid") Send
+          form-tab(tab-title="Form Tab 2", ng-show=(formName+".showNextTab"))
+            +form-control({name:'maxlength',label:'Max length',ngMaxlength:3, useLabel: 'false'})
+            .col-md-12
+              button.btn.btn-primary(type="submit", ng-disabled=(formName+".$invalid")) Send
 
     include partials/footer
