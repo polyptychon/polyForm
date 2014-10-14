@@ -11,6 +11,12 @@ describe('DateInput mixin', ->
   element = null
   scope = null
   formControlElement = null
+
+  compileElement = (options) ->
+    element = $("<div></div>").html(template({ options: options }))
+    $compile(element)(scope)
+    scope.$digest()
+
   beforeEach(angular.mock.module("myApp"))
 
   beforeEach(inject((_$rootScope_, _$compile_) ->
@@ -22,11 +28,7 @@ describe('DateInput mixin', ->
   describe('default attributes', ->
     beforeEach(
       ()->
-        element = $("<div></div>").html(template({
-          options: {name:'dateInput',label:'dateInput',type:'dateInput'}
-        }))
-        $compile(element)(scope)
-        scope.$digest()
+        compileElement({name:'dateInput',label:'dateInput',type:'dateInput'})
     )
     describe('Element with class .input-group.date', ->
       it("should have element", ->
@@ -47,20 +49,56 @@ describe('DateInput mixin', ->
   )
   describe('default attribute multidate', ->
     it("should be true when set", ->
-      element = $("<div></div>").html(template({
-        options: {name:'dateInput',label:'dateInput',type:'dateInput', multidate: 'true'}
-      }))
-      $compile(element)(scope)
-      scope.$digest()
+      compileElement({name:'dateInput',label:'dateInput',type:'dateInput', multidate: 'true'})
       expect($(element).find('.input-group.date').attr('multidate')).toBe 'true'
     )
     it("should be undefined when is not set", ->
-      element = $("<div></div>").html(template({
-        options: {name:'dateInput',label:'dateInput',type:'dateInput', multidate: null}
-      }))
-      $compile(element)(scope)
-      scope.$digest()
+      compileElement({name:'dateInput',label:'dateInput',type:'dateInput', multidate: null})
       expect($(element).find('.input-group.date').attr('multidate')).toBeUndefined()
+    )
+  )
+
+  describe('default attribute force-parse', ->
+    it("should be true when set", ->
+      compileElement({name:'dateInput',label:'dateInput',type:'dateInput', forceParse: 'true'})
+      expect($(element).find('.input-group.date').attr('force-parse')).toBe 'true'
+    )
+    it("should be undefined when is not set", ->
+      compileElement({name:'dateInput',label:'dateInput',type:'dateInput', forceParse: null})
+      expect($(element).find('.input-group.date').attr('force-parse')).toBeUndefined()
+    )
+  )
+
+  describe('default attribute clear-btn', ->
+    it("should be true when set", ->
+      compileElement({name:'dateInput',label:'dateInput',type:'dateInput', clearBtn: 'true'})
+      expect($(element).find('.input-group.date').attr('clear-btn')).toBe 'true'
+    )
+    it("should be undefined when is not set", ->
+      compileElement({name:'dateInput',label:'dateInput',type:'dateInput', clearBtn: null})
+      expect($(element).find('.input-group.date').attr('clear-btn')).toBeUndefined()
+    )
+  )
+
+  describe('default attribute today-highlight', ->
+    it("should be true when set", ->
+      compileElement({name:'dateInput',label:'dateInput',type:'dateInput', todayHighlight: 'true'})
+      expect($(element).find('.input-group.date').attr('today-highlight')).toBe 'true'
+    )
+    it("should be undefined when is not set", ->
+      compileElement({name:'dateInput',label:'dateInput',type:'dateInput', todayHighlight: null})
+      expect($(element).find('.input-group.date').attr('today-highlight')).toBeUndefined()
+    )
+  )
+
+  describe('default attribute autoclose', ->
+    it("should be true when set", ->
+      compileElement({name:'dateInput',label:'dateInput',type:'dateInput', autoclose: 'true'})
+      expect($(element).find('.input-group.date').attr('autoclose')).toBe 'true'
+    )
+    it("should be undefined when is not set", ->
+      compileElement({name:'dateInput',label:'dateInput',type:'dateInput', autoclose: null})
+      expect($(element).find('.input-group.date').attr('autoclose')).toBeUndefined()
     )
   )
 

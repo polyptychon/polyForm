@@ -15,6 +15,7 @@ mixin date-input(options)
 
   - multidate           = options.multidate           || null
   - forceParse          = options.forceParse          || null
+  - clearBtn            = options.clearBtn            || null
   - todayHighlight      = options.todayHighlight      || null
   - autoclose           = options.autoclose           || null
   - multidateSeperator  = options.multidateSeperator  || null
@@ -46,7 +47,7 @@ mixin date-input(options)
   date-input(
       multidate=(multidate || null),
       force-parse=(forceParse || null),
-      clear-btn=(clearButton || null),
+      clear-btn=(clearBtn || null),
       today-highlight=(todayHighlight || null),
       autoclose=(autoclose || null),
       multidate-separator=(multidateSeperator || null),
