@@ -22,8 +22,15 @@ module.exports = () ->
     )
 
     element.find('[ng-model]').each(() ->
-      childScope = angular.element(this).scope();
+      childScope = angular.element(@).scope();
       model = $(@).attr("ng-model");
+      childScope.$watch(model, (newValue) =>
+        scope.copyChildClassesToParent(@) if (newValue?)
+      )
+    )
+    element.find('[ui-validate-watch]').each(() ->
+      childScope = angular.element(@).scope();
+      model = $(@).attr("ui-validate-watch").replace(/\'/g, "");
       childScope.$watch(model, (newValue) =>
         scope.copyChildClassesToParent(@) if (newValue?)
       )

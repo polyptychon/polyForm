@@ -12,7 +12,7 @@ module.exports = ($timeout, $http) ->
     quietMillis = if (attrs.quietMillis? && !isNaN(attrs.quietMillis)) then attrs.quietMillis else 500
 
     attrs.$observe("updateOnModelChange", (newValue, oldValue) ->
-      return if (!newValue? || newValue == oldValue)
+      return unless (newValue? && newValue != oldValue)
       $timeout.cancel(timeoutPromise)
       timeoutPromise = $timeout(
         () ->
