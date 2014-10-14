@@ -1,0 +1,23 @@
+include ../../../../_src/templates/mixins/poly-form/form-control
+
+form(name="myform4", ng-cloak="true")
+  - formName = 'myform4'
+  form-tabs(ng-init="myform4.showNextTab=true;")
+    form-tab(tab-title="DisableValidation When Hidden Test")
+      .row
+        .col-md-12
+          +form-control({name:'hideCheckbox', model:'myform4.hideControls' ,label:'Disable below controls when checked',type:'checkbox', class:'col-md-12'})
+        .col-md-12(ng-hide="myform4.hideControls", disable-validation-when-hidden)
+          +form-control({name:'password',label:'password',type:'password',model:'$parent.$parent.myPassword'})
+          +form-control({name:'uiValidateControl',label:'ui-validate',type:'password', uiValidate:"'$value==myPassword'", uiValidateWatch:"'myPassword'"})
+        .col-md-12
+          //+form-control({name:'minLength',label:'Min Length',ngMinlength:3, useLabel: 'false'})
+          +form-control({name:'maxlength',label:'Max length',ngMaxlength:3, useLabel: 'false'})
+      +form-control({name:'showNextTabCheckbox', model:'myform4.showNextTab', label:'show next tab when checked',type:'checkbox', class:'col-md-12'})
+      .col-md-12
+        button.btn.btn-primary(type="submit", ng-hide="myform4.showNextTab", ng-disabled="myform4.$invalid") Send
+    form-tab(tab-title="Form Tab 2", ng-show="myform4.showNextTab")
+      .col-md-12
+        +form-control({name:'maxlength',label:'Max length',ngMaxlength:3, useLabel: 'false'})
+      .col-md-12
+        button.btn.btn-primary(type="submit", ng-disabled="myform4.$invalid") Send
