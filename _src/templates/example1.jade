@@ -31,21 +31,8 @@ html(ng-app="PolyForm")
           form-tab(tab-title="Inline Controls")
             include partials/inline-controls
 
-      - formName = 'myform4'
-      form(name=formName, ng-cloak="true")
-        - formName = 'myform4'
-        form-tabs(ng-init=(formName+".showNextTab=true;"))
-          form-tab(tab-title="DisableValidation When Hidden Test")
-            include partials/hidden-controls
-            +form-control({name:'showNextTabCheckbox', model:(formName+'.showNextTab'), label:'show next tab when checked',type:'checkbox', class:'col-md-12'})
-            .col-md-12
-              button.btn.btn-primary(type="submit", ng-hide=(formName+".showNextTab"), ng-disabled=(formName+".$invalid")) Send
-          form-tab(tab-title="Form Tab 2", ng-show=(formName+".showNextTab"))
-            include partials/validation
-            .col-md-12
-              button.btn.btn-primary(type="submit", ng-disabled=(formName+".$invalid")) Send
 
-      - formName = 'myform5'
+      - formName = 'myform4'
       form(name=formName, ng-cloak="true")
         form-tabs(ng-init=(formName+".showNextTab=true;"))
           form-tab(tab-title="DisableValidation When Hidden Test")

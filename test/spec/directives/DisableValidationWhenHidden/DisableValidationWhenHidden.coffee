@@ -30,5 +30,44 @@ describe('DisableValidationWhenHidden', ->
   it("should have attribute disable-validation-when-hidden", ->
     expect($(element).find('[disable-validation-when-hidden]').length).toBe 1
   )
+  describe('when false', ->
+    beforeEach(
+      ()->
+        hideCheckbox = $(element).find('[name="hideCheckbox"]')
+        hideCheckbox.trigger('click') if hideCheckbox.attr('checked')?
+    )
+    it("should show element", ->
+      expect($(element).find('[disable-validation-when-hidden]').hasClass('ng-hide')).toBeFalsy()
+    )
+    it("should have next button enable", ->
+      expect($(element).find('[ng-click="selectNextPane()"]').attr('disabled')).toBe "disabled"
+    )
+    it("should have child inputs enabled", ->
+      $(element).find('[disable-validation-when-hidden]').find("input").each(
+        () ->
+          expect($(@).attr('disabled')).toBeUndefined()
+      )
+    )
+  )
+
+  describe('when true', ->
+    beforeEach(
+      ()->
+        hideCheckbox = $(element).find('[name="hideCheckbox"]')
+        hideCheckbox.trigger('click') unless hideCheckbox.attr('checked')?
+    )
+    it("should show element", ->
+      expect($(element).find('[disable-validation-when-hidden]').hasClass('ng-hide')).toBeTruthy()
+    )
+    it("should have next button enable", ->
+      expect($(element).find('[ng-click="selectNextPane()"]').attr('disabled')).toBe "disabled"
+    )
+    it("should have child inputs enabled", ->
+      $(element).find('[disable-validation-when-hidden]').find("input").each(
+        () ->
+          expect($(@).attr('disabled')).toBe 'disabled'
+      )
+    )
+  )
 
 )
