@@ -256,6 +256,12 @@ gulp.task('karma', ['browserify-test'], function() {
   // Be sure to return the stream
   return gulp.src(TEST+"/bundle-tests.js")
     .pipe(karma({
+      frameworks: [
+        'jasmine'
+      ],
+      autoWatch: true,
+      singleRun: false,
+      browsers: ['Chrome'],
       action: 'start'
     }))
     .on('error', function(err) {
