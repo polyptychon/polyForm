@@ -1,5 +1,4 @@
 require "../../../../_src/coffee/main.coffee"
-
 require "angular-mocks/angular-mocks"
 template = require "./date-input-example.jade"
 
@@ -12,7 +11,6 @@ describe('DateInput', ->
   element = null
   scope = null
   formControlElement = null
-
   beforeEach(angular.mock.module("myApp"))
 
   beforeEach(inject((_$rootScope_, _$compile_) ->
@@ -20,8 +18,9 @@ describe('DateInput', ->
     $compile = _$compile_
     scope = $rootScope
 
-    element = $("<div></div>").html(template())
-    element.css('display', 'block')
+    element = $("<div></div>").html(template({
+      options: {name:'dateInput',label:'dateInput',type:'dateInput'}
+    }))
 
     $compile(element)(scope)
     scope.$digest()

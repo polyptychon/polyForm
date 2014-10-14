@@ -271,7 +271,7 @@ gulp.task('karma', ['browserify-test'], function() {
 });
 gulp.task('test', function() {
   runSequence('karma');
-  gulp.watch(TEST+'/spec/**/*.{coffee,js}', ['karma']);
+  gulp.watch(TEST+'/spec/**/*.{coffee,js,jade}', ['karma']);
   gulp.watch(SRC+'/**/*.{js,coffee}',      ['karma']);
 });
 
