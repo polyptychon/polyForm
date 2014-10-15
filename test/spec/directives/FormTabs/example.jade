@@ -17,7 +17,6 @@ form(name=formName, ng-cloak="true")
       .col-md-12
         button.btn.btn-primary(type="submit", ng-hide=(formName+".showNextTab"), ng-disabled=(formName+".$invalid")) Send
     form-tab(tab-title="Form Tab 2", ng-show=(formName+".showNextTab"))
-      .col-md-12
-        +form-control({name: 'maxlength', label: 'Max length', ngMaxlength: 3, useLabel: 'false'})
+      +form-control({name: 'maxlength', label: 'Max length', ngMaxlength: 3, useLabel: 'false'})
       .col-md-12
         button.btn.btn-primary(type="submit", ng-disabled=(formName+".$invalid")) Send
