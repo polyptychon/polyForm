@@ -5,14 +5,6 @@ html(ng-app="PolyForm")
     include partials/header
   body
     .container
-      - formName = 'myform0'
-      form(name=formName, ng-cloak="true")
-        form-tabs
-          form-tab(tab-title="Hidden Controls")
-            include partials/hidden-controls
-            .col-md-12
-              button.btn.btn-primary.pull-right(type="submit", ng-disabled=(formName+".$invalid")) Send
-
       - formName = 'myform1'
       form(name=formName, ng-cloak="true")
         form-tabs
@@ -30,12 +22,19 @@ html(ng-app="PolyForm")
         form-tabs
           form-tab(tab-title="Inline Controls")
             include partials/inline-controls
-
-
+cle
       - formName = 'myform4'
       form(name=formName, ng-cloak="true")
+        form-tabs
+          form-tab(tab-title="DisableValidationWhenHidden Test")
+            include partials/hidden-controls
+            .col-md-12
+              button.btn.btn-primary.pull-right(type="submit", ng-disabled=(formName+".$invalid")) Send
+
+      - formName = 'myform5'
+      form(name=formName, ng-cloak="true")
         form-tabs(ng-init=(formName+".showNextTab=true;"))
-          form-tab(tab-title="DisableValidation When Hidden Test")
+          form-tab(tab-title="DisableValidationWhenHidden With tabs Test")
             .row
               .col-md-12
                 +form-control({name:'hideCheckbox', model:formName+'.hideControls' ,label:'Disable below controls when checked',type:'checkbox', class:'col-md-12'})
@@ -52,7 +51,7 @@ html(ng-app="PolyForm")
             +form-control({name:'maxlength',label:'Max length',ngMaxlength:3, useLabel: 'false'})
             .col-md-12
               button.btn.btn-primary(type="submit", ng-disabled=(formName+".$invalid")) Send
-      - formName = 'myform5'
+      - formName = 'myform6'
       form(name=formName, ng-cloak="true")
         form-tabs(ng-init=(formName + ".showNextTab=true;"))
           form-tab(tab-title="FormTab Test")
