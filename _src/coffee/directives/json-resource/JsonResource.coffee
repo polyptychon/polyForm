@@ -3,8 +3,9 @@ mapDataToURL = require "../../utils/MapDataToURL.coffee"
 module.exports = ($timeout, $http) ->
   restrict: 'E'
   scope:
-    isUniqueQuietMillis: '@'
-    isUniqueMapData: '@'
+    quietMillis: '@'
+    mapData: '@'
+    queryDataType: '@'
   link: (scope, elm, attrs) ->
     timeoutPromise = null
     minimumInputLength = if (attrs.minimumInputLength? && !isNaN(attrs.minimumInputLength)) then attrs.minimumInputLength else 3
