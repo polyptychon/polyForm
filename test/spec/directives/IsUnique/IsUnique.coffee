@@ -24,7 +24,7 @@ describe('FormTab', ->
     $compile = _$compile_
     scope = $rootScope
 
-    compileElement({name:'test',label:'test',type:'text',model:'testForm.testModel', isUnique:'http://wedding.polyptychon.gr/isUnique.json'})
+    compileElement({name:'test',label:'test',type:'text',model:'testForm.testModel', isUnique:'http://wedding.polyptychon.gr/isUnique.json', isUniqueDataType:'jsonp'})
     formControlElement = $(element).find('.has-feedback')
     input = $(element).find('input')
   ))
@@ -49,13 +49,12 @@ describe('FormTab', ->
     it("should have class ng-invalid-is-unique", ->
       expect(formControlElement.hasClass("ng-invalid-is-unique")).toBeTruthy()
     )
-    it("should not have class ng-loading", ->
+    xit("should not have class ng-loading", ->
       loaded = false
-      runs(() -> setTimeout( (() -> loaded = true ), 5000))
+      runs(() -> setTimeout( (() -> loaded = true ), 1000))
       waitsFor(()-> return loaded )
 
       expect(input.hasClass("ng-loading")).toBeFalsy()
-      #expect(formControlElement.hasClass("ng-invalid-is-unique")).toBeFalsy()
     )
   )
 )
