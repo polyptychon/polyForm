@@ -13,6 +13,7 @@ mixin textarea(options)
   - autocomplete  = options.autocomplete  || name
   - type          = options.type          || 'text'
   - popover       = options.popover       || null
+  - value         = options.value         || null
 
   - rows          = options.rows          || "4"
   - cols          = options.cols          || "50"
@@ -22,6 +23,7 @@ mixin textarea(options)
   - isUniqueMapData = options.mapData     || null  // Maps json data to isUnique url. example isUnique="test.json?param:value" isUniqueMapData="{value=true}"
 
   - ngChecked   = options.ngChecked   || null
+  - ngValue     = options.ngValue     || null
 
   - ngRequired  = options.ngRequired  || 'true' // Sets required attribute if set to true
   - ngRequired  = ngRequired=='false' ? null : 'true'
@@ -37,6 +39,8 @@ mixin textarea(options)
     name=name,
     id= id,
     ng-model=model,
+    value=value,
+    ng-value=ngValue,
     autocomplete=autocomplete,
     type=(type=='select2'?null:type),
     placeholder=placeholder,

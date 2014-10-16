@@ -46,7 +46,7 @@ html(ng-app="PolyForm")
                 +form-control({name:'maxlength',label:'Max length',ngMaxlength:3, useLabel: 'false'})
             +form-control({name:'showNextTabCheckbox', model:formName+'.showNextTab', label:'show next tab when checked',type:'checkbox', class:'col-md-12'})
             .col-md-12
-              button.btn.btn-primary(type="submit", ng-hide=(formName+".showNextTab"), ng-disabled=formName+".$invalid") Send
+              button.btn.btn-primary(type="submit", ng-hide=(formName+".showNextTab"), ng-disabled=(formName+".$invalid")) Send
           form-tab(tab-title="Form Tab 2", ng-show=(formName+".showNextTab"))
             +form-control({name:'maxlength',label:'Max length',ngMaxlength:3, useLabel: 'false'})
             .col-md-12
@@ -73,5 +73,12 @@ html(ng-app="PolyForm")
             +form-control({name: 'maxlength', label: 'Max length', ngMaxlength: 3, useLabel: 'false'})
             .col-md-12
               button.btn.btn-primary(type="submit", ng-disabled=(formName + ".$invalid")) Send
+
+      - formName = 'myform7'
+      form(name=formName, ng-cloak="true")
+        form-tabs
+          form-tab(tab-title="JsonResource Test")
+            .col-md-12
+              +form-control({name:'select',label:'select',type:'select',collection:['male', 'female']})
 
     include partials/footer
