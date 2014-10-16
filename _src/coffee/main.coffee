@@ -27,3 +27,4 @@ module.exports =
   .directive("isUnique", ['$timeout', '$http', require("./directives/is-unique/IsUnique.coffee")])
   .directive("jsonResource", ['$timeout', '$http', require("./directives/json-resource/JsonResource.coffee")])
   .directive("uiSelect2Query", ['$timeout', '$http', require("./directives/ui-select2-query/UiSelect2Query.coffee")])
+  .directive("input", ['$parse', require("./directives/input/Input.coffee")])
