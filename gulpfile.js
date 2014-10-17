@@ -119,14 +119,18 @@ function myCoffee(dest, name) {
 
 gulp.task('coffee', function() {
   gulp.src('./'+SRC+'/coffee/main.coffee')
-    .pipe(plumber())
+    .pipe(plumber({
+      errorHandler: handleError
+    }))
     .pipe(myCoffee());
 });
 
 gulp.task('lib', function() {
   env = PRODUCTION;
   gulp.src('./'+SRC+'/coffee/main.coffee')
-    .pipe(plumber())
+    .pipe(plumber({
+      errorHandler: handleError
+    }))
     .pipe(myCoffee('_lib', 'poly-form.min.js'));
 
   gulp.src(dependencies)
@@ -187,7 +191,9 @@ gulp.task('sass', function() {
   }
   return gulp.src(SRC+'/sass/poly-form.scss')
     .pipe(duration('sass'))
-    .pipe(plumber())
+    .pipe(plumber({
+      errorHandler: handleError
+    }))
     .pipe(sass(config).on('error', gutil.log))
     .pipe(gulpif(env === PRODUCTION, prefix("last 2 versions", "> 1%", "ie 8", "ie 7", { cascade: true })))
     .pipe(gulpif(env === PRODUCTION, csso()))
@@ -286,6 +292,11 @@ gulp.task('production', function() {
   env = PRODUCTION;
   runSequence(['images','clean-js'],['fonts','coffee','vendor','sass'],['jade']);
 });
+
+var handleError = function (err) {
+  console.log(err.toString());
+  this.emit('end');
+};
 
 //function sha1(buf) {
 //  return crypto.createHash('sha1').update(buf).digest('hex');
