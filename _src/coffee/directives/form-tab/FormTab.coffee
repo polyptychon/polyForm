@@ -10,11 +10,13 @@ module.exports = () ->
     tabTitle: '@'
     nextTabButtonLabel: '@'
     showNextButton: '@'
+    directiveScope: "="
   template: require './form-tab.jade'
   replace: true
   require: ['^form', '^formTabs']
 
-  link: (scope, element, attrs, ctrls) ->
+  link: (scope, element, attrs, ctrls, transclude) ->
+    scope.directiveScope = scope if (attrs.directiveScope)
     form = ctrls[0];
     formTabs = ctrls[1];
     return if (formTabs == null)
@@ -39,7 +41,7 @@ module.exports = () ->
     )
 
     attrs.$observe("nextTabButtonLabel", (value) ->
-      scope.nextTabButtonLabel = "Next" unless (value?)
+      scope.nextTabButtonLabel = value
     )
 
     attrs.$observe("showNextButton", (value) ->
