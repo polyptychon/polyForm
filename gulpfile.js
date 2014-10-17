@@ -247,7 +247,7 @@ gulp.task('connect', function() {
 });
 
 gulp.task('browserify-test', function() {
-  var testFiles = glob.sync('./'+TEST+'/spec/directives/**/*.coffee');
+  var testFiles = glob.sync('./'+TEST+'/spec/directives/IsUnique/**/*.coffee');
   return browserify(testFiles, { debug:true }).bundle()
     .pipe(source('bundle-tests.js'))
     .pipe(gulp.dest(TEST));

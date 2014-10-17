@@ -3,29 +3,14 @@ include form-input
 mixin checkbox(options)
   - options       = options               || {}
 
-  - className     = options.class         || 'col-md-6'
-  - inputClass    = options.inputClass    || 'form-control'
-  - radioClass    = options.radioClass    || 'radio-inline'
-  - name          = options.name          || 'control'
-  - $$id = $$id || 0
-  - id            = options.id            || (options.name+$$id || 'control'+$$id)
-  - $$id++
-  - model         = options.model         || (options.id || '$parent.$parent.'+id)
-  - label         = options.label         || 'Ετικέτα'
-  - placeholder   = options.placeholder   || label
-  - autocomplete  = options.autocomplete  || name
-  - type          = options.type          || 'text'
-  - radioValues   = options.radioValues   || null
-  - popover       = options.popover       || null
-
-  - options.inputClass = 'form-input'
+  - options.inputClass = options.inputClass || ' '
+  - ngChecked          = options.ngChecked  || null
+  - options.type       = options.type       || 'checkbox'
   - options.ngRequired = 'false'
-  - ngChecked   = options.ngChecked   || null
 
   .row
-    //.col-md-12.form-control(style='opacity:0;')
     div(class=className)
-      label
-        .input-group
+      .checkbox
+        label
           +form-input(options)
-          = ' ' + label
+          = label

@@ -2,23 +2,10 @@ include form-input
 
 mixin radio-group(options)
   - options       = options               || {}
-
   - className     = options.class         || 'col-md-12'
-  - inputClass    = options.inputClass    || 'form-control'
   - radioClass    = options.radioClass    || 'radio-inline'
-  - name          = options.name          || 'control'
-  - $$id = $$id || 0
-  - id            = options.id            || (options.name+$$id || 'control'+$$id)
-  - $$id++
-  - model         = options.model         || (options.id || '$parent.$parent.'+id)
-  - label         = options.label         || 'Ετικέτα'
-  - placeholder   = options.placeholder   || label
-  - autocomplete  = options.autocomplete  || name
-  - type          = options.type          || 'radio'
-  - popover       = options.popover       || null
-
+  - options.type  = options.type          || 'radio'
   - collection    = options.collection    || null
-
   - options.inputClass = 'form-input'
 
   .row
