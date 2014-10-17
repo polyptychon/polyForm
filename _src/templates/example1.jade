@@ -34,7 +34,7 @@ html(ng-app="PolyForm")
       - formName = 'myform5'
       form(name=formName, ng-cloak="true")
         form-tabs(ng-init=(formName+".showNextTab=true;"))
-          form-tab(tab-title="DisableValidationWhenHidden With tabs Test")
+          form-tab(tab-title="DisableValidationWhenHidden With tabs Test", next-tab-button-label="next")
             .row
               .col-md-12
                 +form-control({name:'hideCheckbox', model:formName+'.hideControls' ,label:'Disable below controls when checked',type:'checkbox', class:'col-md-12'})

@@ -2,7 +2,7 @@ include ../../../../_src/templates/mixins/poly-form/form-control
 - formName = 'myform5'
 form(name=formName, ng-cloak="true")
   form-tabs(ng-init=(formName+".showNextTab=true;"))
-    form-tab(tab-title="FormTab Test")
+    form-tab(tab-title="FormTab Test", next-tab-button-label="next")
       .row
         .col-md-12
           //+form-control({name:'minLength',label:'Min Length',ngMinlength:3, useLabel: 'false'})
