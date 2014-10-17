@@ -7,7 +7,7 @@ mixin textarea(options)
   - $$id = $$id || 0
   - id            = options.id            || (options.name+$$id || 'control'+$$id)
   - $$id++
-  - model         = options.model         || (options.id || '$parent.$parent.'+id)
+  - model         = options.model         || (options.id || '$parent.$parent.$polyForm.'+id)
   - label         = options.label         || 'Ετικέτα'
   - placeholder   = options.placeholder   || label
   - autocomplete  = options.autocomplete  || name
