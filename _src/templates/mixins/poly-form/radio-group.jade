@@ -17,9 +17,10 @@ mixin radio-group(options)
             label
               - options.value = (typeof val == 'string' || typeof val == 'number' ? val: val.value)
               +form-input(options)
-              = ' ' + (typeof val == 'string' || typeof val == 'number' ? val: val.label)
+              = (typeof val == 'string' || typeof val == 'number' ? val: val.label)
       else
-        label
-          .input-group
-            +form-input(options)
-            = ' ' + label
+        .radio
+          label
+            .input-group
+              +form-input(options)
+              = label
