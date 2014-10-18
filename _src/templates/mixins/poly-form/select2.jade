@@ -6,7 +6,7 @@ mixin select2(options)
   - $$id = $$id || 0
   - id            = options.id            || (options.name+$$id || 'control'+$$id)
   - $$id++
-  - model         = options.model         || (options.id || '$parent.$parent.$polyForm.'+id)
+  - model         = options.model         || (options.id || id)
   - label         = options.label         || null
   - placeholder   = options.placeholder   || label
   - autocomplete  = options.autocomplete  || name
