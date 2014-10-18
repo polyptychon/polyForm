@@ -54,10 +54,13 @@ module.exports = ($parse) ->
       '$element'
       ($scope, $element) ->
         element = $element;
-
+        invalidCopy = false
         $scope.copyChildClassesToParent = @copyChildClassesToParent = (childElement) ->
+          invalidCopy = true
           return unless (childElement?)
           requestAnimFrame ( () ->
+            return unless invalidCopy
+            invalidCopy = false
             childElement = $(childElement)
             select2DropActive = $(".select2-drop-active")
             attrClasses = $(element).attr("class").replace(/ng-(\w|\-)+\s?/gi, "")
