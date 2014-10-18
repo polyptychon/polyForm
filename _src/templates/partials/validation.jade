@@ -4,7 +4,9 @@
     +form-control({name:'validatePassword',label:'password',type:'password', model:formName+'.validatePasswordValue', value:'test'})
     +form-control({name:'uiValidate',label:'ui-validate',type:'password', value:'test', uiValidate:"'$value=="+formName+".validatePasswordValue'", uiValidateWatch:"'"+formName+".validatePasswordValue'"})
   .col-md-12
-    +form-control({name:'email',label:'Email', class:'col-md-6 has-error ng-dirty ng-invalid-email',type:'email', value:'test'})
+    .col-md-12
+      | email:  {{ myform1.$polyForm.email2 }}
+    +form-control({name:'email', label:'Email', class:'col-md-6 has-error ng-dirty ng-invalid-email',type:'email', value:'test'})
     +form-control({name:'number',label:'number',type:'number', value:'13'})
   .col-md-12
     +form-control({name:'minLength', label:'Min Length',ngMinlength:3, value:'test'})
