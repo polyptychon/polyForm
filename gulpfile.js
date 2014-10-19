@@ -4,7 +4,9 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     prefix = require('gulp-autoprefixer'),
     csso = require('gulp-csso'),
-    //imagemin = require('gulp-imagemin'),
+    uncss = require('gulp-uncss'),
+    glob = require('glob'),
+    imagemin = require('gulp-imagemin'),
     plumber = require('gulp-plumber'),
     browserify = require('browserify'),
     concat = require('gulp-concat'),
@@ -196,6 +198,10 @@ gulp.task('sass', function() {
     }))
     .pipe(sass(config).on('error', gutil.log))
     .pipe(gulpif(env === PRODUCTION, prefix("last 2 versions", "> 1%", "ie 8", "ie 7", { cascade: true })))
+    //.pipe(gulpif(env === PRODUCTION, uncss({
+    //  html: glob.sync(getOutputDir()+'/*.html'),
+    //  ignore: [/\[?\.ng[\-\.\w\d]+/,/::?-[\w\d]+\]?/i,/.has-feedback[\-\.\w\d\s]+/i,/.error-message[\-\.\w\d\s]+/i,/.select2-container[\-\.\w\d\s]+/i, /.form-container[\-\.\w\d\s]+/i, /.form-control[\-\.\w\d\s]+/i]
+    //})))
     .pipe(gulpif(env === PRODUCTION, csso()))
     .pipe(gulpif(env === PRODUCTION, size()))
     .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, fingerprint(imagesManifest, { base:'../images/', prefix: '../images/' })))
