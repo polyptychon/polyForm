@@ -8,10 +8,12 @@ mixin h-form-control(options)
   - options.label        = options.label        || 'Ετικέτα'
   - options.useLabel     = options.useLabel     || 'false'
   - options.placeholder  = options.placeholder  || ' '
+  - $$id = $$id || 0
+  - id                   = options.id           || (options.name+$$id || $$id)
 
   .row
     .col-md-12
       div(class=labelClass)
-        label.input-label(for='#{options.name}Input')= options.label
+        label.input-label(for=id)= options.label
 
       +form-control(options)

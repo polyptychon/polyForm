@@ -29,7 +29,7 @@ html(ng-app="PolyForm")
           form-tab(tab-title="DisableValidationWhenHidden Test")
             include partials/hidden-controls
             .col-md-12
-              button.btn.btn-primary.pull-right(type="submit", ng-disabled=(formName+".$invalid")) Send
+              button.btn.btn-primary(type="submit", ng-disabled=(formName+".$invalid")) Send
 
       - formName = 'myform5'
       form(name=formName, ng-cloak="true")

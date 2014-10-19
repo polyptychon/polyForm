@@ -2,12 +2,14 @@ mapDataToURL = require "../../utils/MapDataToURL.coffee"
 
 module.exports = ($timeout, $http) ->
   restrict: 'A'
-  require: '?ngModel'
+  require: ['?ngModel', '^?formControl']
   scope:
     isUniqueQuietMillis: '@'
     isUniqueMapData: '@'
     isUniqueDataType: '@'
-  link: (scope, elm, attrs, ngModel) ->
+  link: (scope, elm, attrs, ctrls) ->
+    ngModel = ctrls[0]
+    formControl = ctrls[1]
     timeoutPromise = null
     timeoutDigest = -1
     quietMillis = if (attrs.isUniqueQuietMillis != null && !isNaN(attrs.isUniqueQuietMillis)) then attrs.quietMillis else 500
@@ -93,12 +95,9 @@ module.exports = ($timeout, $http) ->
                 update()
 
             update = () ->
-              timeoutDigest = setTimeout(
-                () ->
-                  elm.trigger("keyup")
-              , 100)
+              formControl.copyChildClassesToParent(elm) if formControl?
 
-        , quietMillis - 100)
+        , quietMillis)
     ) #watch
 
     validatorFn = (modelValue, value) ->

@@ -13,7 +13,7 @@ module.exports =
   angular.module('PolyForm', ['ui.validate','ui.mask','ui.select2'])
   .directive("formTabs", require("./directives/form-tabs/FormTabs.coffee"))
   .directive("formTab", require("./directives/form-tab/FormTab.coffee"))
-  .directive("formControl", require("./directives/form-control/FormControl.coffee"))
+  .directive("formControl", ['$parse', require("./directives/form-control/FormControl.coffee")])
   .directive("formGroup", require("./directives/form-group/FormGroup.coffee"))
   .directive("inputGroup", require("./directives/input-group/InputGroup.coffee"))
   .directive("inputGroupAddon", require("./directives/input-group-addon/InputGroupAddon.coffee"))

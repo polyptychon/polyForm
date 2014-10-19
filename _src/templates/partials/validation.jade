@@ -4,7 +4,9 @@
     +form-control({name:'validatePassword',label:'password',type:'password', model:formName+'.validatePasswordValue', value:'test'})
     +form-control({name:'uiValidate',label:'ui-validate',type:'password', value:'test', uiValidate:"'$value=="+formName+".validatePasswordValue'", uiValidateWatch:"'"+formName+".validatePasswordValue'"})
   .col-md-12
-    +form-control({name:'email',label:'Email', class:'col-md-6 has-error ng-dirty ng-invalid-email',type:'email', value:'test'})
+    .col-md-12
+      | email:  {{ myform1.$polyForm.email2 }}
+    +form-control({name:'email', label:'Email', class:'col-md-6 has-error ng-dirty ng-invalid-email',type:'email', value:'test'})
     +form-control({name:'number',label:'number',type:'number', value:'13'})
   .col-md-12
     +form-control({name:'minLength', label:'Min Length',ngMinlength:3, value:'test'})
@@ -13,6 +15,7 @@
     +form-control({name:'required',label:'Required false',ngRequired:'false', value:'test'})
     +form-control({name:'mypattern',label:'Pattern',type:'password', value:'test',ngPattern:'/((?=.*[a-z])(?=.*[A-Z]).{8,64})/',ngPatternMessage:'Ensure that value is 8 to 64 characters long and contains a mix of upper and lower case characters'})
   .col-md-12
+    +form-control({name:'isUnique',label:'isUnique',isUnique: 'isUnique.json', value:'test'})
     +form-control({class:'col-md-3',name:'ngchange',label:'ng change', value:'test',ngChange:formName+".ngchange2Value="+formName+".ngchangeValue", model:formName+'.ngchangeValue'})
     +form-control({class:'col-md-3',name:'ngchange2',label:'ng change 2', value:'test', model:formName+'.ngchange2Value'})
-    +form-control({name:'isUnique',label:'isUnique',isUnique: 'isUnique.json', value:'test'})
+

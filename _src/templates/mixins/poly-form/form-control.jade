@@ -15,7 +15,7 @@ mixin form-control(options)
   - type          = options.type          || 'text'
   - name          = options.name          || 'control'
   - $$id = $$id || 0
-  - id            = options.id            || (options.name+$$id || 'control'+$$id)
+  - id            = options.id            || (options.name+$$id || $$id)
   - label         = options.label         || 'Ετικέτα'
   - popover       = options.popover       || null
 
