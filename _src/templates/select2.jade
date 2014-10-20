@@ -1,0 +1,35 @@
+include mixins/poly-form/form-control
+doctype html
+html(ng-app="PolyForm")
+  head
+    include partials/header
+  body
+    .container
+      form(name="myForm", ng-cloak="true")
+        .row
+          .col-md-6
+            json-resource(path="people.json", variable="peopleAsync")
+            div hallo {{ myForm.personAsync.selected }}
+            ui-select(ng-model="myForm.personAsync.selected" theme="bootstrap" ng-disabled="disabled" style="min-width: 300px;" ng-required="true")
+              ui-select-match(placeholder="Select a person in the list or search his name/age...") {{$select.selected.name || $select.selected}}
+              ui-select-choices(repeat="person.email as person in peopleAsync | filter:$select.search")
+                div(ng-bind-html="person.name | highlight: $select.search")
+                small
+                | email: {{person.email}}
+                | age:
+                span(ng-bind-html="''+person.age | highlight: $select.search")
+
+            json-resource(path="people.json", variable="people2Async")
+            div hallo {{ myForm.person2Async.selected }}
+            ui-select(ng-model="myForm.person2Async.selected" theme="bootstrap" ng-disabled="disabled" multiple style="min-width: 300px;" ng-required="true")
+              ui-select-match(placeholder="Select a person in the list or search his name/age...") {{$select.selected.name || $select.selected}}
+              ui-select-choices(repeat="person.email as person in people2Async| filter:$select.search")
+                div(ng-bind-html="person.name | highlight: $select.search")
+                small
+                | email: {{person.email}}
+                | age:
+                span(ng-bind-html="''+person.age | highlight: $select.search")
+          .col-md-12
+            button.btn.btn-primary(type="submit", ng-disabled=("myForm.$invalid")) Send
+
+    include partials/footer
