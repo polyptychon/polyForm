@@ -5,6 +5,7 @@ var gulp = require('gulp'),
     prefix = require('gulp-autoprefixer'),
     csso = require('gulp-csso'),
     uncss = require('gulp-uncss'),
+    minifyCSS = require('gulp-minify-css'),
     glob = require('glob'),
     imagemin = require('gulp-imagemin'),
     plumber = require('gulp-plumber'),
@@ -197,15 +198,19 @@ gulp.task('sass', function() {
       errorHandler: handleError
     }))
     .pipe(sass(config).on('error', gutil.log))
-    .pipe(gulpif(env === PRODUCTION, prefix("last 2 versions", "> 1%", "ie 8", "ie 7", { cascade: true })))
-    //.pipe(gulpif(env === PRODUCTION, uncss({
-    //  html: glob.sync(getOutputDir()+'/*.html'),
-    //  ignore: [
-    //    /\[?\.ng[\-\.\w\d]+/,/::?-[\w\d]+\]?/i,
-    //    /(input|.btn|.popover|.datepicker|.loader|.spinner|.bounce|.has-feedback|.error-message|.select2|.form-container|.form-control|.breadcrumb).+/i,
-    //  ]
-    //})))
-    .pipe(gulpif(env === PRODUCTION, csso()))
+    //.pipe(gulpif(env === PRODUCTION, prefix("last 2 versions", "> 1%", "ie 8", "ie 7", { cascade: true })))
+    .pipe(gulpif(env === PRODUCTION, uncss({
+      html: glob.sync(getOutputDir()+'/*.html'),
+      ignore: [
+        'input[type="radio"]',
+        'input[type="checkbox"]',
+        /\[?\.ng[\-\.\w\d]+/,/::?-[\w\d]+\]?/i,
+        /(.responsive|.datepicker|.loader|.spinner|.bounce|.error-message|.select2|.form-container).+/i,
+        /(.radio|.checkbox|.has-feedback|.carousel|.btn|.popover|.form-control|.input-group|.breadcrumb).+/i
+      ]
+    })))
+    //.pipe(gulpif(env === PRODUCTION, csso()))
+    .pipe(gulpif(env === PRODUCTION, minifyCSS()))
     .pipe(gulpif(env === PRODUCTION, size()))
     .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, fingerprint(imagesManifest, { base:'../images/', prefix: '../images/' })))
     .pipe(gulpif(env === PRODUCTION && USE_FINGERPRINTING, rev()))
