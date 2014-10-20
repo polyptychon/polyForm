@@ -2,10 +2,12 @@ mapDataToURL = require "../../utils/MapDataToURL.coffee"
 
 module.exports = ($timeout, $http) ->
   restrict: 'E'
-  scope:
-    quietMillis: '@'
-    mapData: '@'
-    queryDataType: '@'
+#  scope:
+#    path: '@'
+#    variable: '@'
+#    quietMillis: '@'
+#    mapData: '@'
+#    queryDataType: '@'
   link: (scope, elm, attrs) ->
     timeoutPromise = null
     minimumInputLength = if (attrs.minimumInputLength? && !isNaN(attrs.minimumInputLength)) then attrs.minimumInputLength else 3
@@ -21,6 +23,14 @@ module.exports = ($timeout, $http) ->
             load()
       , quietMillis)
     )
+    onSuccess = (response) ->
+      elm.parent().removeClass("ng-loading")
+      scope[attrs.variable] = response
+
+
+    onError = () ->
+      elm.parent().removeClass("ng-loading");
+      scope[attrs.variable] = {};
 
     load = () ->
       url = mapDataToURL(attrs.path, attrs.mapData, scope)
@@ -45,11 +55,5 @@ module.exports = ($timeout, $http) ->
       else
         $http.get(url).success(onSuccess).error(onError)
 
-      onSuccess = (response) ->
-        elm.parent().removeClass("ng-loading")
-        scope[attrs.variable] = response
 
-
-      onError = () ->
-        elm.parent().removeClass("ng-loading");
-        scope[attrs.variable] = {};
+    load()
