@@ -200,7 +200,10 @@ gulp.task('sass', function() {
     .pipe(gulpif(env === PRODUCTION, prefix("last 2 versions", "> 1%", "ie 8", "ie 7", { cascade: true })))
     //.pipe(gulpif(env === PRODUCTION, uncss({
     //  html: glob.sync(getOutputDir()+'/*.html'),
-    //  ignore: [/\[?\.ng[\-\.\w\d]+/,/::?-[\w\d]+\]?/i,/.has-feedback[\-\.\w\d\s]+/i,/.error-message[\-\.\w\d\s]+/i,/.select2-container[\-\.\w\d\s]+/i, /.form-container[\-\.\w\d\s]+/i, /.form-control[\-\.\w\d\s]+/i]
+    //  ignore: [
+    //    /\[?\.ng[\-\.\w\d]+/,/::?-[\w\d]+\]?/i,
+    //    /(input|.btn|.popover|.datepicker|.loader|.spinner|.bounce|.has-feedback|.error-message|.select2|.form-container|.form-control|.breadcrumb).+/i,
+    //  ]
     //})))
     .pipe(gulpif(env === PRODUCTION, csso()))
     .pipe(gulpif(env === PRODUCTION, size()))
