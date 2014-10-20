@@ -8,8 +8,9 @@ html(ng-app="PolyForm")
       form(name="myForm", ng-cloak="true")
         .row
           .col-md-6
+            br
             json-resource(path="people.json", variable="peopleAsync")
-            div hallo {{ myForm.personAsync.selected }}
+            div ui-select {{ myForm.personAsync.selected }}
             ui-select(ng-model="myForm.personAsync.selected" theme="bootstrap" ng-disabled="disabled" style="min-width: 300px;" ng-required="true")
               ui-select-match(placeholder="Select a person in the list or search his name/age...") {{$select.selected.name || $select.selected}}
               ui-select-choices(repeat="person.email as person in peopleAsync | filter:$select.search")
@@ -19,17 +20,41 @@ html(ng-app="PolyForm")
                 | age:
                 span(ng-bind-html="''+person.age | highlight: $select.search")
 
-            json-resource(path="people.json", variable="people2Async")
-            div hallo {{ myForm.person2Async.selected }}
-            ui-select(ng-model="myForm.person2Async.selected" theme="bootstrap" ng-disabled="disabled" multiple style="min-width: 300px;" ng-required="true")
-              ui-select-match(placeholder="Select a person in the list or search his name/age...") {{$select.selected.name || $select.selected}}
-              ui-select-choices(repeat="person.email as person in people2Async| filter:$select.search")
+
+
+            br
+            json-resource(path="people.json", variable="people3Async")
+            div ui-select Multiple {{ myForm.people.selected +" " + myForm.test}}
+            ui-select(multiple ng-model="myForm.people.selected" theme="bootstrap" ng-disabled="disabled" style="min-width: 300px;" ng-required="true")
+              ui-select-match(placeholder="Select person..." ng-model="myForm.test") {{$item.name}} &lt;{{$item.email}}&gt;
+              ui-select-choices(repeat="person.name as person in people3Async| filter:$select.search")
                 div(ng-bind-html="person.name | highlight: $select.search")
                 small
                 | email: {{person.email}}
                 | age:
                 span(ng-bind-html="''+person.age | highlight: $select.search")
+
+            br
+            div ui-select Multiple {{ myForm.peopleDynamic.selected }}
+            ui-select(multiple ng-model="myForm.peopleDynamic.selected" theme="bootstrap" ng-disabled="disabled" style="min-width: 300px;" ng-required="true")
+              json-resource(
+                path="http://www.weighttraining.com/api/v2/sm/search?types%5B%5D=:type&term=:term&limit=:limit",
+                map-data="{type: 'exercise', limit: -1, term: $select.search}",
+                query-data-type="jsonp",
+                query-results-array-path="results.exercise"
+                variable="people4Async",
+                update-on-expression-change="{{ $select.search }}"
+               )
+              ui-select-match(placeholder="Select person...") {{$item.term}} &lt;{{$item.id}}&gt;
+              ui-select-choices(repeat="item.term as item in people4Async | filter:$select.search")
+                div(ng-bind-html="item.term | highlight: $select.search")
+                small
+                | id: {{item.id}}
+                | age:
+                span(ng-bind-html="''+response.id | highlight: $select.search")
+
           .col-md-12
+            br
             button.btn.btn-primary(type="submit", ng-disabled=("myForm.$invalid")) Send
 
     include partials/footer

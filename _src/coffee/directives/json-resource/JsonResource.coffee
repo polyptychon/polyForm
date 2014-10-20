@@ -1,4 +1,5 @@
 mapDataToURL = require "../../utils/MapDataToURL.coffee"
+_ = require "lodash"
 
 module.exports = ($timeout, $http) ->
   restrict: 'E'
@@ -8,13 +9,15 @@ module.exports = ($timeout, $http) ->
 #    quietMillis: '@'
 #    mapData: '@'
 #    queryDataType: '@'
+#    updateOnExpressionChange: '@'
   link: (scope, elm, attrs) ->
     timeoutPromise = null
     minimumInputLength = if (attrs.minimumInputLength? && !isNaN(attrs.minimumInputLength)) then attrs.minimumInputLength else 3
     maximumInputLength = if (attrs.maximumInputLength? && !isNaN(attrs.maximumInputLength)) then attrs.maximumInputLength else null
     quietMillis = if (attrs.quietMillis? && !isNaN(attrs.quietMillis)) then attrs.quietMillis else 500
 
-    attrs.$observe("updateOnModelChange", (newValue, oldValue) ->
+
+    attrs.$observe("updateOnExpressionChange", (newValue, oldValue) ->
       return unless (newValue? && newValue != oldValue)
       $timeout.cancel(timeoutPromise)
       timeoutPromise = $timeout(
@@ -25,7 +28,16 @@ module.exports = ($timeout, $http) ->
     )
     onSuccess = (response) ->
       elm.parent().removeClass("ng-loading")
-      scope[attrs.variable] = response
+      if attrs.variable?
+        if attrs.queryResultsArrayPath?
+          paths = attrs.queryResultsArrayPath.split(".")
+          a = response
+          _.forEach(paths, (path) ->
+            a = a[path]
+          )
+          scope[attrs.variable] = a
+        else
+          scope[attrs.variable] = response
 
 
     onError = () ->
@@ -33,6 +45,7 @@ module.exports = ($timeout, $http) ->
       scope[attrs.variable] = {};
 
     load = () ->
+      scope[attrs.variable] = [] if attrs.variable?
       url = mapDataToURL(attrs.path, attrs.mapData, scope)
       if (!url? || url=="")
         elm.parent().removeClass("ng-loading");

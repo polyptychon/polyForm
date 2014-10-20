@@ -1,8 +1,6 @@
 formatStringURL = require "./FormatStringURL.coffee"
 
 module.exports = (url, mapData, scope) ->
-  obj = {};
-  if (typeof mapData != "undefined")
-    obj = scope.$eval(mapData)
-
+  obj = {}
+  obj = scope.$eval(mapData) if mapData?
   formatStringURL(url, obj)
