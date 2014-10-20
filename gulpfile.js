@@ -191,7 +191,7 @@ gulp.task('sass', function() {
   } else if (env === PRODUCTION) {
     config.outputStyle = 'compressed';
   }
-  return gulp.src(SRC+'/sass/poly-form.scss')
+  return gulp.src(SRC+'/sass/main.scss')
     .pipe(duration('sass'))
     .pipe(plumber({
       errorHandler: handleError
