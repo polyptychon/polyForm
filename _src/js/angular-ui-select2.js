@@ -10,6 +10,7 @@ angular.module('ui.select2', []).value('uiSelect2Config', {}).directive('uiSelec
   if (uiSelect2Config) {
     angular.extend(options, uiSelect2Config);
   }
+
   return {
     require: 'ngModel',
     priority: 1,

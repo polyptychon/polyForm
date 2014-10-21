@@ -20,6 +20,7 @@ mixin form-input(options)
   - select2Data   = options.select2Data   || null
 
   - select2Input       = type=='select2-input' ? name+'.uiSelect2QueryData' : null
+  - multiple           = options.multiple || null
 
   - uiSelect2Query                  = options.uiSelect2Query                || null
   - queryMapData                    = options.queryMapData                  || null
@@ -78,6 +79,7 @@ mixin form-input(options)
     ng-value=ngValue,
     checked=checked,
     ng-checked=ngChecked,
+    multiple=multiple,
 
     ui-select2= select2Input,
     data-ui-select2-query=                  ( select2Input ? uiSelect2Query ? uiSelect2Query : 'http://www.weighttraining.com/api/v2/sm/search?types%5B%5D=:type&term=:value&limit=:limit':null),

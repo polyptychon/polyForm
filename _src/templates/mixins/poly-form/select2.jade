@@ -12,6 +12,7 @@ mixin select2(options)
   - autocomplete  = options.autocomplete  || name
   - type          = options.type          || 'text'
   - popover       = options.popover       || null
+  - multiple      = options.multiple      || null
 
   - value         = options.value         || null
   - ngValue       = options.ngValue       || null
@@ -32,13 +33,14 @@ mixin select2(options)
 
 
   select(
-    ui-select2="{ allowClear:#{(allowClear || false)}}",
+    ui-select2="{ allowClear:#{(allowClear || false)} }",
     name=name,
     id=id,
     ng-model=model,
     data-placeholder=placeholder,
     class="form-control",
     value=value,
+    multiple=multiple,
     ng-value=ngValue,
     ng-required=ngRequired,
     ng-change=ngChange,
