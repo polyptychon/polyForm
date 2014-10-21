@@ -15,8 +15,10 @@ module.exports = ($timeout, $http) ->
     minimumInputLength = if (attrs.minimumInputLength? && !isNaN(attrs.minimumInputLength)) then attrs.minimumInputLength else 3
     maximumInputLength = if (attrs.maximumInputLength? && !isNaN(attrs.maximumInputLength)) then attrs.maximumInputLength else null
     quietMillis = if (attrs.quietMillis? && !isNaN(attrs.quietMillis)) then attrs.quietMillis else 500
-
-
+    queryDataFilter = null
+    attrs.$observe("queryDataFilter", (newValue, oldValue) ->
+      queryDataFilter = newValue
+    )
     attrs.$observe("updateOnExpressionChange", (newValue, oldValue) ->
       return unless (newValue? && newValue != oldValue)
       $timeout.cancel(timeoutPromise)
@@ -26,6 +28,17 @@ module.exports = ($timeout, $http) ->
             load()
       , quietMillis)
     )
+    contains = (obj,a) ->
+      if _.isObject(obj)
+        r = false
+        _.forEach(obj, (value) ->
+          r = true if !_.isArray(value) && _.contains(a, value)
+        )
+        return r
+      else
+        _.contains(a, obj)
+
+
     onSuccess = (response) ->
       elm.parent().removeClass("ng-loading")
       if attrs.variable?
@@ -35,7 +48,10 @@ module.exports = ($timeout, $http) ->
           _.forEach(paths, (path) ->
             a = a[path]
           )
-
+          if queryDataFilter?
+            a = _.remove(a, (item)->
+              return !contains(item, queryDataFilter)
+            )
           scope[attrs.variable] = a
         else
           scope[attrs.variable] = response
