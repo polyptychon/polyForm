@@ -81,7 +81,6 @@
     "bootstrapify": "git://github.com/HarrisSidiropoulos/bootstrapify",
     "jquery": "^2.1.1",
     "lodash": "^2.4.1",
-    "modernizrify": "git://github.com/HarrisSidiropoulos/modernizrify",
     "ui-select": "git://github.com/angular-ui/ui-select",
     "url": "^0.10.1",
     "xhr-browserify": "0.0.1"
