@@ -18,7 +18,7 @@ module.exports = ($parse) ->
             )
             $(element).select2("data", values)
           else
-            $(element).select2("val", attrs.value)
+            $(element).select2("data", {id: attrs.value, text:attrs.value})
           element.trigger("change")
         )
 
