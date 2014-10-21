@@ -35,6 +35,7 @@ module.exports = ($timeout, $http) ->
           _.forEach(paths, (path) ->
             a = a[path]
           )
+
           scope[attrs.variable] = a
         else
           scope[attrs.variable] = response
@@ -45,7 +46,8 @@ module.exports = ($timeout, $http) ->
       scope[attrs.variable] = {};
 
     load = () ->
-      scope[attrs.variable] = [] if attrs.variable?
+      scope[attrs.variable] = [] unless attrs.variable?
+      scope[attrs.variable] = scope[attrs.variable] || []
       url = mapDataToURL(attrs.path, attrs.mapData, scope)
       if (!url? || url=="")
         elm.parent().removeClass("ng-loading");
