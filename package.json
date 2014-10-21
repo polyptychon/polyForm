@@ -89,7 +89,6 @@
     "test": "gulp test",
     "install": "napa",
     "test-server": "webdriver-manager start",
-    "e2e-test": "node /usr/local/lib/node_modules/protractor/bin/elementexplorer.js http://localhost:63342/ionian-game/builds/development/game.html",
     "e2e": "protractor test/protractor.conf.js",
     "start": "gulp server"
   },
