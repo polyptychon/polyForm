@@ -78,11 +78,13 @@ module.exports = ($timeout, $http) ->
           if (url.indexOf("callback=JSON_CALLBACK") < 0)
             url = url.replace(/\?/gi, "?callback=JSON_CALLBACK&")
 
-        $http.jsonp(url).success((response) ->
-          onSuccess(response)
-        ).error(() ->
-          onError()
-        )
+        $http.jsonp(url)
+          .success((response) ->
+            onSuccess(response)
+          )
+          .error(() ->
+            onError()
+          )
       else
         $http.get(url).success(onSuccess).error(onError)
 
