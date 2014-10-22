@@ -54,7 +54,6 @@ module.exports = ($parse) ->
       '$scope'
       '$element'
       ($scope, $element) ->
-        $scope.element = $element
         element = $element;
         invalidCopy = false
         $scope.copyChildClassesToParent = @copyChildClassesToParent = (childElement) ->

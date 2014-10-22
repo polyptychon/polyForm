@@ -17,7 +17,7 @@ module.exports = ($timeout, $http) ->
         ngModel.$viewValue
       (newValue) ->
         if (newValue != ngModel.$modelValue)
-          targetElement.addClass("ng-#{name}-pending")
+          elm.addClass("ng-#{name}-pending")
     ) #watch
 
     scope.$watch(
@@ -26,16 +26,16 @@ module.exports = ($timeout, $http) ->
       (newValue) ->
         clearTimeout(timeoutDigest)
         $timeout.cancel(timeoutPromise)
-        targetElement.removeClass("ng-#{name}-error-loading")
+        elm.removeClass("ng-#{name}-error-loading")
 
         if (!newValue? || newValue.length < 2 || attrs.remoteValidation == "" || attrs.remoteValidation.length < 2)
-          targetElement.removeClass("ng-#{name}-loading")
-          targetElement.removeClass("ng-loading")
+          elm.removeClass("ng-#{name}-loading")
+          elm.removeClass("ng-loading")
           return
 
-        targetElement.removeClass("ng-#{name}-pending");
-        targetElement.addClass("ng-#{name}-loading");
-        targetElement.addClass("ng-loading");
+        elm.removeClass("ng-#{name}-pending");
+        elm.addClass("ng-#{name}-loading");
+        elm.addClass("ng-loading");
 
         timeoutPromise = $timeout(
           () ->
@@ -74,27 +74,27 @@ module.exports = ($timeout, $http) ->
 
             onSuccess =
               (data) ->
-                targetElement.removeClass("ng-#{name}-error-loading")
+                elm.removeClass("ng-#{name}-error-loading")
                 return unless (data?)
-                $(formControl.element).find(".error-message.remote-validation").html(data) if data!=true
+                $(elm).parent().find(".error-message.remote-validation").html(data) if data!=true
                 validatorFn(newValue, data==true)
                 update()
 
             onError =
               () ->
-                targetElement.addClass("ng-#{name}-error-loading")
+                elm.addClass("ng-#{name}-error-loading")
                 validatorFn(newValue, true);
                 update()
 
             onDefault =
               () ->
-                targetElement.removeClass("ng-#{name}-pending")
-                targetElement.removeClass("ng-#{name}-loading")
-                targetElement.removeClass("ng-loading")
+                elm.removeClass("ng-#{name}-pending")
+                elm.removeClass("ng-#{name}-loading")
+                elm.removeClass("ng-loading")
                 update()
 
             update = () ->
-              formControl.copyChildClassesToParent(targetElement) if formControl?
+              formControl.copyChildClassesToParent(elm) if formControl?
 
         , quietMillis)
     ) #watch
