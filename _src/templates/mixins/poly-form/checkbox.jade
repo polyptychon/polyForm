@@ -2,7 +2,7 @@ include form-input
 
 mixin checkbox(options)
   - options       = options               || {}
-
+  - id            = options.id            || (options.name+$$id || $$id)
   - options.inputClass = options.inputClass || ' '
   - ngChecked          = options.ngChecked  || null
   - options.type       = options.type       || 'checkbox'
@@ -11,6 +11,5 @@ mixin checkbox(options)
   .row
     div(class=className)
       .checkbox
-        label
-          +form-input(options)
-          = label
+        +form-input(options)
+        label(for=id)= label

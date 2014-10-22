@@ -14,13 +14,12 @@ mixin radio-group(options)
         each val, index in collection
           - options.ngChecked = index==0?'true':null
           div(class=radioClass)
-            label
-              - options.value = (typeof val == 'string' || typeof val == 'number' ? val: val.value)
-              +form-input(options)
-              = (typeof val == 'string' || typeof val == 'number' ? val: val.label)
+            - options.value = (typeof val == 'string' || typeof val == 'number' ? val: val.value)
+            - id = options.id || (options.name+$$id || $$id)
+            +form-input(options)
+            label(for=id)= (typeof val == 'string' || typeof val == 'number' ? val: val.label)
       else
         .radio
-          label
-            .input-group
-              +form-input(options)
-              = label
+          .input-group
+            +form-input(options)
+            label(for=id)= label
