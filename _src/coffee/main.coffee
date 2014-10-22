@@ -13,9 +13,6 @@ require "ui-select"
 
 module.exports =
   angular.module('PolyForm', ['ngSanitize','ui.validate','ui.mask','ui.select2','ui.select'])
-  .config((uiSelectConfig) ->
-    uiSelectConfig.theme = 'bootstrap'
-  )
   .directive("formTabs", require("./directives/form-tabs/FormTabs.coffee"))
   .directive("formTab", require("./directives/form-tab/FormTab.coffee"))
   .directive("formControl", ['$parse', require("./directives/form-control/FormControl.coffee")])
@@ -30,6 +27,7 @@ module.exports =
   .directive("isEqual", require("./directives/is-equal/IsEqual.coffee"))
   .directive("disableValidationWhenHidden", require("./directives/disable-validation-when-hidden/DisableValidationWhenHidden.coffee"))
   .directive("isUnique", ['$timeout', '$http', require("./directives/is-unique/IsUnique.coffee")])
+  .directive("remoteValidation", ['$timeout', '$http', require("./directives/remote-validation/RemoteValidation.coffee")])
   .directive("jsonResource", ['$timeout', '$http', require("./directives/json-resource/JsonResource.coffee")])
   .directive("uiSelect2Query", ['$timeout', '$http', require("./directives/ui-select2-query/UiSelect2Query.coffee")])
   .directive("input", ['$parse', require("./directives/defaultValue/DefaultValue.coffee")])

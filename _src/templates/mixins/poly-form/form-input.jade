@@ -45,11 +45,15 @@ mixin form-input(options)
   - queryLoadMoreMessage            = options.queryLoadMoreMessage          || null
   - querySearchingMessage           = options.querySearchingMessage         || null
 
-  - isUnique         = options.isUnique          || null  // Async Validation. Value must be a URL. Validation is done on server and must return json. example { "isUnique": "true" }
-  - isUniqueMapData  = options.mapData           || null  // Maps json data to isUnique url. example isUnique="test.json?param:value" isUniqueMapData="{value=true}"
-  - isUniqueDataType = options.isUniqueDataType  || null
-  - isEqual          = options.isEqual           || null
+  - isUnique                        = options.isUnique                      || null  // Async Validation. Value must be a URL. Validation is done on server and must return json. example { "isUnique": "true" }
+  - isUniqueMapData                 = options.mapData                       || null  // Maps json data to isUnique url. example isUnique="test.json?param:value" isUniqueMapData="{value=true}"
+  - isUniqueDataType                = options.isUniqueDataType              || null
 
+  - remoteValidation                = options.remoteValidation              || null  // Async Validation. Value must be a URL. Validation is done on server and must return json. example { "isUnique": "true" }
+  - remoteValidationMapData         = options.remoteValidationMapData       || null  // Maps json data to isUnique url. example isUnique="test.json?param:value" isUniqueMapData="{value=true}"
+  - remoteValidationDataType        = options.remoteValidationDataType      || null
+
+  - isEqual     = options.isEqual     || null
   - ngChecked   = options.ngChecked   || null
   - ngValue     = options.ngValue     || null
 
@@ -108,6 +112,10 @@ mixin form-input(options)
     is-unique=isUnique,
     is-unique-map-data=isUniqueMapData,
     is-unique-data-type=isUniqueDataType,
+
+    remote-validation=remoteValidation,
+    remote-validation-map-data=remoteValidationMapData,
+    remote-validation-data-type=remoteValidationDataType,
 
     is-equal=isEqual,
     ui-validate=uiValidate,

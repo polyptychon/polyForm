@@ -12,6 +12,8 @@ mixin validation-messages(options)
   - isUnique      = options.isUnique      || null  // Async Validation. Value must be a URL. Validation is done on server and must return json. example { "isUnique": "true" }
   - isEqual       = options.isEqual       || null
 
+  - remoteValidation  = options.remoteValidation || null  // Async Validation. Value must be a URL. Validation is done on server and must return json. example { "isUnique": "true" }
+
   - ngRequired  = options.ngRequired  || 'true' // Sets required attribute if set to true
   - ngRequired  = ngRequired=='false' ? null : 'true'
 
@@ -56,3 +58,5 @@ mixin validation-messages(options)
     error-message.ng-pattern(ng-cloak)= ngPatternMessage
   if uiValidate && uiValidateMessage
     error-message.ui-validate(ng-cloak)= uiValidateMessage
+  if remoteValidation
+    error-message.remote-validation(ng-cloak) Remote Error

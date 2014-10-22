@@ -1,25 +1,23 @@
 mapDataToURL = require "../../utils/MapDataToURL.coffee"
+formElements = require "../../utils/FormElements.coffee"
 
 module.exports = ($timeout, $http) ->
   restrict: 'A'
   require: ['?ngModel', '^?formControl']
-  scope:
-    isUniqueQuietMillis: '@'
-    isUniqueMapData: '@'
-    isUniqueDataType: '@'
   link: (scope, elm, attrs, ctrls) ->
     ngModel = ctrls[0]
     formControl = ctrls[1]
     timeoutPromise = null
     timeoutDigest = -1
-    quietMillis = if (attrs.isUniqueQuietMillis != null && !isNaN(attrs.isUniqueQuietMillis)) then attrs.isUniqueQuietMillis else 500
+    quietMillis = if (attrs.remoteValidationQuietMillis != null && !isNaN(attrs.remoteValidationQuietMillis)) then attrs.remoteValidationQuietMillis else 500
+    name = "remote-validation"
 
     scope.$watch(
       () ->
         ngModel.$viewValue
       (newValue) ->
         if (newValue != ngModel.$modelValue)
-          elm.addClass("ng-is-unique-pending")
+          targetElement.addClass("ng-#{name}-pending")
     ) #watch
 
     scope.$watch(
@@ -28,21 +26,21 @@ module.exports = ($timeout, $http) ->
       (newValue) ->
         clearTimeout(timeoutDigest)
         $timeout.cancel(timeoutPromise)
-        elm.removeClass("ng-is-unique-error-loading")
+        targetElement.removeClass("ng-#{name}-error-loading")
 
-        if (!newValue? || newValue.length < 2 || attrs.isUnique == "" || attrs.isUnique.length < 2)
-          elm.removeClass("ng-is-unique-loading")
-          elm.removeClass("ng-loading")
+        if (!newValue? || newValue.length < 2 || attrs.remoteValidation == "" || attrs.remoteValidation.length < 2)
+          targetElement.removeClass("ng-#{name}-loading")
+          targetElement.removeClass("ng-loading")
           return
 
-        elm.removeClass("ng-is-unique-pending");
-        elm.addClass("ng-is-unique-loading");
-        elm.addClass("ng-loading");
+        targetElement.removeClass("ng-#{name}-pending");
+        targetElement.addClass("ng-#{name}-loading");
+        targetElement.addClass("ng-loading");
 
         timeoutPromise = $timeout(
           () ->
-            url = mapDataToURL(attrs.isUnique, attrs.isUniqueMapData, scope.$parent)
-            dataType = attrs.isUniqueDataType || "json"
+            url = mapDataToURL(attrs.remoteValidation, attrs.remoteValidationMapData, scope.$parent)
+            dataType = attrs.remoteValidationDataType || "json"
 
             if (dataType == "jsonp")
               if (url.indexOf("?") < 0)
@@ -76,35 +74,37 @@ module.exports = ($timeout, $http) ->
 
             onSuccess =
               (data) ->
-                elm.removeClass("ng-is-unique-error-loading")
+                targetElement.removeClass("ng-#{name}-error-loading")
                 return unless (data?)
-                validatorFn(newValue, data)
+                $(formControl.element).find(".error-message.remote-validation").html(data) if data!=true
+                validatorFn(newValue, data==true)
                 update()
 
             onError =
               () ->
-                elm.addClass("ng-is-unique-error-loading")
+                targetElement.addClass("ng-#{name}-error-loading")
                 validatorFn(newValue, true);
                 update()
 
             onDefault =
               () ->
-                elm.removeClass("ng-is-unique-pending")
-                elm.removeClass("ng-is-unique-loading")
-                elm.removeClass("ng-loading")
+                targetElement.removeClass("ng-#{name}-pending")
+                targetElement.removeClass("ng-#{name}-loading")
+                targetElement.removeClass("ng-loading")
                 update()
 
             update = () ->
-              formControl.copyChildClassesToParent(elm) if formControl?
+              formControl.copyChildClassesToParent(targetElement) if formControl?
 
         , quietMillis)
     ) #watch
 
     validatorFn = (modelValue, value) ->
+      normalizedName = attrs.$normalize(name)
       if (value)
-        ngModel.$setValidity('isUnique', true);
+        ngModel.$setValidity(normalizedName, true);
       else
-        ngModel.$setValidity('isUnique', false);
+        ngModel.$setValidity(normalizedName, false);
       modelValue;
 
     ngModel.$parsers.unshift(validatorFn);

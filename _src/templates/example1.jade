@@ -11,77 +11,77 @@ html(ng-app="PolyForm")
           form-tab(tab-title="Validation")
             include partials/validation
 
-      - formName = 'myform2'
-      form(name=formName, ng-cloak="true")
-        form-tabs
-          form-tab(tab-title="Block Controls")
-            include partials/block-controls
-
-      - formName = 'myform3'
-      form(name=formName, ng-cloak="true")
-        form-tabs
-          form-tab(tab-title="Inline Controls")
-            include partials/inline-controls
-
-      - formName = 'myform4'
-      form(name=formName, ng-cloak="true")
-        form-tabs
-          form-tab(tab-title="DisableValidationWhenHidden Test")
-            include partials/hidden-controls
-            .col-md-12
-              button.btn.btn-primary(type="submit", ng-disabled=(formName+".$invalid")) Send
-
-      - formName = 'myform5'
-      form(name=formName, ng-cloak="true")
-        form-tabs(ng-init=(formName+".showNextTab=true;"))
-          form-tab(tab-title="DisableValidationWhenHidden With tabs Test", next-tab-button-label="next")
-            .row
-              .col-md-12
-                +form-control({name:'hideCheckbox', model:formName+'.hideControls' ,label:'Disable below controls when checked',type:'checkbox', class:'col-md-12'})
-              .col-md-12(ng-hide=(formName+'.hideControls'), disable-validation-when-hidden)
-                +form-control({name:'password',label:'password',type:'password',model:'$parent.$parent.myPassword'})
-                +form-control({name:'uiValidateControl',label:'ui-validate',type:'password', uiValidate:"'$value==myPassword'", uiValidateWatch:"'myPassword'"})
-              .col-md-12
-                //+form-control({name:'minLength',label:'Min Length',ngMinlength:3, useLabel: 'false'})
-                +form-control({name:'maxlength',label:'Max length',ngMaxlength:3, useLabel: 'false'})
-            +form-control({name:'showNextTabCheckbox', model:formName+'.showNextTab', label:'show next tab when checked',type:'checkbox', class:'col-md-12'})
-            .col-md-12
-              button.btn.btn-primary(type="submit", ng-hide=(formName+".showNextTab"), ng-disabled=(formName+".$invalid")) Send
-          form-tab(tab-title="Form Tab 2", ng-show=(formName+".showNextTab"))
-            +form-control({name:'maxlength',label:'Max length',ngMaxlength:3, useLabel: 'false'})
-            .col-md-12
-              button.btn.btn-primary(type="submit", ng-disabled=(formName+".$invalid")) Send
-      - formName = 'myform6'
-      form(name=formName, ng-cloak="true")
-        form-tabs(ng-init=(formName + ".showNextTab=true;"))
-          form-tab(tab-title="FormTab Test", directive-scope="$formTab")
-            .row
-              .col-md-12
-                //+form-control({name:'minLength',label:'Min Length',ngMinlength:3, useLabel: 'false'})
-                +form-control({name: 'maxlength', label: 'Max length', ngMaxlength: 3, useLabel: 'false'})
-            +form-control({
-              name: 'showNextTabCheckbox',
-              model: formName + '.showNextTab',
-              label: 'show next tab when checked',
-              type: 'checkbox',
-              class: 'col-md-12'
-            })
-            .col-md-12
-              button.btn.btn-primary(type="submit", ng-hide=(formName + ".showNextTab"), ng-disabled=(formName + ".$invalid")) Send
-            .col-md-12
-              button.btn.btn-primary(ng-show=(formName + ".showNextTab"), ng-disabled="$formTab.isPaneInValid", ng-click="$formTab.selectNextPane()") Next
-
-          form-tab(tab-title="Form Tab 2", ng-show=(formName + ".showNextTab"), ng-disabled=(formName + ".$invalid"))
-
-            +form-control({name: 'maxlength', label: 'Max length', ngMaxlength: 3, useLabel: 'false'})
-            .col-md-12
-              button.btn.btn-primary(type="submit", ng-disabled=(formName + ".$invalid")) Send
-
-      - formName = 'myform7'
-      form(name=formName, ng-cloak="true")
-        form-tabs
-          form-tab(tab-title="JsonResource Test")
-            .col-md-12
-              +form-control({name:'select',label:'select',type:'select',collection:['male', 'female']})
+      //- formName = 'myform2'
+      //form(name=formName, ng-cloak="true")
+      //  form-tabs
+      //    form-tab(tab-title="Block Controls")
+      //      include partials/block-controls
+      //
+      //- formName = 'myform3'
+      //form(name=formName, ng-cloak="true")
+      //  form-tabs
+      //    form-tab(tab-title="Inline Controls")
+      //      include partials/inline-controls
+      //
+      //- formName = 'myform4'
+      //form(name=formName, ng-cloak="true")
+      //  form-tabs
+      //    form-tab(tab-title="DisableValidationWhenHidden Test")
+      //      include partials/hidden-controls
+      //      .col-md-12
+      //        button.btn.btn-primary(type="submit", ng-disabled=(formName+".$invalid")) Send
+      //
+      //- formName = 'myform5'
+      //form(name=formName, ng-cloak="true")
+      //  form-tabs(ng-init=(formName+".showNextTab=true;"))
+      //    form-tab(tab-title="DisableValidationWhenHidden With tabs Test", next-tab-button-label="next")
+      //      .row
+      //        .col-md-12
+      //          +form-control({name:'hideCheckbox', model:formName+'.hideControls' ,label:'Disable below controls when checked',type:'checkbox', class:'col-md-12'})
+      //        .col-md-12(ng-hide=(formName+'.hideControls'), disable-validation-when-hidden)
+      //          +form-control({name:'password',label:'password',type:'password',model:'$parent.$parent.myPassword'})
+      //          +form-control({name:'uiValidateControl',label:'ui-validate',type:'password', uiValidate:"'$value==myPassword'", uiValidateWatch:"'myPassword'"})
+      //        .col-md-12
+      //          //+form-control({name:'minLength',label:'Min Length',ngMinlength:3, useLabel: 'false'})
+      //          +form-control({name:'maxlength',label:'Max length',ngMaxlength:3, useLabel: 'false'})
+      //      +form-control({name:'showNextTabCheckbox', model:formName+'.showNextTab', label:'show next tab when checked',type:'checkbox', class:'col-md-12'})
+      //      .col-md-12
+      //        button.btn.btn-primary(type="submit", ng-hide=(formName+".showNextTab"), ng-disabled=(formName+".$invalid")) Send
+      //    form-tab(tab-title="Form Tab 2", ng-show=(formName+".showNextTab"))
+      //      +form-control({name:'maxlength',label:'Max length',ngMaxlength:3, useLabel: 'false'})
+      //      .col-md-12
+      //        button.btn.btn-primary(type="submit", ng-disabled=(formName+".$invalid")) Send
+      //- formName = 'myform6'
+      //form(name=formName, ng-cloak="true")
+      //  form-tabs(ng-init=(formName + ".showNextTab=true;"))
+      //    form-tab(tab-title="FormTab Test", directive-scope="$formTab")
+      //      .row
+      //        .col-md-12
+      //          //+form-control({name:'minLength',label:'Min Length',ngMinlength:3, useLabel: 'false'})
+      //          +form-control({name: 'maxlength', label: 'Max length', ngMaxlength: 3, useLabel: 'false'})
+      //      +form-control({
+      //        name: 'showNextTabCheckbox',
+      //        model: formName + '.showNextTab',
+      //        label: 'show next tab when checked',
+      //        type: 'checkbox',
+      //        class: 'col-md-12'
+      //      })
+      //      .col-md-12
+      //        button.btn.btn-primary(type="submit", ng-hide=(formName + ".showNextTab"), ng-disabled=(formName + ".$invalid")) Send
+      //      .col-md-12
+      //        button.btn.btn-primary(ng-show=(formName + ".showNextTab"), ng-disabled="$formTab.isPaneInValid", ng-click="$formTab.selectNextPane()") Next
+      //
+      //    form-tab(tab-title="Form Tab 2", ng-show=(formName + ".showNextTab"), ng-disabled=(formName + ".$invalid"))
+      //
+      //      +form-control({name: 'maxlength', label: 'Max length', ngMaxlength: 3, useLabel: 'false'})
+      //      .col-md-12
+      //        button.btn.btn-primary(type="submit", ng-disabled=(formName + ".$invalid")) Send
+      //
+      //- formName = 'myform7'
+      //form(name=formName, ng-cloak="true")
+      //  form-tabs
+      //    form-tab(tab-title="JsonResource Test")
+      //      .col-md-12
+      //        +form-control({name:'select',label:'select',type:'select',collection:['male', 'female']})
 
     include partials/footer

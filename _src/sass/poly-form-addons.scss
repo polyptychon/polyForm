@@ -81,11 +81,16 @@
     &.ng-invalid-is-unique > .is-unique,
     &.ng-is-unique-loading > .is-unique-loading,
     &.ng-is-unique-error-loading > .is-unique-error-loading,
+    &.ng-invalid-remote-validation > .remote-validation,
+    &.ng-remote-validation-loading > .remote-validation-loading,
+    &.ng-remote-validation-error-loading > .remote-validation-error-loading,
     &.ng-loading > .loader,
     &.ng-invalid-is-equal > .is-equal {
       display: block;
     }
     //&.has-success > .loader,
+    &.ng-remote-validation-pending > .remote-validation,
+    &.ng-remote-validation-loading > .remote-validation,
     &.ng-is-unique-pending > .is-unique,
     &.ng-is-unique-loading > .is-unique {
       display: none;
