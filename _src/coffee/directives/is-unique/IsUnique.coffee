@@ -77,8 +77,8 @@ module.exports = ($timeout, $http) ->
             onSuccess =
               (data) ->
                 elm.removeClass("ng-is-unique-error-loading")
-                return if (data.isUnique == null)
-                validatorFn(newValue, data.isUnique == "true")
+                return unless (data?)
+                validatorFn(newValue, data)
                 update()
 
             onError =
