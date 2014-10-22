@@ -44,9 +44,10 @@ module.exports = ($parse) ->
         scope.copyChildClassesToParent(@) if (newValue?)
       )
     )
-#    controlElements.on("keyup input blur change click focus select2-opening", (e) ->
-#      scope.copyChildClassesToParent($(@))
-#    )
+    #controlElements.on("keyup input blur change click focus select2-opening", (e) ->
+    controlElements.on("select2-opening", (e) ->
+      scope.copyChildClassesToParent($(@))
+    )
 
   controller:
     [
