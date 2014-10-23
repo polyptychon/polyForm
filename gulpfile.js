@@ -49,6 +49,7 @@ var DEVELOPMENT = 'development',
     TEST = "test",
     watching = false,
     not_in_dependencies_libs = [
+      "pen",
       "angular/angular",
       'select2/select2',
       'bootstrap-datepicker/js/bootstrap-datepicker',
