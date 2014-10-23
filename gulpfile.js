@@ -49,6 +49,7 @@ var DEVELOPMENT = 'development',
     TEST = "test",
     watching = false,
     not_in_dependencies_libs = [
+      "angular/angular",
       'select2/select2',
       'bootstrap-datepicker/js/bootstrap-datepicker',
       'angular-ui-utils/modules/validate/validate',
@@ -295,7 +296,7 @@ gulp.task('test', function() {
   gulp.watch(SRC+'/**/*.{js,coffee}',      ['karma']);
 });
 
-gulp.task('default', ['coffee', 'sass', 'jade']);
+gulp.task('default', ['vendor','coffee', 'sass', 'jade']);
 gulp.task('live', ['coffee', 'jade', 'sass', 'watch']);
 
 gulp.task('build', function() {

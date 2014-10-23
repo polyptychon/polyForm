@@ -4,7 +4,7 @@ require "select2/select2"
 require "bootstrap-datepicker/js/bootstrap-datepicker"
 require "lodash"
 
-require 'angular'
+require 'angular/angular'
 require 'angular-sanitize'
 require 'angular-ui-utils/modules/validate/validate'
 require 'angular-ui-utils/modules/mask/mask'

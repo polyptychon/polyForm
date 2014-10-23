@@ -75,7 +75,6 @@
     "yargs": "^1.3.2"
   },
   "dependencies": {
-    "angular": "git://github.com/angular/bower-angular",
     "angular-sanitize": "^1.3.0",
     "animationframe": "git://github.com/HarrisSidiropoulos/animationframe",
     "bootstrapify": "git://github.com/HarrisSidiropoulos/bootstrapify",
@@ -95,6 +94,7 @@
   "napa": {
     "bootstrap": "twbs/bootstrap-sass",
     "bootstrap-datepicker": "eternicode/bootstrap-datepicker",
+    "angular":"https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.js",
     "angular-route": "angular/bower-angular-route",
     "angular-mocks": "angular/bower-angular-mocks",
     "angular-scenario": "angular/bower-angular-scenario",
