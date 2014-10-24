@@ -9,11 +9,13 @@ require 'angular-sanitize'
 require 'angular-ui-utils/modules/validate/validate'
 require 'angular-ui-utils/modules/mask/mask'
 require "../js/angular-ui-select2"
-require "ui-select"
+#require "ui-select"
 require "pen"
+require "../js/markdown"
 
 module.exports =
-  angular.module('PolyForm', ['ngSanitize','ui.validate','ui.mask','ui.select2','ui.select'])
+  angular.module('PolyForm', ['ngSanitize','ui.validate','ui.mask','ui.select2'])
+  #angular.module('PolyForm', ['ngSanitize','ui.validate','ui.mask','ui.select2','ui.select'])
   .directive("formTabs", require("./directives/form-tabs/FormTabs.coffee"))
   .directive("formTab", require("./directives/form-tab/FormTab.coffee"))
   .directive("formControl", ['$parse', require("./directives/form-control/FormControl.coffee")])
@@ -25,6 +27,7 @@ module.exports =
   .directive("loaderIcon", require("./directives/loader-icon/LoaderIcon.coffee"))
   .directive("dateInput", require("./directives/date-input/DateInput.coffee"))
   .directive("popover", require("./directives/popover/Popover.coffee"))
+  .directive("pen", require("./directives/sofish-pen/Pen.coffee"))
   .directive("isEqual", require("./directives/is-equal/IsEqual.coffee"))
   .directive("disableValidationWhenHidden", require("./directives/disable-validation-when-hidden/DisableValidationWhenHidden.coffee"))
   .directive("isUnique", ['$timeout', '$http', require("./directives/is-unique/IsUnique.coffee")])

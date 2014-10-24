@@ -14,6 +14,7 @@ mixin textarea(options)
   - type          = options.type          || 'text'
   - popover       = options.popover       || null
   - value         = options.value         || null
+  - pen           = options.pen           || null
 
   - rows          = options.rows          || "4"
   - cols          = options.cols          || "50"
@@ -36,6 +37,7 @@ mixin textarea(options)
 
   textarea(
     class=inputClass
+    pen=pen
     name=name,
     id= id,
     ng-model=model,
