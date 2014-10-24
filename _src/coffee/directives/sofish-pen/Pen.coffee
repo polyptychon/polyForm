@@ -4,11 +4,11 @@ module.exports = () ->
   restrict: 'EA'
   template: require './pen.jade'
   replace: true
-
-  link: (scope, elm, attrs) ->
+  require: '?ngModel'
+  link: (scope, elm, attrs, ngModel) ->
     options = {
       editor: elm[0]
-      debug: true
+      debug: false
       textarea: '<textarea name="content"></textarea>'
       list: [
         'blockquote', 'p', 'insertorderedlist', 'insertunorderedlist',
@@ -17,6 +17,9 @@ module.exports = () ->
       stay: false
     }
     pen = new Pen(options)
+
+    #console.log ngModel
+    #console.log elm.attr("value")
     #console.log pen.getContent()
 
 

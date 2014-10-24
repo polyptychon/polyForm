@@ -181,24 +181,25 @@
   padding-top: 80px;
   margin-bottom: 40px;
   position: relative;
+  .form-tabs-header {
+    .breadcrumb {
+      background: $gray-dark;
+      border-radius: 0px;
+      a {
+        color: $gray;
+      }
+      .active a {
+        color: white;
+      }
 
-  .breadcrumb {
-    background: $gray-dark;
-    border-radius: 0px;
-    a {
-      color: $gray;
     }
-    .active a {
-      color: white;
-    }
 
-  }
-
-  [role="tablist"] {
-    li.disabled a {
-      pointer-events: none;
-      &:hover {
-        text-decoration: none;
+    [role="tablist"] {
+      li.disabled a {
+        pointer-events: none;
+        &:hover {
+          text-decoration: none;
+        }
       }
     }
   }
@@ -207,7 +208,7 @@
     font-weight: normal;
   }
 
-  h2 {
+  &:not(.pen) h2 {
     font-size: 14px;
     padding-top: 0px;
     padding-bottom: 10px;
