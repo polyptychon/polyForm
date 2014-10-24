@@ -248,9 +248,9 @@ gulp.task('fonts', function() {
 gulp.task('watch', function() {
   watching = true;
   livereload.listen();
-  gulp.watch(SRC+'/**/*.jade', ['jade']).on('error', gutil.log);
-  gulp.watch(SRC+'/**/*.coffee', ['coffee']).on('error', gutil.log);
-  gulp.watch(SRC+'/**/*.scss', ['sass']).on('error', gutil.log);
+  gulp.watch(SRC+'/jade/**/*.jade', ['jade']).on('error', gutil.log);
+  gulp.watch(SRC+'/coffee/**/*.coffee', ['coffee', 'jade']).on('error', gutil.log);
+  gulp.watch(SRC+'/sass/**/*.scss', ['sass']).on('error', gutil.log);
   gulp.watch(BUILD+env+'/assets/**').on('change', function(file) {
     console.log(file.path);
     livereload.changed(file.path);
