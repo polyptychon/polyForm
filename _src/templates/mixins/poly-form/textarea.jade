@@ -3,6 +3,7 @@ mixin textarea(options)
 
   - className     = options.class         || 'col-md-6'
   - inputClass    = options.inputClass    || 'form-control'
+  - inputStyle    = options.inputStyle    || null
   - name          = options.name          || 'control'
   - $$id = $$id || 0
   - id            = options.id            || (options.name+$$id || 'control'+$$id)
@@ -36,8 +37,9 @@ mixin textarea(options)
   - ngTrim      = options.ngTrim      || null   // If set to false Angular will not automatically trim the input. This parameter is ignored for input[type=password] controls, which will never trim the input.
 
   textarea(
-    class=inputClass
-    pen=pen
+    class=inputClass,
+    style=inputStyle,
+    pen=pen,
     name=name,
     id= id,
     ng-model=model,

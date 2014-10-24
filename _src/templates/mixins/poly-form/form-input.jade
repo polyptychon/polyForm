@@ -4,6 +4,7 @@ mixin form-input(options)
 
   - className     = options.class         || 'col-md-6'
   - inputClass    = options.inputClass    || 'form-control'
+  - inputStyle    = options.inputStyle    || null
   - name          = options.name          || 'control'
   - $$id = $$id || 0
   - id            = options.id            || (options.name+$$id || 'control'+$$id)
@@ -71,7 +72,7 @@ mixin form-input(options)
 
   input(
     class=inputClass,
-
+    style=inputStyle,
     name=name,
     id= id,
     ng-model=model,

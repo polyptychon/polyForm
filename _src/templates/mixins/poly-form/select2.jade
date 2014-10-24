@@ -2,6 +2,8 @@ mixin select2(options)
   - options       = options               || {}
 
   - className     = options.class         || 'col-md-6'
+  - inputClass    = options.inputClass    || 'form-control'
+  - inputStyle    = options.inputStyle    || null
   - name          = options.name          || 'control'
   - $$id = $$id || 0
   - id            = options.id            || (options.name+$$id || 'control'+$$id)
@@ -38,7 +40,8 @@ mixin select2(options)
     id=id,
     ng-model=model,
     data-placeholder=placeholder,
-    class="form-control",
+    class=inputClass,
+    style=inputStyle,
     value=value,
     multiple=multiple,
     ng-value=ngValue,
