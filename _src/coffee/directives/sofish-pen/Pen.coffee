@@ -4,8 +4,11 @@ module.exports = () ->
   restrict: 'EA'
   template: require './pen.jade'
   replace: true
+  transclude: true
   require: '?ngModel'
+
   link: (scope, elm, attrs, ngModel) ->
+    elm.height(parseInt(attrs.rows)*19) if attrs.rows
     options = {
       editor: elm[0]
       debug: false
@@ -17,12 +20,10 @@ module.exports = () ->
       stay: false
     }
 
-    elm.html(elm.attr("value")) if elm.attr("value")?
+    elm.html(attrs.value) if attrs.value? && attrs.pen?
     pen = new Pen(options)
-    ngModel.$setViewValue(pen.getContent()) if elm.attr("value")?
+    ngModel.$setViewValue(pen.getContent()) if attrs.value? && attrs.pen?
 
     pen.on("input", ()->
       ngModel.$setViewValue(pen.getContent())
     )
-
-
