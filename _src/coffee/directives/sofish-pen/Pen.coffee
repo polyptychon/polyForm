@@ -16,10 +16,13 @@ module.exports = () ->
       ]
       stay: false
     }
-    pen = new Pen(options)
 
-    #console.log ngModel
-    #console.log elm.attr("value")
-    #console.log pen.getContent()
+    elm.html(elm.attr("value")) if elm.attr("value")?
+    pen = new Pen(options)
+    ngModel.$setViewValue(pen.getContent()) if elm.attr("value")?
+
+    pen.on("input", ()->
+      ngModel.$setViewValue(pen.getContent())
+    )
 
 

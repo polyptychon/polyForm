@@ -11,7 +11,7 @@ require 'angular-ui-utils/modules/mask/mask'
 require "../js/angular-ui-select2"
 #require "ui-select"
 require "pen"
-require "../js/markdown"
+#require "../js/markdown"
 
 module.exports =
   angular.module('PolyForm', ['ngSanitize','ui.validate','ui.mask','ui.select2'])
