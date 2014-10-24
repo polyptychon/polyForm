@@ -208,7 +208,7 @@
     font-weight: normal;
   }
 
-  &:not(.pen) h2 {
+  :not(.pen) > h2.form-header {
     font-size: 14px;
     padding-top: 0px;
     padding-bottom: 10px;
