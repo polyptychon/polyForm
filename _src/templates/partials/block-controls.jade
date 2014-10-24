@@ -14,3 +14,49 @@
   .col-md-12
     +form-control({name:'textarea',label:'textarea',type:'textarea', value:'test'})
     +form-control({name:'pen',label:'pen',type:'textarea', value:'test', pen:'true', placeholder:'hallo'})
+  .col-md-12
+    .col-md-12
+      pen
+        h2 Enjoy live editing (+markdown)
+        p
+          b
+            i Click to edit, Select to apply effect, click items of toolbar to toggle effects.
+        hr
+        p
+          | Horizontal-Rule can be inserted by click「...」on the toolbar or just type「... 」/「--- 」/「*** 」at line start. Note that
+          | there's a SPACE at the end of a command.
+        hr
+        p
+          | To link or unlink, please press the
+          i ENTER
+          | key after you filled the input field with your a link. A
+          a(href='/sofish') link
+          | can be unlink by applying an empty value to the input field.
+        p
+        ul
+          li Ordered list and unordered list are supported.
+          li
+            | Use the toolbar or use markdown syntax like「
+            b 1.
+            | 」,「
+            b -
+            | 」or「
+            b *
+            | 」
+        blockquote
+          | You can quote text by type「
+          b >
+          | 」at line start.
+        p
+          | What about add underline to text? "
+          u
+            | Stay Hungry, Stay Foolish -
+            i Steve Jobs
+          | ".
+        pre.
+          \nA code block is also supported by type 「```」 at line start and press SPACE.
+        p
+          | For more, please checkout:
+          a(href='https://github.com/sofish/pen#readme', target='_blank') https://github.com/sofish/pen#readme
+
+

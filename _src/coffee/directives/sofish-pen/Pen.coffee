@@ -7,7 +7,7 @@ module.exports = () ->
   transclude: true
   require: '?ngModel'
 
-  link: (scope, elm, attrs, ngModel) ->
+  link: (scope, elm, attrs, ngModel, transclude) ->
     elm.height(parseInt(attrs.rows)*19) if attrs.rows
     options = {
       editor: elm[0]
@@ -19,11 +19,12 @@ module.exports = () ->
       ]
       stay: false
     }
+    transclude
 
     elm.html(attrs.value) if attrs.value? && attrs.pen?
     pen = new Pen(options)
-    ngModel.$setViewValue(pen.getContent()) if attrs.value? && attrs.pen?
+    ngModel.$setViewValue(pen.getContent()) if attrs.value? && attrs.pen? && ngModel?
 
     pen.on("input", ()->
-      ngModel.$setViewValue(pen.getContent())
+      ngModel.$setViewValue(pen.getContent()) if ngModel?
     )
