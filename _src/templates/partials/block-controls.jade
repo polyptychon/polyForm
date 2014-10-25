@@ -12,8 +12,8 @@
   //  +form-control({name:'select',label:'select',type:'select',collection:['male', 'female'], value:'male'})
   //  +form-control({name:'dateInput',label:'dateInput',type:'dateInput', value:'test'})
   .col-md-12
-    +form-control({name:'textarea',label:'textarea',type:'textarea', value:'test'})
-    +form-control({name:'pen',label:'pen',type:'textarea', value:'test', pen:'true', placeholder:'Click to edit, Select to apply effect, click items of toolbar to toggle effects.'})
+    +form-control({name:'textarea',label:'textarea',type:'textarea', value:'test', model:formName+'.test'})
+    +form-control({name:'pen',label:'pen',type:'textarea', value:'test', model:formName+'.test', pen:'true', placeholder:'Click to edit, Select to apply effect, click items of toolbar to toggle effects.'})
   .col-md-12
     .col-md-12
       .well

@@ -58,6 +58,7 @@ module.exports = () ->
       pen.on("input", ()->
         modelChange = true
         ngModel.$setViewValue(getContent()) if ngModel?
+        ngModel.$render()
       )
       if isElement
         scope.$watch(
