@@ -9,10 +9,12 @@ module.exports = () ->
   replace: true
   transclude: true
   require: '?ngModel'
+  scope: {}
   compile: (tElement, tAttrs) ->
     placeholder = tElement.context.placeholder
     isElement = tElement.context.nodeName == "PEN"
     (scope, elm, attrs, ngModel) ->
+      placeholder = attrs.placeholder unless placeholder?
       scope.useEditButton = attrs.useEditButton?
       elm.height(parseInt(attrs.rows)*19) if attrs.rows
       editor = (if isElement then elm[0].querySelector(".pen-panel") else elm[0])
@@ -49,21 +51,25 @@ module.exports = () ->
           _.escape(pen.getContent())
 
       setContent = (value)->
+        pen._placeholder = null
+        $(".pen-menu").hide() unless value?
         if attrs.escape?
           pen.setContent(_.escape(value))
         else
           pen.setContent(_.unescape(value))
 
       # update ngModel
-      if isElement
-        ngModel.$setViewValue(getContent()) if pen.getContent().length>0 && ngModel?
-      else
-        ngModel.$setViewValue(getContent()) if attrs.value? && attrs.pen? && ngModel?
+      if ngModel?
+        if isElement
+          ngModel.$setViewValue(getContent())
+        else
+          ngModel.$setViewValue(getContent())
 
       modelChange = false
+
       pen.on("input", ()->
         modelChange = true
-        ngModel.$setViewValue(getContent()) if ngModel?
+        ngModel.$setViewValue(_.unescape(getContent())) if ngModel?
         ngModel.$render()
       )
 
@@ -71,7 +77,7 @@ module.exports = () ->
         () ->
           ngModel.$viewValue
         (newValue, oldValue) ->
-          pen.rebuild() unless oldValue?
+          pen.rebuild() unless newValue?
           if (newValue != oldValue && !modelChange)
             setContent(newValue)
           modelChange = false
