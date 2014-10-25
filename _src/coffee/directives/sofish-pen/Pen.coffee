@@ -15,19 +15,19 @@ module.exports = () ->
     (scope, elm, attrs, ngModel) ->
       scope.useEditButton = attrs.useEditButton?
       elm.height(parseInt(attrs.rows)*19) if attrs.rows
+
       options = {
         editor: if isElement then elm[0].querySelector(".pen-panel") else elm[0]
-        debug: false
-        textarea: '<textarea name="content"></textarea>'
         list: [
           'blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'p', 'insertorderedlist', 'insertunorderedlist',
           'indent', 'outdent', 'bold', 'italic', 'underline', 'createlink'
         ]
-        stay: false
+        stay: attrs.stay?
       }
       elm.html(attrs.value) if attrs.value? && attrs.pen?
       elm.html(_.escape(elm.html())) if attrs.escape?
       pen = new Pen(options)
+      pen.placeholder(placeholder) if placeholder?
 
       requestAnimFrame(()->
         elm.find('#mode').on('click', ()->
@@ -39,24 +39,22 @@ module.exports = () ->
       )
 
       getContent = ()->
-        text = ""
         if attrs.escape?
           _.unescape(pen.getContent())
         else
           _.escape(pen.getContent())
 
+      # update ngModel
       if isElement
         ngModel.$setViewValue(getContent()) if pen.getContent().length>0 && ngModel?
       else
         ngModel.$setViewValue(getContent()) if attrs.value? && attrs.pen? && ngModel?
 
       modelChange = false
-      pen.placeholder(placeholder) if placeholder?
       pen.on("input", ()->
         modelChange = true
         ngModel.$setViewValue(getContent()) if ngModel?
       )
-
       scope.$watch(
         () ->
           ngModel.$viewValue
@@ -65,3 +63,4 @@ module.exports = () ->
             pen.setContent(newValue)
           modelChange = false
       ) #watch
+      # update ngModel end
