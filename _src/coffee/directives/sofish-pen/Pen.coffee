@@ -66,13 +66,14 @@ module.exports = () ->
         ngModel.$setViewValue(getContent()) if ngModel?
         ngModel.$render()
       )
-      if isElement
-        scope.$watch(
-          () ->
-            ngModel.$viewValue
-          (newValue, oldValue) ->
-            if (newValue != oldValue && !modelChange)
-              setContent(newValue)
-            modelChange = false
-        ) #watch
+
+      scope.$watch(
+        () ->
+          ngModel.$viewValue
+        (newValue, oldValue) ->
+          pen.rebuild() unless oldValue?
+          if (newValue != oldValue && !modelChange)
+            setContent(newValue)
+          modelChange = false
+      ) #watch
       # update ngModel end
