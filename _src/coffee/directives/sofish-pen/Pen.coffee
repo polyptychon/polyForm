@@ -26,14 +26,18 @@ module.exports = () ->
       }
       elm.html(attrs.value) if attrs.value? && attrs.pen?
       elm.html(_.escape(elm.html())) if attrs.escape?
+      elm.addClass("active")
+
       pen = new Pen(options)
       pen.placeholder(placeholder) if placeholder?
 
       requestAnimFrame(()->
         elm.find('#mode').on('click', ()->
           if($(@).hasClass('active'))
+            elm.removeClass("active")
             pen.destroy()
           else
+            elm.addClass("active")
             pen.rebuild()
         )
       )
