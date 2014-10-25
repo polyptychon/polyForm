@@ -1,3 +1,4 @@
+_ = require "lodash"
 require "pen"
 
 module.exports = () ->
@@ -23,25 +24,33 @@ module.exports = () ->
       }
 
       elm.html(attrs.value) if attrs.value? && attrs.pen?
+      elm.html(_.escape(elm.html())) if attrs.escape?
       pen = new Pen(options)
 
+      getContent = ()->
+        text = ""
+        if attrs.escape?
+          _.unescape(pen.getContent())
+        else
+          _.escape(pen.getContent())
+
       if isElement
-        ngModel.$setViewValue(pen.getContent()) if pen.getContent().length>0 && ngModel?
+        ngModel.$setViewValue(getContent()) if pen.getContent().length>0 && ngModel?
       else
-        ngModel.$setViewValue(pen.getContent()) if attrs.value? && attrs.pen? && ngModel?
+        ngModel.$setViewValue(getContent()) if attrs.value? && attrs.pen? && ngModel?
 
       modelChange = false
       pen.placeholder(placeholder) if placeholder?
       pen.on("input", ()->
         modelChange = true
-        ngModel.$setViewValue(pen.getContent()) if ngModel?
+        ngModel.$setViewValue(getContent()) if ngModel?
       )
 
       scope.$watch(
         () ->
           ngModel.$viewValue
         (newValue, oldValue) ->
-          pen.setContent(newValue) if (newValue != oldValue && !modelChange)
+          if (newValue != oldValue && !modelChange)
+            pen.setContent(newValue)
           modelChange = false
-
       ) #watch
