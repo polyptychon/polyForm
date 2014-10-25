@@ -1,5 +1,6 @@
 _ = require "lodash"
 $ = require "jquery"
+requestAnimFrame = require "animationframe"
 require "pen"
 
 module.exports = () ->
@@ -28,11 +29,13 @@ module.exports = () ->
       elm.html(_.escape(elm.html())) if attrs.escape?
       pen = new Pen(options)
 
-      elm.find('#mode').on('click', ()->
-        if($(@).hasClass('active'))
-          pen.destroy()
-        else
-          pen.rebuild()
+      requestAnimFrame(()->
+        elm.find('#mode').on('click', ()->
+          if($(@).hasClass('active'))
+            pen.destroy()
+          else
+            pen.rebuild()
+        )
       )
 
       getContent = ()->
