@@ -1,4 +1,5 @@
 _ = require "lodash"
+$ = require "jquery"
 require "pen"
 
 module.exports = () ->
@@ -11,9 +12,10 @@ module.exports = () ->
     placeholder = tElement.context.placeholder
     isElement = tElement.context.nodeName == "PEN"
     (scope, elm, attrs, ngModel) ->
+      scope.useEditButton = attrs.useEditButton?
       elm.height(parseInt(attrs.rows)*19) if attrs.rows
       options = {
-        editor: elm[0]
+        editor: if isElement then elm[0].querySelector(".pen-panel") else elm[0]
         debug: false
         textarea: '<textarea name="content"></textarea>'
         list: [
@@ -22,10 +24,16 @@ module.exports = () ->
         ]
         stay: false
       }
-
       elm.html(attrs.value) if attrs.value? && attrs.pen?
       elm.html(_.escape(elm.html())) if attrs.escape?
       pen = new Pen(options)
+
+      elm.find('#mode').on('click', ()->
+        if($(@).hasClass('active'))
+          pen.destroy()
+        else
+          pen.rebuild()
+      )
 
       getContent = ()->
         text = ""
