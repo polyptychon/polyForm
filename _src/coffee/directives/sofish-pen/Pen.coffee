@@ -30,7 +30,18 @@ module.exports = () ->
       else
         ngModel.$setViewValue(pen.getContent()) if attrs.value? && attrs.pen? && ngModel?
 
+      modelChange = false
       pen.placeholder(placeholder) if placeholder?
       pen.on("input", ()->
+        modelChange = true
         ngModel.$setViewValue(pen.getContent()) if ngModel?
       )
+
+      scope.$watch(
+        () ->
+          ngModel.$viewValue
+        (newValue, oldValue) ->
+          pen.setContent(newValue) if (newValue != oldValue && !modelChange)
+          modelChange = false
+
+      ) #watch
