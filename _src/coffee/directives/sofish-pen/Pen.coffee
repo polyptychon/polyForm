@@ -15,17 +15,17 @@ module.exports = () ->
     (scope, elm, attrs, ngModel) ->
       scope.useEditButton = attrs.useEditButton?
       elm.height(parseInt(attrs.rows)*19) if attrs.rows
-
+      editor = (if isElement then elm[0].querySelector(".pen-panel") else elm[0])
       options = {
-        editor: if isElement then elm[0].querySelector(".pen-panel") else elm[0]
+        editor: editor
         list: [
           'blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'p', 'insertorderedlist', 'insertunorderedlist',
           'indent', 'outdent', 'bold', 'italic', 'underline', 'createlink'
         ]
         stay: attrs.stay?
       }
-      elm.html(attrs.value) if attrs.value? && attrs.pen?
-      elm.html(_.escape(elm.html())) if attrs.escape?
+      $(editor).html(attrs.value) if attrs.value? && attrs.pen?
+      $(editor).html(_.escape($(editor).html())) if attrs.escape?
       elm.addClass("active")
 
       pen = new Pen(options)
@@ -48,6 +48,12 @@ module.exports = () ->
         else
           _.escape(pen.getContent())
 
+      setContent = (value)->
+        if attrs.escape?
+          pen.setContent(_.escape(value))
+        else
+          pen.setContent(_.unescape(value))
+
       # update ngModel
       if isElement
         ngModel.$setViewValue(getContent()) if pen.getContent().length>0 && ngModel?
@@ -66,7 +72,7 @@ module.exports = () ->
             ngModel.$viewValue
           (newValue, oldValue) ->
             if (newValue != oldValue && !modelChange)
-              pen.setContent(newValue)
+              setContent(newValue)
             modelChange = false
         ) #watch
       # update ngModel end

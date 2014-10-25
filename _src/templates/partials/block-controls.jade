@@ -15,8 +15,11 @@
     +form-control({name:'textarea',label:'textarea',type:'textarea', value:'test', model:formName+'.test'})
     +form-control({name:'pen',label:'pen',type:'textarea', value:'test', model:formName+'.test', pen:'true', placeholder:'Click to edit, Select to apply effect, click items of toolbar to toggle effects.'})
   .col-md-12
-    .col-md-12
+    .col-md-6
       .well
-        pen.hinted(ng-model="test" ng-required="true" use-edit-button)
+        pen(ng-model="test" ng-required="true" use-edit-button)
           include pen-html
-
+    .col-md-6
+      .well
+        pen(ng-model="test" ng-required="true" use-edit-button)
+          include pen-html
