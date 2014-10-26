@@ -65,24 +65,24 @@ module.exports = () ->
         else
           ngModel.$setViewValue(getContent())
 
-      modelChange = false
+        modelChange = false
 
-      pen.on("input", ()->
-        modelChange = true
-        ngModel.$setViewValue(_.unescape(getContent())) if ngModel?
-        ngModel.$render()
-      )
+        pen.on("input", ()->
+          modelChange = true
+          ngModel.$setViewValue(_.unescape(getContent()))
+          ngModel.$render()
+        )
 
-      scope.$watch(
-        () ->
-          ngModel.$viewValue
-        (newValue, oldValue) ->
-          pen.rebuild() unless newValue?
-          if (newValue != oldValue && !modelChange)
-            requestAnimFrame(()->
-              setContent(newValue)
-            )
+        scope.$watch(
+          () ->
+            ngModel.$viewValue
+          (newValue, oldValue) ->
+            pen.rebuild() unless newValue?
+            if (newValue != oldValue && !modelChange)
+              requestAnimFrame(()->
+                setContent(newValue)
+              )
 
-          modelChange = false
-      ) #watch
-      # update ngModel end
+            modelChange = false
+        ) #watch
+        # update ngModel end
