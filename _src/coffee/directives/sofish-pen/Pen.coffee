@@ -79,7 +79,10 @@ module.exports = () ->
         (newValue, oldValue) ->
           pen.rebuild() unless newValue?
           if (newValue != oldValue && !modelChange)
-            setContent(newValue)
+            requestAnimFrame(()->
+              setContent(newValue)
+            )
+
           modelChange = false
       ) #watch
       # update ngModel end
