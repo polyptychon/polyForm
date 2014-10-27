@@ -1,6 +1,6 @@
 .pen-container
   .row(ng-if="useEditButton")
     .col-md-12
-      .btn.btn-default.btn-xs.pull-right(id="mode" class="glyphicon glyphicon-pencil" ng-class="{active: !isEditable}" data-toggle="button"
+      .btn.btn-default.btn-xs.pull-right(id="mode" class="glyphicon glyphicon-pencil" ng-class="{active: isEditable}" data-toggle="button"
         style="position:absolute; right:15px;")
   div.pen-panel(data-toggle="pen" data-placeholder="im a placeholder" ng-transclude)
