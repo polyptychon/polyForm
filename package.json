@@ -72,18 +72,16 @@
     "uglifyify": "^2.5.0",
     "vinyl-source-stream": "^0.1.1",
     "watchify": "^1.0.6",
-    "yargs": "^1.3.2"
+    "yargs": "^1.3.2",
+
+    "angular-sanitize": "^1.3.0",
+    "ui-select": "git://github.com/angular-ui/ui-select"
   },
   "dependencies": {
-    "angular-sanitize": "^1.3.0",
     "animationframe": "git://github.com/HarrisSidiropoulos/animationframe",
     "bootstrapify": "git://github.com/HarrisSidiropoulos/bootstrapify",
-    "highlight.js": "^8.3.0",
     "jquery": "^2.1.1",
-    "lodash": "^2.4.1",
-    "ui-select": "git://github.com/angular-ui/ui-select",
-    "url": "^0.10.1",
-    "xhr-browserify": "0.0.1"
+    "lodash": "^2.4.1"
   },
   "scripts": {
     "test": "gulp test",
