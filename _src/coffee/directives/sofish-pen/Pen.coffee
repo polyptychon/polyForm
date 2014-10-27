@@ -13,9 +13,11 @@ module.exports = () ->
   compile: (tElement, tAttrs) ->
     placeholder = tElement.context.placeholder
     isElement = tElement.context.nodeName == "PEN"
+
     (scope, elm, attrs, ngModel) ->
       placeholder = attrs.placeholder unless placeholder?
       scope.useEditButton = attrs.useEditButton?
+      scope.isEditable = !attrs.isEditable?
       elm.height(parseInt(attrs.rows)*19) if attrs.rows
       editor = (if isElement then elm[0].querySelector(".pen-panel") else elm[0])
       options = {
@@ -28,19 +30,24 @@ module.exports = () ->
       }
       $(editor).html(attrs.value) if attrs.value? && attrs.pen?
       $(editor).html(_.escape($(editor).html())) if attrs.escape?
-      elm.addClass("active")
 
       pen = new Pen(options)
       pen.placeholder(placeholder) if placeholder?
 
+      setEditable = (value) ->
+        if (value)
+          elm.removeClass("active")
+          pen.destroy()
+        else
+          elm.addClass("active")
+          pen.rebuild()
+
+
       requestAnimFrame(()->
+        setEditable(scope.isEditable)
+
         elm.find('#mode').on('click', ()->
-          if($(@).hasClass('active'))
-            elm.removeClass("active")
-            pen.destroy()
-          else
-            elm.addClass("active")
-            pen.rebuild()
+          setEditable($(@).hasClass('active'))
         )
       )
 
