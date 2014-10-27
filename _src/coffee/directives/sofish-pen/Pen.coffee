@@ -42,15 +42,6 @@ module.exports = () ->
           elm.addClass("active")
           pen.rebuild()
 
-
-      requestAnimFrame(()->
-        setEditable(scope.isEditable)
-
-        elm.find('#mode').on('click', ()->
-          setEditable($(@).hasClass('active'))
-        )
-      )
-
       getContent = ()->
         if attrs.escape?
           _.unescape(pen.getContent())
@@ -64,6 +55,15 @@ module.exports = () ->
           pen.setContent(_.escape(value))
         else
           pen.setContent(_.unescape(value))
+
+
+      requestAnimFrame(()->
+        setEditable(scope.isEditable)
+
+        elm.find('#mode').on('click', ()->
+          setEditable($(@).hasClass('active'))
+        )
+      )
 
       # update ngModel
       if ngModel?
