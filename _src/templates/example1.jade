@@ -5,11 +5,12 @@ html(ng-app="PolyForm")
     include partials/header
   body
     .container
-      - formName = 'myform1'
-      form(name=formName, ng-cloak="true")
-        form-tabs
-          form-tab(tab-title="Validation")
-            include partials/validation
+
+      //- formName = 'myform1'
+      //form(name=formName, ng-cloak="true")
+      //  form-tabs
+      //    form-tab(tab-title="Validation")
+      //      include partials/validation
 
       - formName = 'myform2'
       form(name=formName, ng-cloak="true")
@@ -17,11 +18,11 @@ html(ng-app="PolyForm")
           form-tab(tab-title="Block Controls")
             include partials/block-controls
 
-      - formName = 'myform3'
-      form(name=formName, ng-cloak="true")
-        form-tabs
-          form-tab(tab-title="Inline Controls")
-            include partials/inline-controls
+      //- formName = 'myform3'
+      //form(name=formName, ng-cloak="true")
+      //  form-tabs
+      //    form-tab(tab-title="Inline Controls")
+      //      include partials/inline-controls
       //
       //- formName = 'myform4'
       //form(name=formName, ng-cloak="true")

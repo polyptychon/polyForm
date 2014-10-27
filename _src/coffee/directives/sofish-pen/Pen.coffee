@@ -17,7 +17,7 @@ module.exports = () ->
     (scope, elm, attrs, ngModel) ->
       placeholder = attrs.placeholder unless placeholder?
       scope.useEditButton = attrs.useEditButton? && attrs.useEditButton!="false"
-      scope.isEditable = attrs.isEditable? && attrs.isEditable!="false"
+      scope.isEditable = !isElement || attrs.isEditable? && attrs.isEditable!="false"
 
       elm.height(parseInt(attrs.rows)*19) if attrs.rows
       editor = (if isElement then elm[0].querySelector(".pen-panel") else elm[0])
