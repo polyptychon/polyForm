@@ -7,11 +7,11 @@ require "lodash"
 require 'angular/angular'
 require 'angular-ui-utils/modules/validate/validate'
 require 'angular-ui-utils/modules/mask/mask'
-#require 'angular-sanitize'
-#require "ui-select"
+require "ui-select2/src/select2"
 require "pen"
 require "pen/src/markdown"
-require "../js/angular-ui-select2"
+#require 'angular-sanitize'
+#require "ui-select"
 
 module.exports =
   angular.module('PolyForm', ['ui.validate','ui.mask','ui.select2'])

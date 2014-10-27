@@ -53,6 +53,7 @@ var DEVELOPMENT = 'development',
       "pen/src/markdown",
       "angular/angular",
       'select2/select2',
+      'ui-select2/src/select2',
       'bootstrap-datepicker/js/bootstrap-datepicker',
       'angular-ui-utils/modules/validate/validate',
       'angular-ui-utils/modules/mask/mask'
