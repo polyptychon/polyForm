@@ -311,7 +311,7 @@ gulp.task('build', function() {
 gulp.task('server', ['connect', 'watch']);
 gulp.task('production', function() {
   env = PRODUCTION;
-  runSequence(['images','clean-js','fonts','customFonts'],['coffee','vendor','sass'],['jade']);
+  runSequence(['images','clean-js','bootstrapFonts','fonts'],['coffee','vendor','sass'],['jade']);
 });
 
 var handleError = function (err) {
