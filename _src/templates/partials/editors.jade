@@ -1,0 +1,17 @@
+.row
+  .col-md-12
+    +form-control({name:'pen',label:'pen',type:'textarea', value:'test', model:formName+'.test', pen:'true', placeholder:'Click to edit, Select to apply effect, click items of toolbar to toggle effects.'})
+    +form-control({name:'textarea',label:'textarea',type:'textarea', value:'test', model:formName+'.test'})
+  .col-md-12
+    .col-md-6
+      .well
+        pen(ng-model=formName+'.test2' ng-required="true" use-edit-button is-editable)
+          include pen-html
+    .col-md-6
+      .well
+        pen(ng-model=formName+'.test2' ng-required="true" placeholder="test" is-editable)
+          include pen-html
+  .col-md-12
+    .col-md-12
+      pagedown(ng-model=formName+'.test3' ng-required="true" rows="20")
+        include test.md

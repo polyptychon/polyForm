@@ -1,0 +1,14 @@
+.row
+  .col-md-12
+    +form-control({name:'popover',label:'popover',popover: 'Παρακαλώ συμπληρώστε το πεδίο', value:'test'})
+    +form-control({name:'popover2',label:'popover2',popover: 'Παρακαλώ συμπληρώστε το πεδίο', value:'test'})
+  .col-md-12
+    +form-control({name:'select2Input',label:'select2Input',type:'select2-input', value:'test'})
+    +form-control({name:'select2',label:'select2',type:'select2',collection:['male', 'female'],allowClear:'true', value:'male'})
+  .col-md-12
+    +form-control({name:'select2InputMultiple',label:'select2InputMultiple',type:'select2-input', multiple:'true', value:'test,male'})
+    +form-control({name:'select2Multiple',label:'select2Multiple',type:'select2', multiple:'true', collection:['male','female'],allowClear:'true', value:'male,female'})
+  .col-md-12
+    +form-control({name:'select',label:'select',type:'select',collection:['male', 'female'], value:'male'})
+    +form-control({name:'dateInput',label:'dateInput',type:'dateInput', value:'test'})
+

@@ -6,23 +6,30 @@ html(ng-app="PolyForm")
   body
     .container
 
-      //- formName = 'myform1'
-      //form(name=formName, ng-cloak="true")
-      //  form-tabs
-      //    form-tab(tab-title="Validation")
-      //      include partials/validation
+      - formName = 'myform1'
+      form(name=formName, ng-cloak="true")
+        form-tabs
+          form-tab(tab-title="Validation")
+            include partials/validation
 
       - formName = 'myform2'
       form(name=formName, ng-cloak="true")
         form-tabs
-          form-tab(tab-title="Block Controls")
-            include partials/block-controls
+          form-tab(tab-title="Components")
+            include partials/components
 
-      //- formName = 'myform3'
-      //form(name=formName, ng-cloak="true")
-      //  form-tabs
-      //    form-tab(tab-title="Inline Controls")
-      //      include partials/inline-controls
+      - formName = 'myform3'
+      form(name=formName, ng-cloak="true")
+        form-tabs
+          form-tab(tab-title="Inline Controls")
+            include partials/inline-controls
+
+      - formName = 'myformTextArea'
+      form(name=formName, ng-cloak="true")
+        form-tabs
+          form-tab(tab-title="Editors")
+            include partials/editors
+
       //
       //- formName = 'myform4'
       //form(name=formName, ng-cloak="true")
