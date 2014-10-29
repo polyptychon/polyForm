@@ -66,6 +66,7 @@ module.exports = () ->
       input.val()
 
     setContent = (value)->
+      console.log value
       input.val(value)
 
     # update ngModel
