@@ -1,6 +1,5 @@
 pagedown = require "pagedown"
 pagedownExtra = require ("pagedown-extra")
-Editor = require "./Markdown.Editor"
 requestAnimFrame = require "animationframe"
 
 module.exports = () ->
@@ -47,7 +46,7 @@ module.exports = () ->
 
     converter = new pagedown.Converter()
     pagedownExtra.Extra.init(converter, {table_class: "table table-striped table-bordered table-hover"})
-    editor = new Editor(converter, null, {}, {buttonBar: buttonBar[0], input: input[0], preview: preview[0]})
+    editor = new pagedown.Editor(converter, null, {}, {buttonBar: buttonBar[0], input: input[0], preview: preview[0]})
     editor.run()
 
     requestAnimFrame(() ->

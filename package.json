@@ -81,7 +81,7 @@
     "bootstrapify": "git://github.com/HarrisSidiropoulos/bootstrapify",
     "jquery": "^2.1.1",
     "lodash": "^2.4.1",
-    "pagedown": "^1.1.0",
+    "pagedown": "git://github.com/HarrisSidiropoulos/pagedown",
     "pagedown-extra": "git://github.com/HarrisSidiropoulos/pagedown-extra"
   },
   "scripts": {
