@@ -11,18 +11,18 @@
   //.col-md-12
   //  +form-control({name:'select',label:'select',type:'select',collection:['male', 'female'], value:'male'})
   //  +form-control({name:'dateInput',label:'dateInput',type:'dateInput', value:'test'})
-  //.col-md-12
-  //  +form-control({name:'textarea',label:'textarea',type:'textarea', value:'test', model:formName+'.test'})
-  //  +form-control({name:'pen',label:'pen',type:'textarea', value:'test', model:formName+'.test', pen:'true', placeholder:'Click to edit, Select to apply effect, click items of toolbar to toggle effects.'})
-  //.col-md-12
-  //  .col-md-6
-  //    .well
-  //      pen(ng-model=formName+'.test2' ng-required="true" use-edit-button is-editable)
-  //        include pen-html
-  //  .col-md-6
-  //    .well
-  //      pen(ng-model=formName+'.test2' ng-required="true" placeholder="test" is-editable)
-  //        include pen-html
+  .col-md-12
+    +form-control({name:'textarea',label:'textarea',type:'textarea', value:'test', model:formName+'.test'})
+    +form-control({name:'pen',label:'pen',type:'textarea', value:'test', model:formName+'.test', pen:'true', placeholder:'Click to edit, Select to apply effect, click items of toolbar to toggle effects.'})
+  .col-md-12
+    .col-md-6
+      .well
+        pen(ng-model=formName+'.test2' ng-required="true" use-edit-button is-editable)
+          include pen-html
+    .col-md-6
+      .well
+        pen(ng-model=formName+'.test2' ng-required="true" placeholder="test" is-editable)
+          include pen-html
   .col-md-12
     .col-md-12
       pagedown(ng-model=formName+'.test3' ng-required="true" rows="20")
