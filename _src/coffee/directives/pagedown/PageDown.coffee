@@ -11,11 +11,38 @@ module.exports = () ->
   require: '?ngModel'
   scope: {}
   link: (scope, elm, attrs, ngModel, tranclude) ->
-    console.log attrs.rows
+    usePreview = attrs.usePreview? && attrs.usePreview!="false"
+    usePreview = true unless attrs.usePreview?
 
     buttonBar = elm.find(".button-bar")
     input = elm.find("textarea")
     preview = elm.find(".well")
+
+    oldWidth = oldHeight = null
+    resize = (w,h)->
+      preview.css('width', "#{100-(w/input.parent().outerWidth()*100)}%")
+      preview.outerHeight(h)
+
+    mousemove = () ->
+      w = input.outerWidth()
+      h = input.outerHeight()
+      oldWidth  = w unless oldWidth
+      oldHeight  = h unless oldHeight
+      if w!=oldWidth || h!=oldHeight
+        requestAnimFrame(()->
+          resize(w,h)
+          oldWidth  = w
+          oldHeight  = h
+        )
+
+
+    input.bind('mousedown mousemove', (e)->
+      $(window).unbind("mousemove", mousemove).bind("mousemove", mousemove)
+    )
+    $(window).bind("mouseup", ()->
+      $(window).unbind("mousemove", mousemove)
+      mousemove()
+    )
 
     converter = new pagedown.Converter()
     pagedownExtra.Extra.init(converter)
@@ -23,10 +50,45 @@ module.exports = () ->
     editor.run()
 
     requestAnimFrame(() ->
+      if !usePreview
+        preview.css("display", "none")
+        input.css('width', '100%')
+
       preview.outerHeight(input.outerHeight())
 
       text = elm.text()
       input.val(text)
       editor.refreshPreview()
     )
+
+    getContent = ()->
+      input.val()
+
+    setContent = (value)->
+      input.val(value)
+
+    # update ngModel
+    if ngModel?
+      ngModel.$setViewValue(getContent())
+      modelChange = false
+
+      input.on("input", ()->
+        modelChange = true
+        ngModel.$setViewValue(getContent())
+        ngModel.$render()
+      )
+
+      scope.$watch(
+        () ->
+          ngModel.$viewValue
+        (newValue, oldValue) ->
+          pen.rebuild() unless newValue?
+          if (newValue != oldValue && !modelChange)
+            requestAnimFrame(()->
+              setContent(newValue)
+            )
+
+          modelChange = false
+      ) #watch
+      # update ngModel end
 
