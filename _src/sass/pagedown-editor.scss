@@ -167,3 +167,15 @@
 #wmd-redo-button span:before{
   content: "\e80b";
 }
+
+th {
+  &[align="left"] {
+    text-align: left;
+  }
+  &[align="center"] {
+    text-align: center;
+  }
+  &[align="right"] {
+    text-align: right;
+  }
+}
