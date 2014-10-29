@@ -1,19 +1,19 @@
 .row
-  .col-md-12
-    +form-control({name:'popover',label:'popover',popover: 'Παρακαλώ συμπληρώστε το πεδίο', value:'test'})
-    +form-control({name:'popover2',label:'popover2',popover: 'Παρακαλώ συμπληρώστε το πεδίο', value:'test'})
-  .col-md-12
-    +form-control({name:'select2Input',label:'select2Input',type:'select2-input', value:'test'})
-    +form-control({name:'select2',label:'select2',type:'select2',collection:['male', 'female'],allowClear:'true', value:'male'})
-  .col-md-12
-    +form-control({name:'select2InputMultiple',label:'select2InputMultiple',type:'select2-input', multiple:'true', value:'test,male'})
-    +form-control({name:'select2Multiple',label:'select2Multiple',type:'select2', multiple:'true', collection:['male','female'],allowClear:'true', value:'male,female'})
-  .col-md-12
-    +form-control({name:'select',label:'select',type:'select',collection:['male', 'female'], value:'male'})
-    +form-control({name:'dateInput',label:'dateInput',type:'dateInput', value:'test'})
-  .col-md-12
-    +form-control({name:'textarea',label:'textarea',type:'textarea', value:'test', model:formName+'.test'})
-    +form-control({name:'pen',label:'pen',type:'textarea', value:'test', model:formName+'.test', pen:'true', placeholder:'Click to edit, Select to apply effect, click items of toolbar to toggle effects.'})
+  //.col-md-12
+  //  +form-control({name:'popover',label:'popover',popover: 'Παρακαλώ συμπληρώστε το πεδίο', value:'test'})
+  //  +form-control({name:'popover2',label:'popover2',popover: 'Παρακαλώ συμπληρώστε το πεδίο', value:'test'})
+  //.col-md-12
+  //  +form-control({name:'select2Input',label:'select2Input',type:'select2-input', value:'test'})
+  //  +form-control({name:'select2',label:'select2',type:'select2',collection:['male', 'female'],allowClear:'true', value:'male'})
+  //.col-md-12
+  //  +form-control({name:'select2InputMultiple',label:'select2InputMultiple',type:'select2-input', multiple:'true', value:'test,male'})
+  //  +form-control({name:'select2Multiple',label:'select2Multiple',type:'select2', multiple:'true', collection:['male','female'],allowClear:'true', value:'male,female'})
+  //.col-md-12
+  //  +form-control({name:'select',label:'select',type:'select',collection:['male', 'female'], value:'male'})
+  //  +form-control({name:'dateInput',label:'dateInput',type:'dateInput', value:'test'})
+  //.col-md-12
+  //  +form-control({name:'textarea',label:'textarea',type:'textarea', value:'test', model:formName+'.test'})
+  //  +form-control({name:'pen',label:'pen',type:'textarea', value:'test', model:formName+'.test', pen:'true', placeholder:'Click to edit, Select to apply effect, click items of toolbar to toggle effects.'})
   .col-md-12
     .col-md-6
       .well
@@ -23,3 +23,32 @@
       .well
         pen(ng-model=formName+'.test2' ng-required="true" placeholder="test" is-editable)
           include pen-html
+  .col-md-12
+    .col-md-12
+      pagedown(ng-model=formName+'.test3' ng-required="true" placeholder="test" is-editable rows="20").
+        This is the *first* editor.
+        ------------------------------
+                  Just plain **Markdown**, except that the input is sanitized:
+                  <marquee>I'm the ghost from the past!</marquee>
+                  # Markdown Extra
+                  ## Tables
+                  | Item             | Value |
+        | ---------------- | -----:|
+        | Air Conditioner  | $1600 |
+        | <del>Phone</del> |   $12 |
+        | *Pipe*           |    $1 |
+                  I've added just some basic borders and padding. Notice that span-level tags will
+        still be rendered inside of the table. Also, you can specify a class for the generated
+        tables using `Markdown.Extra.init(converter, {table_class: "table table-striped"})` for instance.
+                  ## Fenced Code Blocks
+                  ```javascript
+        var foo = "bar";
+        ```
+                  You can also specify options. Markdown.Extra was given the following options
+        for this editor.
+                  ```javascript
+          Markdown.Extra.init(converter1, {
+            extensions: "all",
+            highlighter: "prettify"
+          });
+        ```

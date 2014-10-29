@@ -29,6 +29,7 @@ module.exports =
   .directive("dateInput",       require("./directives/date-input/DateInput.coffee"))
   .directive("popover",         require("./directives/popover/Popover.coffee"))
   .directive("pen",             require("./directives/sofish-pen/Pen.coffee"))
+  .directive("pagedown",        require("./directives/pagedown/PageDown.coffee"))
   .directive("isEqual",         require("./directives/is-equal/IsEqual.coffee"))
   .directive("formControl", ['$parse', require("./directives/form-control/FormControl.coffee")])
   .directive("input",       ['$parse', require("./directives/defaultValue/DefaultValue.coffee")])
@@ -39,4 +40,3 @@ module.exports =
   .directive("remoteValidation", ['$timeout', '$http', require("./directives/remote-validation/RemoteValidation.coffee")])
   .directive("jsonResource",     ['$timeout', '$http', require("./directives/json-resource/JsonResource.coffee")])
   .directive("uiSelect2Query",   ['$timeout', '$http', require("./directives/ui-select2-query/UiSelect2Query.coffee")])
-
