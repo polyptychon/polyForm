@@ -46,7 +46,7 @@ module.exports = () ->
     # resize end
 
     converter = new pagedown.Converter()
-    pagedownExtra.Extra.init(converter)
+    pagedownExtra.Extra.init(converter, {table_class: "table table-striped table-bordered table-hover"})
     editor = new Editor(converter, null, {}, {buttonBar: buttonBar[0], input: input[0], preview: preview[0]})
     editor.run()
 
@@ -66,7 +66,6 @@ module.exports = () ->
       input.val()
 
     setContent = (value)->
-      console.log value
       input.val(value)
 
     # update ngModel
