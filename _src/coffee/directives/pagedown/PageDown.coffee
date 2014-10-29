@@ -18,6 +18,7 @@ module.exports = () ->
     input = elm.find("textarea")
     preview = elm.find(".well")
 
+    # resize start
     oldWidth = oldHeight = null
     resize = (w,h)->
       preview.css('width', "#{100-(w/input.parent().outerWidth()*100)}%")
@@ -35,7 +36,6 @@ module.exports = () ->
           oldHeight  = h
         )
 
-
     input.bind('mousedown mousemove', (e)->
       $(window).unbind("mousemove", mousemove).bind("mousemove", mousemove)
     )
@@ -43,6 +43,7 @@ module.exports = () ->
       $(window).unbind("mousemove", mousemove)
       mousemove()
     )
+    # resize end
 
     converter = new pagedown.Converter()
     pagedownExtra.Extra.init(converter)
@@ -69,7 +70,9 @@ module.exports = () ->
 
     # update ngModel
     if ngModel?
-      ngModel.$setViewValue(getContent())
+      requestAnimFrame(() ->
+        ngModel.$setViewValue(getContent())
+      )
       modelChange = false
 
       input.on("input", ()->
@@ -82,7 +85,7 @@ module.exports = () ->
         () ->
           ngModel.$viewValue
         (newValue, oldValue) ->
-          pen.rebuild() unless newValue?
+          editor.refreshPreview() unless newValue?
           if (newValue != oldValue && !modelChange)
             requestAnimFrame(()->
               setContent(newValue)
