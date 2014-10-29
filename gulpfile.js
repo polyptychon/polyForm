@@ -242,11 +242,14 @@ gulp.task('clean-images', function() {
   gulp.src(getOutputDir()+ASSETS+'/images', { read: false })
     .pipe(gulpif(env === PRODUCTION, clean()))
 });
-gulp.task('fonts', function() {
+gulp.task('bootstrapFonts', function() {
   return gulp.src(['node_modules/bootstrap/assets/fonts/**', MOCKUPS+"/fonts/*"])
     .pipe(gulp.dest(getOutputDir()+ASSETS+'/fonts'))
 });
-
+gulp.task('fonts', function() {
+  return gulp.src([SRC+'/fonts/**', MOCKUPS+"/fonts/*"])
+    .pipe(gulp.dest(getOutputDir()+ASSETS+'/fonts'))
+});
 gulp.task('watch', function() {
   watching = true;
   livereload.listen();
@@ -296,39 +299,22 @@ gulp.task('karma', ['browserify-test'], function() {
 gulp.task('test', function() {
   runSequence('karma');
   gulp.watch(TEST+'/spec/**/*.{coffee,js,jade}', ['karma']);
-  gulp.watch(SRC+'/**/*.{js,coffee}',      ['karma']);
+  gulp.watch(SRC+'/**/*.{js,coffee}', ['karma']);
 });
 
 gulp.task('default', ['vendor','coffee', 'sass', 'jade']);
 gulp.task('live', ['coffee', 'jade', 'sass', 'watch']);
 
 gulp.task('build', function() {
-  runSequence(['fonts','images','spriteSass','autoVariables'],['fonts','coffee','vendor','sass'],['jade']);
+  runSequence(['bootstrapFonts','fonts','images','spriteSass','autoVariables'],['coffee','vendor','sass'],['jade']);
 });
 gulp.task('server', ['connect', 'watch']);
 gulp.task('production', function() {
   env = PRODUCTION;
-  runSequence(['images','clean-js'],['fonts','coffee','vendor','sass'],['jade']);
+  runSequence(['images','clean-js','fonts','customFonts'],['coffee','vendor','sass'],['jade']);
 });
 
 var handleError = function (err) {
   console.log(err.toString());
   this.emit('end');
 };
-
-//function sha1(buf) {
-//  return crypto.createHash('sha1').update(buf).digest('hex');
-//}
-
-//function getFilesWithSha1(path) {
-//  var a = [];
-//  fs.readdirSync(path).map(function(file) {
-//    var filePath = path+'/'+file;
-//    var stats = fs.lstatSync(filePath);
-//    if (stats.isFile()) {
-//      var targetDigest = sha1(fs.readFileSync(filePath));
-//      a.push(targetDigest)
-//    }
-//  });
-//  return a;
-//}
