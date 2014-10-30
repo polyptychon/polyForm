@@ -9,9 +9,9 @@ require 'angular-ui-utils/modules/validate/validate'
 require 'angular-ui-utils/modules/mask/mask'
 require "ui-select2/src/select2"
 require "pen"
-window = global
-require "pen/src/markdown"
-window = null
+#window = global
+#require "pen/src/markdown"
+#window = null
 #require 'angular-sanitize'
 #require "ui-select"
 
