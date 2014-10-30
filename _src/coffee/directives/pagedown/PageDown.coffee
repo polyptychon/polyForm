@@ -58,7 +58,7 @@ module.exports = () ->
 
       text = elm.text()
       input.val(text)
-      input.trigger("input")
+      input.trigger("input") if text.length>0
       editor.refreshPreview()
     )
 
@@ -66,9 +66,9 @@ module.exports = () ->
       input.val()
 
     setContent = (value)->
-      if value?
-        input.val(value)
-        editor.refreshPreview()
+      value = "" unless value?
+      input.val(value)
+      editor.refreshPreview()
 
     # update ngModel
     if ngModel?
@@ -78,6 +78,7 @@ module.exports = () ->
         modelChange = true
         ngModel.$setViewValue(getContent())
         ngModel.$render()
+
 
       elm.find(".wmd-button").bind("click", updateModel)
       input.on("input", updateModel)
