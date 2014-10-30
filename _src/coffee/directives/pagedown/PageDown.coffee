@@ -1,11 +1,11 @@
 pagedown = require "pagedown"
 pagedownExtra = require ("pagedown-extra")
 requestAnimFrame = require "animationframe"
-
+Editor = pagedown.Editor
 module.exports = () ->
   restrict: 'E'
   template: require "./pagedown.jade"
-  replace: false
+  replace: true
   transclude: true
   require: '?ngModel'
   scope: {}
@@ -46,7 +46,7 @@ module.exports = () ->
 
     converter = new pagedown.Converter()
     pagedownExtra.Extra.init(converter, {table_class: "table table-striped table-bordered table-hover"})
-    editor = new pagedown.Editor(converter, null, {}, {buttonBar: buttonBar[0], input: input[0], preview: preview[0]})
+    editor = new Editor(converter, null, {}, {buttonBar: buttonBar[0], input: input[0], preview: preview[0]})
     editor.run()
 
     requestAnimFrame(() ->
@@ -58,6 +58,7 @@ module.exports = () ->
 
       text = elm.text()
       input.val(text)
+      input.trigger("input")
       editor.refreshPreview()
     )
 
@@ -65,26 +66,26 @@ module.exports = () ->
       input.val()
 
     setContent = (value)->
-      input.val(value)
+      if value?
+        input.val(value)
+        editor.refreshPreview()
 
     # update ngModel
     if ngModel?
-      requestAnimFrame(() ->
-        ngModel.$setViewValue(getContent())
-      )
       modelChange = false
 
-      input.on("input", ()->
+      updateModel = (e) ->
         modelChange = true
         ngModel.$setViewValue(getContent())
         ngModel.$render()
-      )
+
+      elm.find(".wmd-button").bind("click", updateModel)
+      input.on("input", updateModel)
 
       scope.$watch(
         () ->
           ngModel.$viewValue
         (newValue, oldValue) ->
-          editor.refreshPreview() unless newValue?
           if (newValue != oldValue && !modelChange)
             requestAnimFrame(()->
               setContent(newValue)
