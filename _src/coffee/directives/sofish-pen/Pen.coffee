@@ -42,6 +42,8 @@ module.exports = () ->
         else
           elm.addClass("active")
           pen.rebuild()
+          if ngModel?
+            pen.on("input", onPenInput)
 
       getContent = ()->
         if attrs.escape?
@@ -57,7 +59,6 @@ module.exports = () ->
         else
           pen.setContent(_.unescape(value))
 
-
       requestAnimFrame(()->
         setEditable(scope.isEditable)
 
@@ -68,18 +69,15 @@ module.exports = () ->
 
       # update ngModel
       if ngModel?
-        if isElement
-          ngModel.$setViewValue(getContent())
-        else
-          ngModel.$setViewValue(getContent())
-
+        ngModel.$setViewValue(getContent())
         modelChange = false
 
-        pen.on("input", ()->
+        onPenInput = ()->
           modelChange = true
           ngModel.$setViewValue(_.unescape(getContent()))
           ngModel.$render()
-        )
+
+        pen.on("input", onPenInput)
 
         scope.$watch(
           () ->
