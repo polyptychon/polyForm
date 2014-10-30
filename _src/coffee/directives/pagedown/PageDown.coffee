@@ -81,7 +81,7 @@ module.exports = () ->
 
 
       elm.find(".wmd-button").bind("click", updateModel)
-      input.on("input", updateModel)
+      input.bind("input keydown", updateModel)
 
       scope.$watch(
         () ->
