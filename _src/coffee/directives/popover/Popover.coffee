@@ -1,4 +1,4 @@
-$ = require "jquery"
+if jQuery then $ = jQuery else $ = require "jquery"
 formElements = require "../../utils/FormElements.coffee"
 
 module.exports = () ->

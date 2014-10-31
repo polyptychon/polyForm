@@ -1,4 +1,4 @@
-$ = require "jquery"
+if jQuery then $ = jQuery else $ = require "jquery"
 _ = require "lodash"
 formElements = require "../../utils/FormElements.coffee"
 requestAnimFrame = require "animationframe"

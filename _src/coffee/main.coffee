@@ -1,10 +1,11 @@
-global.$ = global.jQuery = $ = require "jquery"
+global.$ = global.jQuery = $ = require "jquery"  unless jQuery?
+require 'angular/angular' unless angular?
+
 require "bootstrapify"
 require "select2/select2"
 require "bootstrap-datepicker/js/bootstrap-datepicker"
 require "lodash"
 
-require 'angular/angular'
 require 'angular-ui-utils/modules/validate/validate'
 require 'angular-ui-utils/modules/mask/mask'
 require "ui-select2/src/select2"

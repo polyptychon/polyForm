@@ -1,4 +1,4 @@
-$ = require "jquery"
+if jQuery then $ = jQuery else $ = require "jquery"
 
 module.exports = () ->
   restrict: 'A'

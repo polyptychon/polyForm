@@ -1,5 +1,5 @@
+if jQuery then $ = jQuery else $ = require "jquery"
 _ = require "lodash"
-$ = require "jquery"
 requestAnimFrame = require "animationframe"
 require "pen"
 
