@@ -53,6 +53,8 @@ mixin form-input(options)
   - remoteValidation                = options.remoteValidation              || null  // Async Validation. Value must be a URL. Validation is done on server and must return json. example { "isUnique": "true" }
   - remoteValidationMapData         = options.remoteValidationMapData       || null  // Maps json data to isUnique url. example isUnique="test.json?param:value" isUniqueMapData="{value=true}"
   - remoteValidationDataType        = options.remoteValidationDataType      || null
+  - remoteValidationIsValidPath     = options.remoteValidationIsValidPath   || null
+  - remoteValidationErrorMessagePath= options.remoteValidationErrorMessagePath   || null
 
   - isEqual     = options.isEqual     || null
   - ngChecked   = options.ngChecked   || null
@@ -117,6 +119,8 @@ mixin form-input(options)
     remote-validation=remoteValidation,
     remote-validation-map-data=remoteValidationMapData,
     remote-validation-data-type=remoteValidationDataType,
+    remote-validation-is-valid-path=remoteValidationIsValidPath
+    remote-validation-error-message-path=remoteValidationErrorMessagePath
 
     is-equal=isEqual,
     ui-validate=uiValidate,
